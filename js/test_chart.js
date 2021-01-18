@@ -2,7 +2,8 @@ $(document).ready(function() {
   var options = {
     chart: {
       renderTo: 'container',
-      type: 'area'
+      type: 'area',
+      zoomType: 'x'
     },
     title: {
         text: 'Total Queries by RSI'
@@ -11,23 +12,19 @@ $(document).ready(function() {
         text: 'Source: RSSAC002 Data'
     },
     xAxis: {
-      tickmarkPlacement: 'on',
+      type: 'datetime',
       title: {
-        enabled: false
-      }
+        text: ''
+      },
     },
     yAxis: {
       title: {
-        text: 'Queries'
+        text: 'Queries (thousands)'
       },
-      labels: {
-        formatter: function () {
-          return this.value * 1000;
-        }
-      }
     },
     plotOptions: {
       area: {
+        pointInterval: 86400000, // 1 day in ms
         stacking: 'normal',
         lineColor: '#666666',
         lineWidth: 1,
@@ -47,28 +44,25 @@ $(document).ready(function() {
     data: {
       letters: 'a-m',
       start_date: '2017-01-01',
-      end_date: '2020-01-01',
+      end_date: '2020-12-01',
       totals: 1,
       divisor: 1000
     },
     success: function(res){
-      var x_ticks = [];
-      var vals = [];
+      var points = [];
       var ii = 0;
+      options.plotOptions.area.pointStart = Date.UTC('2017', '01', '01');
+      options.xAxis.title.text = 'January 2017 - December 2020';
       $.each(res, function(k_res, v_res) {
-        vals[ii] = {};
-        vals[ii].name = k_res;
-        vals[ii].data = [];
+        points[ii] = {};
+        points[ii].name = k_res;
+        points[ii].data = [];
         $.each(v_res, function(key, val) {
-          vals[ii].data.push(val);
-          if(ii == 0){
-            x_ticks.push(key);
-          }
+          points[ii].data.push(val);
         });
         ii += 1;
       });
-      options.series = vals;
-      options.xAxis.categories = x_ticks;
+      options.series = points;
 
       var chart = new Highcharts.Chart(options);
     }});

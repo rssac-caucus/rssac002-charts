@@ -1,7 +1,9 @@
-document.addEventListener('DOMContentLoaded', function () {
-  const chart = Highcharts.chart('container', {
+$(document).ready(function() {
+  var options = {
     chart: {
-        type: 'area'
+      renderTo: 'container',
+      type: 'area',
+      zoomType: 'x'
     },
     title: {
         text: 'Total Queries by RSI'
@@ -10,51 +12,58 @@ document.addEventListener('DOMContentLoaded', function () {
         text: 'Source: RSSAC002 Data'
     },
     xAxis: {
-        categories: ['1750', '1800', '1850', '1900', '1950', '1999', '2050'],
-        tickmarkPlacement: 'on',
-        title: {
-            enabled: false
-        }
+      type: 'datetime',
+      title: {
+        text: ''
+      },
     },
     yAxis: {
-        title: {
-            text: 'Billions'
-        },
-        labels: {
-            formatter: function () {
-                return this.value / 1000;
-            }
-        }
-    },
-    tooltip: {
-        split: true,
-        valueSuffix: ' millions'
+      title: {
+        text: 'Queries (thousands)'
+      },
     },
     plotOptions: {
-        area: {
-            stacking: 'normal',
-            lineColor: '#666666',
-            lineWidth: 1,
-            marker: {
-                lineWidth: 1,
-                lineColor: '#666666'
-            }
+      area: {
+        pointInterval: 86400000, // 1 day in ms
+        stacking: 'normal',
+        lineColor: '#666666',
+        lineWidth: 1,
+        marker: {
+          lineWidth: 1,
+          lineColor: '#666666'
         }
+      }
     },
-    series: [{
-        name: 'A',
-        data: [502, 635, 809, 947, 1402, 3634, 5268]
-    }, {
-        name: 'B',
-        data: [106, 107, 111, 133, 221, 767, 1766]
-    }, {
-        name: 'Europe',
-        data: [163, 203, 276, 408, 547, 729, 628]
-    }, {
-        name: 'America',
-        data: [18, 31, 54, 156, 339, 818, 1201]
-    }, {
-        name: 'Oceania',
-        data: [2, 2, 2, 6, 13, 30, 46]
-    }]
-  })});
+    series: [{}]
+  };
+
+  $.ajax({
+    url: "http://rssac002.depht.com/api/v1/traffic-volume",
+    type: "GET",
+    dataType: "json",
+    data: {
+      letters: 'a-m',
+      start_date: '2017-01-01',
+      end_date: '2020-12-01',
+      totals: 1,
+      divisor: 1000
+    },
+    success: function(res){
+      var points = [];
+      var ii = 0;
+      options.plotOptions.area.pointStart = Date.UTC('2017', '01', '01');
+      options.xAxis.title.text = 'January 2017 - December 2020';
+      $.each(res, function(k_res, v_res) {
+        points[ii] = {};
+        points[ii].name = k_res;
+        points[ii].data = [];
+        $.each(v_res, function(key, val) {
+          points[ii].data.push(val);
+        });
+        ii += 1;
+      });
+      options.series = points;
+
+      var chart = new Highcharts.Chart(options);
+    }});
+});
