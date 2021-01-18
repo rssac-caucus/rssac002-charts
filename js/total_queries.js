@@ -14,7 +14,7 @@ $(document).ready(function() {
     xAxis: {
       type: 'datetime',
       title: {
-        text: ''
+        text: null
       },
     },
     yAxis: {
@@ -51,8 +51,7 @@ $(document).ready(function() {
     success: function(res){
       var points = [];
       var ii = 0;
-      options.plotOptions.area.pointStart = Date.UTC('2017', '01', '01');
-      options.xAxis.title.text = 'January 2017 - December 2020';
+      options.plotOptions.area.pointStart = Date.UTC('2017', '00', '01'); // Jan is zero'th month in JS
       $.each(res, function(k_res, v_res) {
         points[ii] = {};
         points[ii].name = k_res;
