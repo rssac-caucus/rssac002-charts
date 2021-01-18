@@ -1,2 +1,2 @@
 # rssac002-charts
-JS charts of RSSAC002 data
+Charts of RSSAC002 data using the [RSSAC002 web API](https://github.com/smutt/rssac002-web-api).
