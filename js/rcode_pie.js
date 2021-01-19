@@ -5,7 +5,7 @@ $(document).ready(function() {
       type: 'pie',
     },
     title: {
-        text: 'Return Codes December 2020'
+        text: 'rcode-volume 2020'
     },
     subtitle: {
         text: 'Source: RSSAC002 Data'
@@ -19,15 +19,16 @@ $(document).ready(function() {
       }
     },
     plotOptions: {
+      pie: {
+        center: ["50%", "50%"],
+        size: "100%",
+      },
       series: {
         dataLabels: {
           enabled: true,
-          format: '{point.name}: {point.y:.1f}%',
           formatter: function() {
-            return Math.round(this.percentage*100)/100 + ' %';
+            return this.point.name + " " + Math.round(this.percentage*100)/100 + '%';
           },
-          //distance: -30,
-          //color:'white'
         }
       }
     },
@@ -42,9 +43,9 @@ $(document).ready(function() {
     type: "GET",
     dataType: "json",
     data: {
-      letters: 'a-b',
-      start_date: '2020-12-01',
-      end_date: '2020-12-03',
+      letters: 'a-m',
+      start_date: '2020-01-01',
+      end_date: '2021-01-01',
     },
     success: function(res){
       //console.log("Start rcode_pie.js");
@@ -97,7 +98,7 @@ $(document).ready(function() {
       });
       var series_entry = {};
 
-      series_entry.name = "RCODES";
+      series_entry.name = "rcodes";
       series_entry.colorByPoint = true;
       series_entry.data = top_values;
       options.series.push(series_entry);
@@ -111,7 +112,7 @@ $(document).ready(function() {
         entry.data = [];
         $.each(rsi, function(letter, count){
           var rsi_entry = [];
-          rsi_entry.push(letter);
+          rsi_entry.push(letter.toUpperCase());
           rsi_entry.push(count);
           entry.data.push(rsi_entry);
         });
