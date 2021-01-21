@@ -42,7 +42,7 @@ $(document).ready(function() {
     type: "GET",
     dataType: "json",
     data: {
-      letters: 'a-m',
+      rsi: 'a-m',
       start_date: '2017-01-01',
       end_date: '2020-12-01',
       //totals: 1,
