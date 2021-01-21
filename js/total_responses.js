@@ -6,7 +6,7 @@ $(document).ready(function() {
       zoomType: 'x'
     },
     title: {
-        text: 'Total Queries Received'
+        text: 'Total Responses Sent'
     },
     subtitle: {
         text: 'Source: RSSAC002 Data'
@@ -19,7 +19,7 @@ $(document).ready(function() {
     },
     yAxis: {
       title: {
-        text: 'Queries (thousands)'
+        text: 'Responses (thousands)'
       },
     },
     plotOptions: {
@@ -45,7 +45,7 @@ $(document).ready(function() {
       rsi: 'a-m',
       start_date: '2017-01-01',
       end_date: '2020-12-31',
-      totals: 'received',
+      totals: 'sent',
       divisor: 1000
     },
     success: function(res){

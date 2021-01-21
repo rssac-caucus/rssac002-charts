@@ -44,9 +44,7 @@ $(document).ready(function() {
     data: {
       rsi: 'a-m',
       start_date: '2017-01-01',
-      end_date: '2020-12-01',
-      //totals: 1,
-      //divisor: 1000
+      end_date: '2020-12-31',
     },
     success: function(res){
       var ip_version = document.getElementById('ip_version').textContent;

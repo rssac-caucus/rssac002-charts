@@ -45,7 +45,7 @@ $(document).ready(function() {
     data: {
       rsi: 'a-m',
       start_date: '2020-01-01',
-      end_date: '2021-01-01',
+      end_date: '2020-12-31',
     },
     success: function(res){
       //console.log("Start rcode_pie.js");
