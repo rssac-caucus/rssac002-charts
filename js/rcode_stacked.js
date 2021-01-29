@@ -19,13 +19,19 @@ $(document).ready(function() {
     },
     yAxis: {
       title: {
-        text: 'Stacked Percentages'
+        text: ''
       },
+      labels: {
+        formatter: function () {
+          return this.value + '%';
+        }
+      },
+      max: 100,
     },
     plotOptions: {
       area: {
         pointInterval: 86400000, // 1 day in ms
-        stacking: 'normal',
+        stacking: 'percent',
         lineColor: '#666666',
         lineWidth: 1,
         marker: {
