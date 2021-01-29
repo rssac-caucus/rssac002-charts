@@ -21,6 +21,11 @@ $(document).ready(function() {
       title: {
         text: 'Queries'
       },
+      labels: {
+        formatter: function () {
+          return this.value / 1000000000;
+        }
+      }
     },
     plotOptions: {
       area: {
@@ -97,22 +102,22 @@ $(document).ready(function() {
         ii += 1;
       });
       options.chart.renderTo = 'container_udpv4';
-      options.title.text = 'IPv4 UDP Queries';
+      options.title.text = 'IPv4 UDP Queries per-day (billion)';
       options.series = udp_v4_points;
       var udp_v4_chart = new Highcharts.Chart(options);
 
       options.chart.renderTo = 'container_tcpv4';
-      options.title.text = 'IPv4 TCP Queries';
+      options.title.text = 'IPv4 TCP Queries per-day (billion)';
       options.series = tcp_v4_points;
       var tcp_v4_chart = new Highcharts.Chart(options);
 
       options.chart.renderTo = 'container_udpv6';
-      options.title.text = 'IPv6 UDP Queries';
+      options.title.text = 'IPv6 UDP Queries per-day (billion)';
       options.series = udp_v6_points;
       var udp_v6_chart = new Highcharts.Chart(options);
 
       options.chart.renderTo = 'container_tcpv6';
-      options.title.text = 'IPv6 TCP Queries';
+      options.title.text = 'IPv6 TCP Queries per-day (billion)';
       options.series = tcp_v6_points;
       var tcp_v6_chart = new Highcharts.Chart(options);
     }});
