@@ -6,7 +6,7 @@ $(document).ready(function() {
       zoomType: 'x'
     },
     title: {
-        text: 'Total Queries Received'
+        text: 'Queries Received per-day (billion)'
     },
     subtitle: {
         text: 'Source: RSSAC002 Data'
@@ -19,8 +19,13 @@ $(document).ready(function() {
     },
     yAxis: {
       title: {
-        text: 'Queries (thousands)'
+        text: 'Queries'
       },
+      labels: {
+        formatter: function () {
+          return this.value / 1000000000;
+        }
+      }
     },
     plotOptions: {
       area: {
@@ -46,7 +51,7 @@ $(document).ready(function() {
       start_date: '2017-01-01',
       end_date: '2020-12-31',
       totals: 'received',
-      divisor: 1000
+      //divisor: 1000
     },
     success: function(res){
       var points = [];

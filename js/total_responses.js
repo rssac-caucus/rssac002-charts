@@ -6,7 +6,7 @@ $(document).ready(function() {
       zoomType: 'x'
     },
     title: {
-        text: 'Responses Sent per-day (billions)'
+        text: 'Responses Sent per-day (billion)'
     },
     subtitle: {
         text: 'Source: RSSAC002 Data'
