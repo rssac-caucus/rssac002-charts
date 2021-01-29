@@ -1,3 +1,20 @@
+body {
+  background-color: lightblue;
+  font-family: Verdana, sans-serif;
+}
+
+h3 {
+  padding-top: 20px;
+  font-family: Verdana, sans-serif;
+  margin-left: 10px;
+  margin-bottom: -5px;
+}
+
+p {
+  font-family: Verdana, sans-serif;
+  margin-left: 20px;
+}
+
 #container {
   height: 600px;
 }
