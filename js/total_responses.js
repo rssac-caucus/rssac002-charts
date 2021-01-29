@@ -6,7 +6,7 @@ $(document).ready(function() {
       zoomType: 'x'
     },
     title: {
-        text: 'Total Responses Sent'
+        text: 'Responses Sent per-day (billions)'
     },
     subtitle: {
         text: 'Source: RSSAC002 Data'
@@ -19,8 +19,13 @@ $(document).ready(function() {
     },
     yAxis: {
       title: {
-        text: 'Responses (thousands)'
+        text: 'Responses'
       },
+      labels: {
+        formatter: function () {
+          return this.value / 1000000000;
+        }
+      }
     },
     plotOptions: {
       area: {
@@ -46,7 +51,7 @@ $(document).ready(function() {
       start_date: '2017-01-01',
       end_date: '2020-12-31',
       totals: 'sent',
-      divisor: 1000
+      //divisor: 1000
     },
     success: function(res){
       var points = [];
