@@ -19,8 +19,13 @@ $(document).ready(function() {
     },
     yAxis: {
       title: {
-        text: 'Sources'
+        text: 'IP Addresses'
       },
+      labels: {
+        formatter: function () {
+          return this.value / 1000000;
+        }
+      }
     },
     plotOptions: {
       area: {
@@ -65,7 +70,7 @@ $(document).ready(function() {
         ii += 1;
       });
       options.series = points;
-      options.title.text = 'Unique IPv' + ip_version + ' Sources';
+      options.title.text = 'Unique IPv' + ip_version + ' Sources per-day (millions)';
 
       var chart = new Highcharts.Chart(options);
     }});
