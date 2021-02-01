@@ -8,14 +8,53 @@
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+<script src="https://code.highcharts.com/modules/drilldown.js"></script>
 <script src="js/rcode_stacked_rsi.js"></script>
 <link rel="stylesheet" href="charts.css">
 <title>
 RCODEs per RSI
 </title>
 </head>
+<body>
+<div class="side_menu">
+  <h3>Queries Received</h3>
+  <p>
+  <a href="total_queries.html">Total Queries Received</a><br/>
+  <a href="breakdown_queries_prot.html">Queries Received by Protocol</a><br/>
+  <a href="breakdown_queries_rsi.html">Queries Received by RSI</a><br/>
+  </p>
 
-<body onload="">
+  <h3>Responses Sent</h3>
+  <p>
+  <a href="total_responses.html">Total Responses Sent</a><br/>
+  <a href="breakdown_responses_prot.html">Responses Sent by Protocol</a><br/>
+  <a href="breakdown_responses_rsi.html">Responses Sent by RSI</a><br/>
+  </p>
+
+  <h3>Unique Source IP Addresses Seen</h3>
+  <p>
+  <a href="unique_sources_ipv4.html">IPv4 Unique Sources</a><br/>
+  <a href="unique_sources_ipv6.html">IPv6 Unique Sources</a><br/>
+  </p>
+
+  <h3>DNS RCODEs</h3>
+  <p>
+  <a href="rcode_stacked_rsi.html">rcode-volume by RSI</a><br/>
+  <a href="rcode_pie.html">2020 rcode-volume</a><br/>
+  <a href="rcode_stacked.html">rcode-volume by rcode</a><br/>
+  </p>
+
+  <h3>References</h3>
+  <p>
+  <a href="https://github.com/smutt/rssac002-charts">This site on Github
+  </a><br/>
+  <a href="https://github.com/smutt/rssac002-web-api">RSSAC002 Web API
+  on Github</a><br/>
+  <a href="https://www.icann.org/en/system/files/files/rssac-002-measurements-root-12mar20-en.pdf">
+  RSSAC002v4</a><br/>
+  <a href="https://root-servers.org/">root-servers.org</a><br/>
+  </p>
+</div>
 
 <figure class="highcharts-figure">
 <div id="container_0"></div>
@@ -78,5 +117,4 @@ http://rssac002.depht.com/api/v1/rcode-volume?rsi=a-m&start_date=2017-01-01&end_
 </center>
 
 </body>
-
 </html>

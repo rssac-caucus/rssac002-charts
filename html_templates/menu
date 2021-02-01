@@ -1,21 +1,3 @@
-<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
-
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-<script src="js/jquery-3.5.1.min.js"></script>
-<script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
-<script src="https://code.highcharts.com/modules/export-data.js"></script>
-<script src="https://code.highcharts.com/modules/accessibility.js"></script>
-<script src="https://code.highcharts.com/modules/drilldown.js"></script>
-<script src="js/total_responses.js"></script>
-<link rel="stylesheet" href="charts.css">
-<title>
-Total Responses Sent
-</title>
-</head>
-<body>
 <div class="side_menu">
   <h3>Queries Received</h3>
   <p>
@@ -56,16 +38,3 @@ Total Responses Sent
   </p>
 </div>
 
-<figure class="highcharts-figure">
-<div id="container"></div>
-<p class="highcharts-description">
-
-</p>
-</figure>
-
-<center>
-http://rssac002.depht.com/api/v1/traffic-volume?rsi=a-m&start_date=2017-01-01&end_date=2020-12-31&totals=sent
-</center>
-
-</body>
-</html>
