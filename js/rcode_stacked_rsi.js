@@ -19,13 +19,18 @@ $(document).ready(function() {
     },
     yAxis: {
       title: {
-        text: '# RCODEs'
+        text: ''
       },
+      labels: {
+        formatter: function () {
+          return this.value + '%';
+        }
+      }
     },
     plotOptions: {
       area: {
         pointInterval: 86400000, // 1 day in ms
-        stacking: 'normal',
+        stacking: 'percent',
         lineColor: '#666666',
         lineWidth: 1,
         marker: {
