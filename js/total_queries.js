@@ -1,8 +1,8 @@
 $(document).ready(function() {
   var options = {
     chart: {
-      renderTo: 'container',
-      type: 'area',
+      renderTo: '',
+      type: '',
       zoomType: 'x'
     },
     title: {
@@ -29,7 +29,6 @@ $(document).ready(function() {
     },
     plotOptions: {
       area: {
-        pointInterval: 86400000, // 1 day in ms
         stacking: 'normal',
         lineColor: '#666666',
         lineWidth: 1,
@@ -37,7 +36,11 @@ $(document).ready(function() {
           lineWidth: 1,
           lineColor: '#666666'
         }
-      }
+      },
+      series: {
+        pointStart: Date.UTC('2017', '00', '01'),  // Jan is zero'th month in JS
+        pointInterval: 86400000, // 1 day in ms
+      },
     },
     series: [{}]
   };
@@ -51,12 +54,11 @@ $(document).ready(function() {
       start_date: '2017-01-01',
       end_date: '2020-12-31',
       totals: 'received',
-      //divisor: 1000
     },
     success: function(res){
       var points = [];
       var ii = 0;
-      options.plotOptions.area.pointStart = Date.UTC('2017', '00', '01'); // Jan is zero'th month in JS
+
       $.each(res, function(k_res, v_res) {
         points[ii] = {};
         points[ii].name = k_res;
@@ -68,6 +70,13 @@ $(document).ready(function() {
       });
       options.series = points;
 
-      var chart = new Highcharts.Chart(options);
+      options.chart.renderTo = 'container_area';
+      options.chart.type = 'area';
+      new Highcharts.Chart(options);
+
+      options.chart.renderTo = 'container_line';
+      options.chart.type = 'line';
+      options.plotOptions.series.connectNulls = true;
+      new Highcharts.Chart(options);
     }});
 });
