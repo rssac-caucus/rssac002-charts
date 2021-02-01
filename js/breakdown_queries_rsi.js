@@ -52,13 +52,14 @@ $(document).ready(function() {
       end_date: '2020-12-31',
     },
     success: function(res){
+      options.plotOptions.area.pointStart = Date.UTC('2017', '00', '01'); // Jan is zero'th month in JS
       var protocols = {
         'dns-udp-queries-received-ipv4': 'IPv4-UDP', 'dns-tcp-queries-received-ipv4': 'IPv4-TCP',
         'dns-udp-queries-received-ipv6': 'IPv6-UDP', 'dns-tcp-queries-received-ipv6': 'IPv6-TCP'
       };
-
       var queries_series = {};
       var chart_series = {};
+
       $.each(res, function(rsi, dates) {
         queries_series[rsi] = {};
         chart_series[rsi] = [];

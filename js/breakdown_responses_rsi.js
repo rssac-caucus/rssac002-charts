@@ -52,73 +52,48 @@ $(document).ready(function() {
       end_date: '2020-12-31',
     },
     success: function(res){
-      var udp_v4_points = [];
-      var udp_v6_points = [];
-      var tcp_v4_points = [];
-      var tcp_v6_points = [];
-      var ii = 0;
-
       options.plotOptions.area.pointStart = Date.UTC('2017', '00', '01'); // Jan is zero'th month in JS
+      var protocols = {
+        'dns-udp-responses-sent-ipv4': 'IPv4-UDP', 'dns-tcp-responses-sent-ipv4': 'IPv4-TCP',
+        'dns-udp-responses-sent-ipv6': 'IPv6-UDP', 'dns-tcp-responses-sent-ipv6': 'IPv6-TCP'
+      };
+      var resp_series = {};
+      var chart_series = {};
+
       $.each(res, function(rsi, dates) {
-        udp_v4_points[ii] = {};
-        udp_v4_points[ii].name = rsi;
-        udp_v4_points[ii].data = [];
+        resp_series[rsi] = {};
+        chart_series[rsi] = [];
 
-        tcp_v4_points[ii] = {};
-        tcp_v4_points[ii].name = rsi;
-        tcp_v4_points[ii].data = [];
-
-        udp_v6_points[ii] = {};
-        udp_v6_points[ii].name = rsi;
-        udp_v6_points[ii].data = [];
-
-        tcp_v6_points[ii] = {};
-        tcp_v6_points[ii].name = rsi;
-        tcp_v6_points[ii].data = [];
-
-        $.each(dates, function(day, metrics) {
-          if(metrics == null){
-            udp_v4_points[ii].data.push(null);
-            tcp_v4_points[ii].data.push(null);
-            udp_v6_points[ii].data.push(null);
-            tcp_v6_points[ii].data.push(null);
-          }
-
-          $.each(metrics, function(key, value) {
-            if(key == 'dns-udp-responses-sent-ipv4'){
-              udp_v4_points[ii].data.push(value);
-            }
-            if(key == 'dns-tcp-responses-sent-ipv4'){
-              tcp_v4_points[ii].data.push(value);
-            }
-            if(key == 'dns-udp-responses-sent-ipv6'){
-              udp_v6_points[ii].data.push(value);
-            }
-            if(key == 'dns-tcp-responses-sent-ipv6'){
-              tcp_v6_points[ii].data.push(value);
-            }
-          });
+        $.each(protocols, function(key, value){
+          resp_series[rsi][key] = {};
+          resp_series[rsi][key].name = value;
+          resp_series[rsi][key].data = [];
         });
-        ii += 1;
+
+        $.each(dates, function(date, protos) {
+          if(protos == null) {
+            $.each(protocols, function(key, value) {
+              resp_series[rsi][key].data.push(null);
+            });
+          }else{
+            $.each(protos, function(prot, value){
+              if(prot in protocols){
+                //console.log('prot:' + prot + ' value:' + value);
+                resp_series[rsi][prot].data.push(value);
+              }
+            });
+          }
+        });
+        $.each(resp_series[rsi], function(proto, series_data) {
+          chart_series[rsi].push(series_data);
+        });
       });
-      options.chart.renderTo = 'container_udpv4';
-      options.title.text = 'IPv4 UDP Responses per-day (billion)';
-      options.series = udp_v4_points;
-      var udp_v4_chart = new Highcharts.Chart(options);
 
-      options.chart.renderTo = 'container_tcpv4';
-      options.title.text = 'IPv4 TCP Responses per-day (billion)';
-      options.series = tcp_v4_points;
-      var tcp_v4_chart = new Highcharts.Chart(options);
-
-      options.chart.renderTo = 'container_udpv6';
-      options.title.text = 'IPv6 UDP Responses per-day (billion)';
-      options.series = udp_v6_points;
-      var udp_v6_chart = new Highcharts.Chart(options);
-
-      options.chart.renderTo = 'container_tcpv6';
-      options.title.text = 'IPv6 TCP Responses per-day (billion)';
-      options.series = tcp_v6_points;
-      var tcp_v6_chart = new Highcharts.Chart(options);
+      $.each(chart_series, function(rsi, protos){
+        options.chart.renderTo = 'container_' + rsi;
+        options.title.text =  rsi + '.root-servers.net Responses Sent per-day (billion)';
+        options.series = protos;
+        new Highcharts.Chart(options);
+      });
     }});
 });
