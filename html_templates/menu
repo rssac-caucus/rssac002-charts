@@ -1,12 +1,12 @@
 <div class="side_menu">
-  <h3>Queries Received</h3>
+  <a href="single_queries.html"><h3>Queries Received</h3></a>
   <p>
   <a href="total_queries.html">Total Queries Received</a><br/>
   <a href="breakdown_queries_prot.html">Queries Received by Protocol</a><br/>
   <a href="breakdown_queries_rsi.html">Queries Received by RSI</a><br/>
   </p>
 
-  <h3>Responses Sent</h3>
+  <a href="single_responses.html"><h3>Responses Sent</h3></a>
   <p>
   <a href="total_responses.html">Total Responses Sent</a><br/>
   <a href="breakdown_responses_prot.html">Responses Sent by Protocol</a><br/>
@@ -37,4 +37,3 @@
   <a href="https://root-servers.org/">root-servers.org</a><br/>
   </p>
 </div>
-

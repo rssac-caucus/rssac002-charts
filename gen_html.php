@@ -13,8 +13,12 @@ $footer = file_get_contents($template_dir . 'footer');
 $menu = file_get_contents($template_dir . 'menu');
 
 $pages = array();
+array_push($pages, array('template' => 'single_queries',
+                         'header_v' => array('@TITLE@' => 'Total Queries Received', '@SCRIPT@' => 'single_queries.js')));
 array_push($pages, array('template' => 'total_queries',
                          'header_v' => array('@TITLE@' => 'Total Queries Received', '@SCRIPT@' => 'total_queries.js')));
+array_push($pages, array('template' => 'single_responses',
+                         'header_v' => array('@TITLE@' => 'Total Queries Received', '@SCRIPT@' => 'single_responses.js')));
 array_push($pages, array('template' => 'total_responses',
                          'header_v' => array('@TITLE@' => 'Total Responses Sent', '@SCRIPT@' => 'total_responses.js')));
 
@@ -47,5 +51,6 @@ foreach($pages as $page){
   $meat = file_get_contents($template_dir . $page['template']);
 
   file_put_contents($page['template'] . '.html', $our_header . $menu . $meat . $footer);
+  chmod($page['template'] . '.html', 0644);
 }
 ?>
