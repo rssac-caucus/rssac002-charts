@@ -6,13 +6,10 @@ $(document).ready(function() {
       zoomType: 'x'
     },
     title: {
-        text: 'Unique IP Address Sources per-day'
+        text: 'Unique IP Source Addresses per-day'
     },
     subtitle: {
         text: 'Source: RSSAC002 Data'
-    },
-    legend: {
-      //floating: true,
     },
     xAxis: {
       type: 'datetime',
@@ -87,10 +84,10 @@ $(document).ready(function() {
 
       var points = [];
       points[0] = {};
-      points[0].name = 'IPv4 Sources';
+      points[0].name = 'IPv4';
       points[0].data = Object.values(totals_ipv4);
       points[1] = {};
-      points[1].name = 'IPv6 Sources';
+      points[1].name = 'IPv6';
       points[1].data = Object.values(totals_ipv6);
 
       options.series = points;
