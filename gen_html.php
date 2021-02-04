@@ -44,6 +44,8 @@ array_push($pages, array('template' => 'rcode_stacked',
                          'header_v' => array('@TITLE@' => 'Each RCODE as percent of total RCODEs per RSI', '@SCRIPT@' => 'rcode_stacked.js')));
 array_push($pages, array('template' => 'rcode_stacked_rsi',
                          'header_v' => array('@TITLE@' => 'RCODEs per RSI', '@SCRIPT@' => 'rcode_stacked_rsi.js')));
+array_push($pages, array('template' => 'rcode_0_v_3',
+                         'header_v' => array('@TITLE@' => 'NOERROR vs NXDOMAIN', '@SCRIPT@' => 'rcode_0_v_3.js')));
 
 foreach($pages as $page){
   $our_header = $header;
