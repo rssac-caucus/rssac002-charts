@@ -1,56 +1,57 @@
+<div class="main">
 <figure class="highcharts-figure">
-<div id="container_a"></div>
+<div class="rchart" id="container_a"></div>
 </figure>
 
 <figure class="highcharts-figure">
-<div id="container_b"></div>
+<div class="rchart" id="container_b"></div>
 </figure>
 
 <figure class="highcharts-figure">
-<div id="container_c"></div>
+<div class="rchart" id="container_c"></div>
 </figure>
 
 <figure class="highcharts-figure">
-<div id="container_d"></div>
+<div class="rchart" id="container_d"></div>
 </figure>
 
 <figure class="highcharts-figure">
-<div id="container_e"></div>
+<div class="rchart" id="container_e"></div>
 </figure>
 
 <figure class="highcharts-figure">
-<div id="container_f"></div>
+<div class="rchart" id="container_f"></div>
 </figure>
 
 <figure class="highcharts-figure">
-<div id="container_g"></div>
+<div class="rchart" id="container_g"></div>
 </figure>
 
 <figure class="highcharts-figure">
-<div id="container_h"></div>
+<div class="rchart" id="container_h"></div>
 </figure>
 
 <figure class="highcharts-figure">
-<div id="container_i"></div>
+<div class="rchart" id="container_i"></div>
 </figure>
 
 <figure class="highcharts-figure">
-<div id="container_j"></div>
+<div class="rchart" id="container_j"></div>
 </figure>
 
 <figure class="highcharts-figure">
-<div id="container_k"></div>
+<div class="rchart" id="container_k"></div>
 </figure>
 
 <figure class="highcharts-figure">
-<div id="container_l"></div>
+<div class="rchart" id="container_l"></div>
 </figure>
 
 <figure class="highcharts-figure">
-<div id="container_m"></div>
+<div class="rchart" id="container_m"></div>
 </figure>
 
 <center>
 http://rssac002.depht.com/api/v1/rcode-volume?rsi=a-m&start_date=2017-01-01&end_date=2020-12-31
 </center>
-
+</div>
