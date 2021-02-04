@@ -35,6 +35,8 @@ array_push($pages, array('template' => 'unique_sources_ipv4',
                          'header_v' => array('@TITLE@' => 'IPv4 Unique Sources', '@SCRIPT@' => 'unique_sources.js')));
 array_push($pages, array('template' => 'unique_sources_ipv6',
                          'header_v' => array('@TITLE@' => 'IPv6 Unique Sources', '@SCRIPT@' => 'unique_sources.js')));
+array_push($pages, array('template' => 'percent_sources',
+                         'header_v' => array('@TITLE@' => 'Sources by Percent', '@SCRIPT@' => 'percent_sources.js')));
 
 array_push($pages, array('template' => 'rcode_pie',
                          'header_v' => array('@TITLE@' => 'Return Codes December 2020', '@SCRIPT@' => 'rcode_pie.js')));
