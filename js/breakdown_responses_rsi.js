@@ -49,7 +49,7 @@ $(document).ready(function() {
     data: {
       rsi: 'a-m',
       start_date: '2017-01-01',
-      end_date: '2020-12-31',
+      end_date: document.getElementById('end_date').textContent,
     },
     success: function(res){
       options.plotOptions.area.pointStart = Date.UTC('2017', '00', '01'); // Jan is zero'th month in JS
@@ -78,7 +78,6 @@ $(document).ready(function() {
           }else{
             $.each(protos, function(prot, value){
               if(prot in protocols){
-                //console.log('prot:' + prot + ' value:' + value);
                 resp_series[rsi][prot].data.push(value);
               }
             });

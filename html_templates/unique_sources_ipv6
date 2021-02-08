@@ -1,4 +1,5 @@
 <div class="main">
+<div hidden id="end_date">@END_DATE@</div>
 <div hidden id="ip_version">6</div>
 
 <figure class="highcharts-figure">
@@ -6,7 +7,7 @@
 </figure>
 
 <center>
-http://rssac002.depht.com/api/v1/unique-sources?rsi=a-m&start_date=2017-01-01&end_date=2020-12-31
+http://rssac002.depht.com/api/v1/unique-sources?rsi=a-m&start_date=2017-01-01&end_date=@END_DATE@
 </center>
 </div>
 

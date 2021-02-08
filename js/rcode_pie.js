@@ -5,7 +5,7 @@ $(document).ready(function() {
       type: 'pie',
     },
     title: {
-        text: 'rcode-volume 2020'
+        text: 'rcode-volume'
     },
     subtitle: {
         text: 'Source: RSSAC002 Data'
@@ -44,8 +44,8 @@ $(document).ready(function() {
     dataType: "json",
     data: {
       rsi: 'a-m',
-      start_date: '2020-01-01',
-      end_date: '2020-12-31',
+      start_date: '2017-01-01',
+      end_date: document.getElementById('end_date').textContent,
     },
     success: function(res){
       //console.log("Start rcode_pie.js");
