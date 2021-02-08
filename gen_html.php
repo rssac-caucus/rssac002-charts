@@ -24,25 +24,33 @@ array_push($pages, array('template' => 'single_queries',
 array_push($pages, array('template' => 'total_queries',
                          'header_v' => array('@TITLE@' => 'Total Queries Received', '@SCRIPT@' => 'total_queries.js'),
                          'meat_v' => array('@END_DATE@' => $end_date)));
+array_push($pages, array('template' => 'breakdown_queries_prot',
+                         'header_v' => array('@TITLE@' => 'Queries Received by Protocol', '@SCRIPT@' => 'breakdown_queries_prot.js'),
+                         'meat_v' => array('@END_DATE@' => $end_date)));
+array_push($pages, array('template' => 'breakdown_queries_rsi',
+                         'header_v' => array('@TITLE@' => 'Queries Received by RSI', '@SCRIPT@' => 'breakdown_queries_rsi.js'),
+                         'meat_v' => array('@END_DATE@' => $end_date)));
+array_push($pages, array('template' => 'udp_v_tcp_queries',
+                         'header_v' => array('@TITLE@' => 'UDP vs TCP Queries', '@SCRIPT@' => 'volume_udp_v_tcp.js'),
+                         'meat_v' => array('@END_DATE@' => $end_date)));
+
+
 array_push($pages, array('template' => 'single_responses',
                          'header_v' => array('@TITLE@' => 'Total Queries Received', '@SCRIPT@' => 'single_responses.js'),
                          'meat_v' => array('@END_DATE@' => $end_date)));
 array_push($pages, array('template' => 'total_responses',
                          'header_v' => array('@TITLE@' => 'Total Responses Sent', '@SCRIPT@' => 'total_responses.js'),
                          'meat_v' => array('@END_DATE@' => $end_date)));
-
-array_push($pages, array('template' => 'breakdown_queries_prot',
-                         'header_v' => array('@TITLE@' => 'Queries Received by Protocol', '@SCRIPT@' => 'breakdown_queries_prot.js'),
-                         'meat_v' => array('@END_DATE@' => $end_date)));
 array_push($pages, array('template' => 'breakdown_responses_prot',
                          'header_v' => array('@TITLE@' => 'Responses Sent by Protocol', '@SCRIPT@' => 'breakdown_responses_prot.js'),
-                         'meat_v' => array('@END_DATE@' => $end_date)));
-array_push($pages, array('template' => 'breakdown_queries_rsi',
-                         'header_v' => array('@TITLE@' => 'Queries Received by RSI', '@SCRIPT@' => 'breakdown_queries_rsi.js'),
                          'meat_v' => array('@END_DATE@' => $end_date)));
 array_push($pages, array('template' => 'breakdown_responses_rsi',
                          'header_v' => array('@TITLE@' => 'Responses Sent by RSI', '@SCRIPT@' => 'breakdown_responses_rsi.js'),
                          'meat_v' => array('@END_DATE@' => $end_date)));
+array_push($pages, array('template' => 'udp_v_tcp_responses',
+                         'header_v' => array('@TITLE@' => 'UDP vs TCP Responses', '@SCRIPT@' => 'volume_udp_v_tcp.js'),
+                         'meat_v' => array('@END_DATE@' => $end_date)));
+
 
 array_push($pages, array('template' => 'unique_sources_ipv4',
                          'header_v' => array('@TITLE@' => 'IPv4 Unique Sources', '@SCRIPT@' => 'unique_sources.js'),
@@ -53,6 +61,7 @@ array_push($pages, array('template' => 'unique_sources_ipv6',
 array_push($pages, array('template' => 'unique_sources_vs',
                          'header_v' => array('@TITLE@' => 'Sources by Percent', '@SCRIPT@' => 'unique_sources_vs.js'),
                          'meat_v' => array('@END_DATE@' => $end_date)));
+
 
 array_push($pages, array('template' => 'rcode_pie',
                          'header_v' => array('@TITLE@' => 'Return Codes December 2020', '@SCRIPT@' => 'rcode_pie.js'),
@@ -66,6 +75,7 @@ array_push($pages, array('template' => 'rcode_stacked_rsi',
 array_push($pages, array('template' => 'rcode_0_v_3',
                          'header_v' => array('@TITLE@' => 'NOERROR vs NXDOMAIN', '@SCRIPT@' => 'rcode_0_v_3.js'),
                          'meat_v' => array('@END_DATE@' => $end_date)));
+
 
 foreach($pages as $page){
   $our_header = $header;

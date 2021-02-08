@@ -1,0 +1,12 @@
+<div class="main">
+<div hidden id="end_date">@END_DATE@</div>
+<div hidden id="direction">sent</div>
+<figure class="highcharts-figure">
+<div class="rchart" id="container"></div>
+</figure>
+
+<center>
+http://rssac002.depht.com/api/v1/traffic-volume?rsi=a-m&start_date=2017-01-01&end_date=@END_DATE@                             
+</center>
+</div>
+

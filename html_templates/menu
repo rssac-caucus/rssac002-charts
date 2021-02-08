@@ -4,6 +4,7 @@
   <a href="total_queries.html">Total Queries Received</a><br/>
   <a href="breakdown_queries_prot.html">Queries Received by Protocol</a><br/>
   <a href="breakdown_queries_rsi.html">Queries Received by RSI</a><br/>
+  <a href="udp_v_tcp_queries.html">UDP vs TCP</a><br/>
   </p>
 
   <a href="single_responses.html"><h3>Responses Sent</h3></a>
@@ -11,6 +12,7 @@
   <a href="total_responses.html">Total Responses Sent</a><br/>
   <a href="breakdown_responses_prot.html">Responses Sent by Protocol</a><br/>
   <a href="breakdown_responses_rsi.html">Responses Sent by RSI</a><br/>
+  <a href="udp_v_tcp_responses.html">UDP vs TCP</a><br/>
   </p>
 
   <h3>Unique Source Addresses</h3>
