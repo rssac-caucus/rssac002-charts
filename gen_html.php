@@ -50,8 +50,8 @@ array_push($pages, array('template' => 'unique_sources_ipv4',
 array_push($pages, array('template' => 'unique_sources_ipv6',
                          'header_v' => array('@TITLE@' => 'IPv6 Unique Sources', '@SCRIPT@' => 'unique_sources.js'),
                          'meat_v' => array('@END_DATE@' => $end_date)));
-array_push($pages, array('template' => 'percent_sources',
-                         'header_v' => array('@TITLE@' => 'Sources by Percent', '@SCRIPT@' => 'percent_sources.js'),
+array_push($pages, array('template' => 'unique_sources_vs',
+                         'header_v' => array('@TITLE@' => 'Sources by Percent', '@SCRIPT@' => 'unique_sources_vs.js'),
                          'meat_v' => array('@END_DATE@' => $end_date)));
 
 array_push($pages, array('template' => 'rcode_pie',
