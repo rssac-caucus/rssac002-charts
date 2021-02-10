@@ -33,6 +33,9 @@ array_push($pages, array('template' => 'breakdown_queries_rsi',
 array_push($pages, array('template' => 'udp_v_tcp_queries',
                          'header_v' => array('@TITLE@' => 'UDP vs TCP Queries', '@SCRIPT@' => 'volume_udp_v_tcp.js'),
                          'meat_v' => array('@END_DATE@' => $end_date)));
+array_push($pages, array('template' => 'ipv4_v_ipv6_queries',
+                         'header_v' => array('@TITLE@' => 'IPv4 vs IPv6 Queries', '@SCRIPT@' => 'volume_ipv4_v_ipv6.js'),
+                         'meat_v' => array('@END_DATE@' => $end_date)));
 
 
 array_push($pages, array('template' => 'single_responses',
@@ -49,6 +52,9 @@ array_push($pages, array('template' => 'breakdown_responses_rsi',
                          'meat_v' => array('@END_DATE@' => $end_date)));
 array_push($pages, array('template' => 'udp_v_tcp_responses',
                          'header_v' => array('@TITLE@' => 'UDP vs TCP Responses', '@SCRIPT@' => 'volume_udp_v_tcp.js'),
+                         'meat_v' => array('@END_DATE@' => $end_date)));
+array_push($pages, array('template' => 'ipv4_v_ipv6_responses',
+                         'header_v' => array('@TITLE@' => 'IPv4 vs IPv6 Responses', '@SCRIPT@' => 'volume_ipv4_v_ipv6.js'),
                          'meat_v' => array('@END_DATE@' => $end_date)));
 
 

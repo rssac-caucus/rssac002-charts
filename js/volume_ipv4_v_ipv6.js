@@ -61,45 +61,45 @@ $(document).ready(function() {
     },
     success: function(res){
       var direction = document.getElementById('direction').textContent;
-      var udp_points = {};
-      var tcp_points = {};
+      var v4_points = {};
+      var v6_points = {};
 
       // Get totals per-day
       $.each(res, function(rsi, dates) {
         $.each(dates, function(day, metrics) {
-          if(!(day in udp_points)){
-            udp_points[day] = 0;
+          if(!(day in v4_points)){
+            v4_points[day] = 0;
           }
-          if(!(day in tcp_points)){
-            tcp_points[day] = 0;
+          if(!(day in v6_points)){
+            v6_points[day] = 0;
           }
 
           $.each(metrics, function(key, value) {
             if(direction == 'received'){
               if(key == 'dns-udp-queries-received-ipv6'){
-                udp_points[day] += value;
+                v6_points[day] += value;
               }
               if(key == 'dns-udp-queries-received-ipv4'){
-                udp_points[day] += value;
+                v4_points[day] += value;
               }
               if(key == 'dns-tcp-queries-received-ipv4'){
-                tcp_points[day] += value;
+                v4_points[day] += value;
               }
               if(key == 'dns-tcp-queries-received-ipv6'){
-                tcp_points[day] += value;
+                v6_points[day] += value;
               }
             }else{
               if(key == 'dns-udp-responses-sent-ipv6'){
-                udp_points[day] += value;
+                v6_points[day] += value;
               }
               if(key == 'dns-udp-responses-sent-ipv4'){
-                udp_points[day] += value;
+                v4_points[day] += value;
               }
               if(key == 'dns-tcp-responses-sent-ipv4'){
-                tcp_points[day] += value;
+                v4_points[day] += value;
               }
               if(key == 'dns-tcp-responses-sent-ipv6'){
-                tcp_points[day] += value;
+                v6_points[day] += value;
               }
             }
           });
@@ -108,16 +108,16 @@ $(document).ready(function() {
 
       var points = [];
       points[0] = {};
-      points[0].name = 'UDP';
-      points[0].data = Object.values(udp_points);
+      points[0].name = 'IPv4';
+      points[0].data = Object.values(v4_points);
       points[1] = {};
-      points[1].name = 'TCP';
-      points[1].data = Object.values(tcp_points);
+      points[1].name = 'IPv6';
+      points[1].data = Object.values(v6_points);
 
       if(direction == 'received'){
-        options.title.text = 'UDP vs TCP Queries per-day';
+        options.title.text = 'IPv4 vs IPv6 Queries per-day';
       }else{
-        options.title.text = 'UDP vs TCP Responses per-day';
+        options.title.text = 'IPv4 vs IPv6 Responses per-day';
       }
       options.series = points;
       new Highcharts.Chart(options);
