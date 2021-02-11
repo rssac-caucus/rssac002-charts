@@ -8,93 +8,108 @@ if( !php_sapi_name() == 'cli'){
 }
 
 $template_dir = 'html_templates/';
-$header = file_get_contents($template_dir . 'header');
+$header = file_get_contents($template_dir . 'header'); // Default header
 $footer = file_get_contents($template_dir . 'footer');
 $menu = file_get_contents($template_dir . 'menu');
 
-// Create our end_date string
+// Create our date strings
+$now = getdate();
+$start_date = $now['year'] . '-01-01'; // Jan 1 of the current year
+
 $ts = time() - 60 * 60 * 24 * 14; // 14 days ago
 $dt = new DateTime("@$ts");
 $end_date = $dt->format('Y-m-d');
 
 $pages = array();
-array_push($pages, array('template' => 'single_queries',
+
+// traffic-volume queries
+array_push($pages, array('meat' => 'single_queries',
                          'header_v' => array('@TITLE@' => 'Total Queries Received', '@SCRIPT@' => 'single_queries.js'),
                          'meat_v' => array('@END_DATE@' => $end_date)));
-array_push($pages, array('template' => 'total_queries',
+array_push($pages, array('meat' => 'total_queries',
                          'header_v' => array('@TITLE@' => 'Total Queries Received', '@SCRIPT@' => 'total_queries.js'),
                          'meat_v' => array('@END_DATE@' => $end_date)));
-array_push($pages, array('template' => 'breakdown_queries_prot',
+array_push($pages, array('meat' => 'breakdown_queries_prot',
                          'header_v' => array('@TITLE@' => 'Queries Received by Protocol', '@SCRIPT@' => 'breakdown_queries_prot.js'),
                          'meat_v' => array('@END_DATE@' => $end_date)));
-array_push($pages, array('template' => 'breakdown_queries_rsi',
+array_push($pages, array('meat' => 'breakdown_queries_rsi',
                          'header_v' => array('@TITLE@' => 'Queries Received by RSI', '@SCRIPT@' => 'breakdown_queries_rsi.js'),
                          'meat_v' => array('@END_DATE@' => $end_date)));
-array_push($pages, array('template' => 'udp_v_tcp_queries',
+array_push($pages, array('meat' => 'udp_v_tcp_queries',
                          'header_v' => array('@TITLE@' => 'UDP vs TCP Queries', '@SCRIPT@' => 'volume_udp_v_tcp.js'),
                          'meat_v' => array('@END_DATE@' => $end_date)));
-array_push($pages, array('template' => 'ipv4_v_ipv6_queries',
+array_push($pages, array('meat' => 'ipv4_v_ipv6_queries',
                          'header_v' => array('@TITLE@' => 'IPv4 vs IPv6 Queries', '@SCRIPT@' => 'volume_ipv4_v_ipv6.js'),
                          'meat_v' => array('@END_DATE@' => $end_date)));
 
-
-array_push($pages, array('template' => 'single_responses',
+// traffic-volume responses
+array_push($pages, array('meat' => 'single_responses',
                          'header_v' => array('@TITLE@' => 'Total Queries Received', '@SCRIPT@' => 'single_responses.js'),
                          'meat_v' => array('@END_DATE@' => $end_date)));
-array_push($pages, array('template' => 'total_responses',
+array_push($pages, array('meat' => 'total_responses',
                          'header_v' => array('@TITLE@' => 'Total Responses Sent', '@SCRIPT@' => 'total_responses.js'),
                          'meat_v' => array('@END_DATE@' => $end_date)));
-array_push($pages, array('template' => 'breakdown_responses_prot',
+array_push($pages, array('meat' => 'breakdown_responses_prot',
                          'header_v' => array('@TITLE@' => 'Responses Sent by Protocol', '@SCRIPT@' => 'breakdown_responses_prot.js'),
                          'meat_v' => array('@END_DATE@' => $end_date)));
-array_push($pages, array('template' => 'breakdown_responses_rsi',
+array_push($pages, array('meat' => 'breakdown_responses_rsi',
                          'header_v' => array('@TITLE@' => 'Responses Sent by RSI', '@SCRIPT@' => 'breakdown_responses_rsi.js'),
                          'meat_v' => array('@END_DATE@' => $end_date)));
-array_push($pages, array('template' => 'udp_v_tcp_responses',
+array_push($pages, array('meat' => 'udp_v_tcp_responses',
                          'header_v' => array('@TITLE@' => 'UDP vs TCP Responses', '@SCRIPT@' => 'volume_udp_v_tcp.js'),
                          'meat_v' => array('@END_DATE@' => $end_date)));
-array_push($pages, array('template' => 'ipv4_v_ipv6_responses',
+array_push($pages, array('meat' => 'ipv4_v_ipv6_responses',
                          'header_v' => array('@TITLE@' => 'IPv4 vs IPv6 Responses', '@SCRIPT@' => 'volume_ipv4_v_ipv6.js'),
                          'meat_v' => array('@END_DATE@' => $end_date)));
 
-
-array_push($pages, array('template' => 'unique_sources_ipv4',
+// unique-sources
+array_push($pages, array('meat' => 'unique_sources_ipv4',
                          'header_v' => array('@TITLE@' => 'IPv4 Unique Sources', '@SCRIPT@' => 'unique_sources.js'),
                          'meat_v' => array('@END_DATE@' => $end_date)));
-array_push($pages, array('template' => 'unique_sources_ipv6',
+array_push($pages, array('meat' => 'unique_sources_ipv6',
                          'header_v' => array('@TITLE@' => 'IPv6 Unique Sources', '@SCRIPT@' => 'unique_sources.js'),
                          'meat_v' => array('@END_DATE@' => $end_date)));
-array_push($pages, array('template' => 'unique_sources_vs',
+array_push($pages, array('meat' => 'unique_sources_vs',
                          'header_v' => array('@TITLE@' => 'Sources by Percent', '@SCRIPT@' => 'unique_sources_vs.js'),
                          'meat_v' => array('@END_DATE@' => $end_date)));
 
-
-array_push($pages, array('template' => 'rcode_pie',
-                         'header_v' => array('@TITLE@' => 'Return Codes December 2020', '@SCRIPT@' => 'rcode_pie.js'),
-                         'meat_v' => array('@END_DATE@' => $end_date)));
-array_push($pages, array('template' => 'rcode_stacked',
+// rcode-volume
+array_push($pages, array('meat' => 'rcode_pie', 'header' => 'header_jqueryui',
+                         'header_v' => array('@TITLE@' => 'rcode-volume Overall', '@SCRIPT@' => 'rcode_pie.js'),
+                         'meat_v' => array('@START_DATE@' => $start_date, '@END_DATE@' => $end_date)));
+/*array_push($pages, array('meat' => 'rcode_stacked',
                          'header_v' => array('@TITLE@' => 'Each RCODE as percent of total RCODEs per RSI', '@SCRIPT@' => 'rcode_stacked.js'),
+                         'meat_v' => array('@END_DATE@' => $end_date))); */
+array_push($pages, array('meat' => 'rcode_stacked_rsi',
+                         'header_v' => array('@TITLE@' => 'rcode-volume by RSI', '@SCRIPT@' => 'rcode_stacked_rsi.js'),
                          'meat_v' => array('@END_DATE@' => $end_date)));
-array_push($pages, array('template' => 'rcode_stacked_rsi',
-                         'header_v' => array('@TITLE@' => 'RCODEs per RSI', '@SCRIPT@' => 'rcode_stacked_rsi.js'),
-                         'meat_v' => array('@END_DATE@' => $end_date)));
-array_push($pages, array('template' => 'rcode_0_v_3',
+array_push($pages, array('meat' => 'rcode_0_v_3',
                          'header_v' => array('@TITLE@' => 'NOERROR vs NXDOMAIN', '@SCRIPT@' => 'rcode_0_v_3.js'),
                          'meat_v' => array('@END_DATE@' => $end_date)));
 
+// traffic-sizes
+array_push($pages, array('meat' => 'sizes_udp_queries', 'header' => 'header_jqueryui',
+                         'header_v' => array('@TITLE@' => 'traffic-sizes UDP', '@SCRIPT@' => 'sizes.js'),
+                         'meat_v' => array('@START_DATE@' => $start_date, '@END_DATE@' => $end_date)));
+
 
 foreach($pages as $page){
-  $our_header = $header;
+  if(array_key_exists('header', $page)){
+    $our_header = file_get_contents($template_dir . $page['header']);
+  }else{
+    $our_header = $header;
+  }
+
   foreach($page['header_v'] as $key => $val){
     $our_header = str_replace($key, $val, $our_header);
   }
 
-  $meat = file_get_contents($template_dir . $page['template']);
+  $meat = file_get_contents($template_dir . $page['meat']);
   foreach($page['meat_v'] as $key => $val){
     $meat = str_replace($key, $val, $meat);
   }
 
-  file_put_contents($page['template'] . '.html', $our_header . $menu . $meat . $footer);
-  chmod($page['template'] . '.html', 0644);
+  file_put_contents($page['meat'] . '.html', $our_header . $menu . $meat . $footer);
+  chmod($page['meat'] . '.html', 0644);
 }
 ?>

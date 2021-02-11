@@ -28,7 +28,7 @@
   <p>
   <a href="rcode_pie.html">rcode-volume Overall</a><br/>
   <a href="rcode_stacked_rsi.html">rcode-volume by RSI</a><br/>
-  <a href="rcode_0_v_3.html">NoError vs NxDomain</a><br/>
+  <a href="rcode_0_v_3.html">NOERROR vs NXDOMAIN</a><br/>
   </p>
 
   <h3>References</h3>

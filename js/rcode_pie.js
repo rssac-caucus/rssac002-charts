@@ -1,11 +1,29 @@
+$( function() {
+  $.datepicker.setDefaults({
+    minDate: new Date(2017, 1 - 1, 1),
+    maxDate: "-2w",
+    dateFormat: "yy-mm-dd",
+    changeMonth: true,
+    changeYear: true,
+  })
+
+  $( "#start-date-1" ).datepicker();
+  $( "#end-date-1" ).datepicker();
+});
+
+
 $(document).ready(function() {
+  rssac002_update_chart();
+});
+
+function rssac002_update_chart (){
   var options = {
     chart: {
       renderTo: 'container',
       type: 'pie',
     },
     title: {
-        text: 'rcode-volume'
+        text: ''
     },
     subtitle: {
         text: 'Source: RSSAC002 Data'
@@ -44,11 +62,10 @@ $(document).ready(function() {
     dataType: "json",
     data: {
       rsi: 'a-m',
-      start_date: '2017-01-01',
-      end_date: document.getElementById('end_date').textContent,
+      start_date: document.getElementById('start-date-1').value,
+      end_date: document.getElementById('end-date-1').value,
     },
     success: function(res){
-      //console.log("Start rcode_pie.js");
       // https://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml#dns-parameters-6
       var dns_rcodes = {
         '0': 'NoError', '1': 'FormErr', '2': 'ServFail', '3': 'NXDomain',
@@ -59,6 +76,8 @@ $(document).ready(function() {
         '19': 'BADMODE', '20': 'BADNAME', '21': 'BADALG', '22': 'BADTRUNC',
         '23': 'BADCOOKIE'};
 
+      var start_date = document.getElementById('start-date-1').value;
+      var end_date = document.getElementById('end-date-1').value;
       var rcode_totals = {}; // total rcodes per-rsi
       var totals = {}; // totals for each rcode
       // generate totals
@@ -119,7 +138,8 @@ $(document).ready(function() {
         drilldown_series.push(entry);
       });
       options.drilldown.series = drilldown_series;
+      options.title.text = start_date + ' - ' + end_date;
 
-      var chart = new Highcharts.Chart(options);
+      new Highcharts.Chart(options);
     }});
-});
+}
