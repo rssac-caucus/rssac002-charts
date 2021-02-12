@@ -26,9 +26,17 @@
 
   <h3>DNS RCODEs</h3>
   <p>
-  <a href="rcode_pie.html">rcode-volume Overall</a><br/>
+  <a href="rcode_pie.html">rcode-volume Comparison</a><br/>
   <a href="rcode_stacked_rsi.html">rcode-volume by RSI</a><br/>
   <a href="rcode_0_v_3.html">NOERROR vs NXDOMAIN</a><br/>
+  </p>
+
+  <h3>Packet Sizes</h3>
+  <p>
+  <a href="sizes_udp_queries.html">UDP Queries Comparison</a><br/>
+  <a href="sizes_tcp_queries.html">TCP Queries Comparison</a><br/>
+  <a href="sizes_udp_responses.html">UDP Responses Comparison</a><br/>
+  <a href="sizes_tcp_responses.html">TCP Responses Comparison</a><br/>
   </p>
 
   <h3>References</h3>

@@ -1,4 +1,7 @@
 <div class="main">
+<div hidden id="direction">sent</div>
+<div hidden id="prot">tcp</div>
+
 <figure class="highcharts-figure-pie">
 <div class="rchart-pie" id="container_1"></div>
 Start <input type="text" id="start-date-1" onchange="rssac002_update_chart_1()" value="@START_DATE@">

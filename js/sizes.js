@@ -74,7 +74,7 @@ function rssac002_update_chart (start_date, end_date, container){
   };
 
   $.ajax({
-    url: "http://rssac002.depht.com/api/v1/rcode-volume",
+    url: "http://rssac002.depht.com/api/v1/traffic-sizes",
     type: "GET",
     dataType: "json",
     data: {
@@ -83,66 +83,75 @@ function rssac002_update_chart (start_date, end_date, container){
       end_date: end_date
     },
     success: function(res){
-      // https://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml#dns-parameters-6
-      var dns_rcodes = {
-        '0': 'NoError', '1': 'FormErr', '2': 'ServFail', '3': 'NXDomain',
-        '4': 'NotImp', '5': 'Refused', '6': 'YXDomain', '7': 'YXRRSet',
-        '8': 'NXRRSet', '9': 'NotAuth', '10': 'NotZone', '11': 'DSOTYPENI',
-        '12': '12_Unassigned', '13': '13_Unassigned', '14': '14_Unassigned',
-        '15': '15_Unassigned', '16': 'BADSIG', '17': 'BADKEY', '18': 'BADTIME',
-        '19': 'BADMODE', '20': 'BADNAME', '21': 'BADALG', '22': 'BADTRUNC',
-        '23': 'BADCOOKIE'};
+      switch(document.getElementById('prot').textContent) {
+      case 'udp':
+        switch(document.getElementById('direction').textContent) {
+        case 'received':
+          var metric = 'udp-request-sizes';
+          break;
+        case 'sent':
+          var metric = 'udp-response-sizes';
+          break;
+        }
+        break;
+      case 'tcp':
+        switch(document.getElementById('direction').textContent) {
+        case 'received':
+          var metric = 'tcp-request-sizes';
+          break;
+        case 'sent':
+          var metric = 'tcp-response-sizes';
+          break;
+        }
+      }
 
-      var rcode_totals = {}; // total rcodes per-rsi
-      var totals = {}; // totals for each rcode
-      // generate totals
+      var size_totals = {}; // total packets per-rsi by size
+      var totals = {}; // totals for each size
       $.each(res, function(rsi, dates) {
-        $.each(dates, function(date, rcodes) {
-          $.each(rcodes, function(rcode, val) {
-            if(! (rcode in rcode_totals)){
-              rcode_totals[rcode] = {};
-            }
+        $.each(dates, function(date, metrics) {
+          if(metrics != null){
+            $.each(metrics[metric], function(size, val) {
+              if(! (size in size_totals)){
+                size_totals[size] = {};
+              }
 
-            if(rsi in rcode_totals[rcode]) {
-              rcode_totals[rcode][rsi] += val;
-            }else{
-              rcode_totals[rcode][rsi] = val;
-            }
+              if(rsi in size_totals[size]) {
+                size_totals[size][rsi] += val;
+              }else{
+                size_totals[size][rsi] = val;
+              }
 
-            if(rcode in totals) {
-              totals[rcode] += val;
-            }else{
-              totals[rcode] = val;
-            }
-
-            if( !(rcode in dns_rcodes)){
-              dns_rcodes[rcode] = "Other";
-            }
-          });
+              if(size in totals) {
+                totals[size] += val;
+              }else{
+                totals[size] = val;
+              }
+            });
+          }
         });
       });
 
       var top_values = [];
       $.each(totals, function(key, val){
         var entry = {};
-        entry.name = dns_rcodes[key];
+        entry.name = key;
         entry.y = val;
-        entry.drilldown = dns_rcodes[key];
+        entry.drilldown = key;
         top_values.push(entry);
       });
       var series_entry = {};
 
-      series_entry.name = "rcodes";
+      series_entry.name = "sizes";
       series_entry.colorByPoint = true;
       series_entry.data = top_values;
       options.series.push(series_entry);
 
       // create drilldown series
       var drilldown_series = [];
-      $.each(rcode_totals, function(rcode, rsi){
+      $.each(size_totals, function(size, rsi){
         var entry = {};
-        entry.name = dns_rcodes[rcode];
-        entry.id = dns_rcodes[rcode];
+        entry.name = size;
+        entry.id = size;
         entry.data = [];
         $.each(rsi, function(letter, count){
           var rsi_entry = [];
@@ -154,7 +163,7 @@ function rssac002_update_chart (start_date, end_date, container){
       });
 
       options.drilldown.series = drilldown_series;
-      options.title.text = 'rcode-volume ' + start_date + ' - ' + end_date;
+      options.title.text = metric + ' ' + start_date + ' - ' + end_date;
       new Highcharts.Chart(options);
     }});
 }
