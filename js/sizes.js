@@ -73,8 +73,10 @@ function rssac002_update_chart (start_date, end_date, container){
     },
   };
 
+  var metric = document.getElementById('metric').textContent;
+
   $.ajax({
-    url: "http://rssac002.depht.com/api/v1/traffic-sizes",
+    url: "http://rssac002.depht.com/api/v1/" + metric,
     type: "GET",
     dataType: "json",
     data: {
@@ -83,34 +85,13 @@ function rssac002_update_chart (start_date, end_date, container){
       end_date: end_date
     },
     success: function(res){
-      switch(document.getElementById('prot').textContent) {
-      case 'udp':
-        switch(document.getElementById('direction').textContent) {
-        case 'received':
-          var metric = 'udp-request-sizes';
-          break;
-        case 'sent':
-          var metric = 'udp-response-sizes';
-          break;
-        }
-        break;
-      case 'tcp':
-        switch(document.getElementById('direction').textContent) {
-        case 'received':
-          var metric = 'tcp-request-sizes';
-          break;
-        case 'sent':
-          var metric = 'tcp-response-sizes';
-          break;
-        }
-      }
 
       var size_totals = {}; // total packets per-rsi by size
       var totals = {}; // totals for each size
       $.each(res, function(rsi, dates) {
-        $.each(dates, function(date, metrics) {
-          if(metrics != null){
-            $.each(metrics[metric], function(size, val) {
+        $.each(dates, function(date, sizes) {
+          if(date != null){
+            $.each(sizes, function(size, val) {
               if(! (size in size_totals)){
                 size_totals[size] = {};
               }

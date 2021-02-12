@@ -1,6 +1,5 @@
 <div class="main">
-<div hidden id="direction">received</div>
-<div hidden id="prot">udp</div>
+<div hidden id="metric">udp-request-sizes</div>
 
 <figure class="highcharts-figure-pie">
 <div class="rchart-pie" id="container_1"></div>
