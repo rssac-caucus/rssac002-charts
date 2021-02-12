@@ -6,20 +6,39 @@ $( function() {
     changeMonth: true,
     changeYear: true,
   })
-
   $( "#start-date-1" ).datepicker();
   $( "#end-date-1" ).datepicker();
-});
 
+  $( "#start-date-2" ).datepicker();
+  $( "#end-date-2" ).datepicker();
+
+});
 
 $(document).ready(function() {
-  rssac002_update_chart();
+  rssac002_update_chart_1();
+  rssac002_update_chart_2();
 });
 
-function rssac002_update_chart (){
+function rssac002_update_chart_1 (){
+  rssac002_update_chart(
+    document.getElementById('start-date-1').value,
+    document.getElementById('end-date-1').value,
+    'container_1'
+  );
+}
+
+function rssac002_update_chart_2 (){
+  rssac002_update_chart(
+    document.getElementById('start-date-2').value,
+    document.getElementById('end-date-2').value,
+    'container_2'
+  );
+}
+
+function rssac002_update_chart (start_date, end_date, container){
   var options = {
     chart: {
-      renderTo: 'container',
+      renderTo: container,
       type: 'pie',
     },
     title: {
@@ -62,8 +81,8 @@ function rssac002_update_chart (){
     dataType: "json",
     data: {
       rsi: 'a-m',
-      start_date: document.getElementById('start-date-1').value,
-      end_date: document.getElementById('end-date-1').value,
+      start_date: start_date,
+      end_date: end_date
     },
     success: function(res){
       // https://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml#dns-parameters-6
@@ -76,8 +95,6 @@ function rssac002_update_chart (){
         '19': 'BADMODE', '20': 'BADNAME', '21': 'BADALG', '22': 'BADTRUNC',
         '23': 'BADCOOKIE'};
 
-      var start_date = document.getElementById('start-date-1').value;
-      var end_date = document.getElementById('end-date-1').value;
       var rcode_totals = {}; // total rcodes per-rsi
       var totals = {}; // totals for each rcode
       // generate totals
@@ -137,9 +154,9 @@ function rssac002_update_chart (){
         });
         drilldown_series.push(entry);
       });
+
       options.drilldown.series = drilldown_series;
       options.title.text = start_date + ' - ' + end_date;
-
       new Highcharts.Chart(options);
     }});
 }

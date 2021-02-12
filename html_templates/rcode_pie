@@ -1,11 +1,15 @@
 <div class="main">
-<figure class="highcharts-figure">
-<div class="rchart" id="container"></div>
+<figure class="highcharts-figure-pie">
+<div class="rchart-pie" id="container_1"></div>
+Start <input type="text" id="start-date-1" onchange="rssac002_update_chart_1()" value="@START_DATE@">
+End <input type="text" id="end-date-1" onchange="rssac002_update_chart_1()" value="@END_DATE@">
 </figure>
 
-<center>
-Start <input type="text" id="start-date-1" onchange="rssac002_update_chart()" value="@START_DATE@">
-End <input type="text" id="end-date-1" onchange="rssac002_update_chart()" value="@END_DATE@"><br/>
-</center>
+<figure class="highcharts-figure-pie">
+<div class="rchart-pie" id="container_2"></div>
+Start <input type="text" id="start-date-2" onchange="rssac002_update_chart_2()" value="@START_DATE@">
+End <input type="text" id="end-date-2" onchange="rssac002_update_chart_2()" value="@END_DATE@">
+</figure>
+
 
 </div>

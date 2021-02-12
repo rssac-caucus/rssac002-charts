@@ -37,6 +37,16 @@ p {
   height: 600px;
 }
 
+.rchart-pie {
+  height: 400px;
+}
+
+.highcharts-figure-pie {
+  min-width: 310px;
+  max-width: 600px;
+  margin: 1em auto;
+}
+
 .highcharts-figure,
 .highcharts-data-table table {
   min-width: 310px;
