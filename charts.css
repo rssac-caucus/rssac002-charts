@@ -41,6 +41,10 @@ p {
   height: 400px;
 }
 
+.rchart-bar {
+  height: 400px;
+}
+
 .highcharts-figure-pie {
   min-width: 310px;
   max-width: 600px;

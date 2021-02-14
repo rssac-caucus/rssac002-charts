@@ -1,14 +1,14 @@
 <div class="main">
 <div hidden id="metric">tcp-request-sizes</div>
 
-<figure class="highcharts-figure-pie">
-<div class="rchart-pie" id="container_1"></div>
+<figure class="highcharts-figure-bar">
+<div class="rchart-bar" id="container_1"></div>
 Start <input type="text" id="start-date-1" onchange="rssac002_update_chart_1()" value="@START_DATE@">
 End <input type="text" id="end-date-1" onchange="rssac002_update_chart_1()" value="@END_DATE@">
 </figure>
 
-<figure class="highcharts-figure-pie">
-<div class="rchart-pie" id="container_2"></div>
+<figure class="highcharts-figure-bar">
+<div class="rchart-bar" id="container_2"></div>
 Start <input type="text" id="start-date-2" onchange="rssac002_update_chart_2()" value="@START_DATE@">
 End <input type="text" id="end-date-2" onchange="rssac002_update_chart_2()" value="@END_DATE@">
 </figure>
