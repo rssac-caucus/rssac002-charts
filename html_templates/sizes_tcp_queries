@@ -16,6 +16,6 @@ RSIs <input type="text" id="rsi-2" onchange="rssac002_update_chart_2()" value="a
 </figure>
 
 <div class="bottom-note">
-* Packet size ranges containing less than 0.1% of total traffic over the period were removed from calculations.
+* Packet size ranges containing less than 0.1% of total traffic over the period are not shown.
 </div>
 </div>

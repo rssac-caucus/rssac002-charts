@@ -124,14 +124,15 @@ function rssac002_update_chart (rsi_list, start_date, end_date, container){
         });
       });
 
-      // Remove sizes under 0.1%
+      // Remove sizes under significance_threshold
+      var significance_threshold = 0.001; // 0.1%
       var insignificant_sizes = [];
       $.each(sizes, function(size, letters){
         var size_total = 0;
         $.each(letters, function(letter, value){
           size_total += value;
         });
-        if(size_total / total_pkts < 0.001){
+        if(size_total / total_pkts < significance_threshold){
           insignificant_sizes.push(size);
         }
       });
@@ -168,7 +169,7 @@ function rssac002_update_chart (rsi_list, start_date, end_date, container){
 
       options.xAxis.categories = categories;
       options.series = Object.values(RSIs);
-      options.title.text = metric + ' ' + start_date + ' - ' + end_date;
+      options.title.text = start_date + ' / ' + end_date + ' ' + metric;
       new Highcharts.Chart(options);
     }});
 }
