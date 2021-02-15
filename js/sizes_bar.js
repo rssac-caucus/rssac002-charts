@@ -19,6 +19,7 @@ $(document).ready(function() {
 
 function rssac002_update_chart_1(){
   rssac002_update_chart(
+    document.getElementById('rsi-1').value,
     document.getElementById('start-date-1').value,
     document.getElementById('end-date-1').value,
     'container_1'
@@ -27,6 +28,7 @@ function rssac002_update_chart_1(){
 
 function rssac002_update_chart_2(){
   rssac002_update_chart(
+    document.getElementById('rsi-2').value,
     document.getElementById('start-date-2').value,
     document.getElementById('end-date-2').value,
     'container_2'
@@ -45,7 +47,7 @@ function lowest_range(ranges){
   return ranges[lowest];
 }
 
-function rssac002_update_chart (start_date, end_date, container){
+function rssac002_update_chart (rsi_list, start_date, end_date, container){
   var options = {
     chart: {
       renderTo: container,
@@ -70,12 +72,17 @@ function rssac002_update_chart (start_date, end_date, container){
         }
       },
     },
+    tooltip: {
+      formatter: function () {
+        return  this.x + "<br/> " + this.series.name  + " " + (this.y * 100).toFixed(4) + "%";
+      }
+    },
     plotOptions: {
       series: {
         stacking: 'normal',
-        dataLabels: {
-          formatter: function () {
-            return this.value * 100 + "%";
+        events: {
+          legendItemClick: function() {
+            return false;
           }
         }
       }
@@ -84,13 +91,12 @@ function rssac002_update_chart (start_date, end_date, container){
   };
 
   var metric = document.getElementById('metric').textContent;
-
   $.ajax({
     url: "http://rssac002.depht.com/api/v1/" + metric,
     type: "GET",
     dataType: "json",
     data: {
-      rsi: 'a-m',
+      rsi: rsi_list,
       start_date: start_date,
       end_date: end_date
     },
@@ -132,7 +138,6 @@ function rssac002_update_chart (start_date, end_date, container){
       for(ii = 0; ii < insignificant_sizes.length; ii++){
         delete sizes[insignificant_sizes[ii]];
       }
-
 
       // Ordered reduce forming output series
       var categories = [];

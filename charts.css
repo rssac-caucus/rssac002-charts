@@ -33,6 +33,11 @@ p {
   margin-left: 20px;
 }
 
+.bottom-note {
+    text-align: right;
+    font-size: 0.7em;
+}
+
 .rchart {
   height: 600px;
 }

@@ -5,12 +5,17 @@
 <div class="rchart-bar" id="container_1"></div>
 Start <input type="text" id="start-date-1" onchange="rssac002_update_chart_1()" value="@START_DATE@">
 End <input type="text" id="end-date-1" onchange="rssac002_update_chart_1()" value="@END_DATE@">
+RSIs <input type="text" id="rsi-1" onchange="rssac002_update_chart_1()" value="a-m">
 </figure>
 
 <figure class="highcharts-figure-bar">
 <div class="rchart-bar" id="container_2"></div>
 Start <input type="text" id="start-date-2" onchange="rssac002_update_chart_2()" value="@START_DATE@">
 End <input type="text" id="end-date-2" onchange="rssac002_update_chart_2()" value="@END_DATE@">
+RSIs <input type="text" id="rsi-2" onchange="rssac002_update_chart_2()" value="a-m">
 </figure>
 
+<div class="bottom-note">
+* Packet size ranges containing less than 0.1% of total traffic over the period were removed from calculations.
+</div>
 </div>

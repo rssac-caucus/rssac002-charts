@@ -89,16 +89,16 @@ array_push($pages, array('meat' => 'rcode_0_v_3',
 
 // traffic-sizes
 array_push($pages, array('meat' => 'sizes_udp_queries', 'header' => 'header_jqueryui',
-                         'header_v' => array('@TITLE@' => 'traffic-sizes UDP Queries', '@SCRIPT@' => 'sizes_pie.js'),
+                         'header_v' => array('@TITLE@' => 'traffic-sizes UDP Queries', '@SCRIPT@' => 'sizes_bar.js'),
                          'meat_v' => array('@START_DATE@' => $start_date, '@END_DATE@' => $end_date)));
 array_push($pages, array('meat' => 'sizes_udp_responses', 'header' => 'header_jqueryui',
-                         'header_v' => array('@TITLE@' => 'traffic-sizes UDP Responses', '@SCRIPT@' => 'sizes_pie.js'),
+                         'header_v' => array('@TITLE@' => 'traffic-sizes UDP Responses', '@SCRIPT@' => 'sizes_bar.js'),
                          'meat_v' => array('@START_DATE@' => $start_date, '@END_DATE@' => $end_date)));
 array_push($pages, array('meat' => 'sizes_tcp_queries', 'header' => 'header_jqueryui',
                          'header_v' => array('@TITLE@' => 'traffic-sizes TCP Queries', '@SCRIPT@' => 'sizes_bar.js'),
                          'meat_v' => array('@START_DATE@' => $start_date, '@END_DATE@' => $end_date)));
 array_push($pages, array('meat' => 'sizes_tcp_responses', 'header' => 'header_jqueryui',
-                         'header_v' => array('@TITLE@' => 'traffic-sizes TCP Responses', '@SCRIPT@' => 'sizes_pie.js'),
+                         'header_v' => array('@TITLE@' => 'traffic-sizes TCP Responses', '@SCRIPT@' => 'sizes_bar.js'),
                          'meat_v' => array('@START_DATE@' => $start_date, '@END_DATE@' => $end_date)));
 
 
