@@ -125,7 +125,7 @@ function rssac002_update_chart (rsi_list, start_date, end_date, container){
       });
 
       // Remove sizes under significance_threshold
-      var significance_threshold = 0.001; // 0.1%
+      var significance_threshold = 0.01; // 1%
       var insignificant_sizes = [];
       $.each(sizes, function(size, letters){
         var size_total = 0;
