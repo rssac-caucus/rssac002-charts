@@ -71,10 +71,19 @@ function rssac002_update_chart (rsi_list, start_date, end_date, container){
           return this.value * 100 + "%";
         }
       },
+      stackLabels: {
+        style: {
+          color: 'gray'
+        },
+        enabled: true,
+        formatter: function () {
+          return (this.total * 100 ).toFixed(2) + "%";
+        }
+      }
     },
     tooltip: {
       formatter: function () {
-        return  this.x + "<br/> " + this.series.name  + " " + (this.y * 100).toFixed(4) + "%";
+        return  this.x + "<br/> " + this.series.name  + ": " + (this.y * 100).toFixed(4) + "%";
       }
     },
     plotOptions: {
