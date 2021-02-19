@@ -70,7 +70,7 @@ $(document).ready(function() {
         ii += 1;
       });
       options.series = points;
-      options.title.text = 'Unique IPv' + ip_version + ' Sources per-day (millions)';
+      options.title.text = 'Unique IPv' + ip_version + ' Sources per-day (million)';
 
       var chart = new Highcharts.Chart(options);
     }});
