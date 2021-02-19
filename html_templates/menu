@@ -33,10 +33,15 @@
 
   <h3>Packet Sizes</h3>
   <p>
-  <a href="sizes_udp_queries.html">UDP Queries Comparison</a><br/>
-  <a href="sizes_tcp_queries.html">TCP Queries Comparison</a><br/>
-  <a href="sizes_udp_responses.html">UDP Responses Comparison</a><br/>
-  <a href="sizes_tcp_responses.html">TCP Responses Comparison</a><br/>
+  <a href="sizes_udp_queries_line.html">UDP Queries by RSI</a><br/>
+  <a href="sizes_tcp_queries_line.html">TCP Queries by RSI</a><br/>
+  <a href="sizes_udp_responses_line.html">UDP Responses by RSI</a><br/>
+  <a href="sizes_tcp_responses_line.html">TCP Responses by RSI</a><br/>
+
+  <a href="sizes_udp_queries_comp.html">UDP Queries Comparison</a><br/>
+  <a href="sizes_tcp_queries_comp.html">TCP Queries Comparison</a><br/>
+  <a href="sizes_udp_responses_comp.html">UDP Responses Comparison</a><br/>
+  <a href="sizes_tcp_responses_comp.html">TCP Responses Comparison</a><br/>
   </p>
 
   <h3>References</h3>

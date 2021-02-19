@@ -88,16 +88,29 @@ array_push($pages, array('meat' => 'rcode_0_v_3',
                          'meat_v' => array('@END_DATE@' => $end_date)));
 
 // traffic-sizes
-array_push($pages, array('meat' => 'sizes_udp_queries', 'header' => 'header_jqueryui',
+array_push($pages, array('meat' => 'sizes_udp_queries_line',
+                         'header_v' => array('@TITLE@' => 'traffic-sizes UDP Queries by RSI', '@SCRIPT@' => 'sizes_line.js'),
+                         'meat_v' => array('@END_DATE@' => $end_date)));
+array_push($pages, array('meat' => 'sizes_udp_responses_line',
+                         'header_v' => array('@TITLE@' => 'traffic-sizes UDP Responses by RSI', '@SCRIPT@' => 'sizes_line.js'),
+                         'meat_v' => array('@END_DATE@' => $end_date)));
+array_push($pages, array('meat' => 'sizes_tcp_queries_line',
+                         'header_v' => array('@TITLE@' => 'traffic-sizes TCP Queries by RSI', '@SCRIPT@' => 'sizes_line.js'),
+                         'meat_v' => array('@END_DATE@' => $end_date)));
+array_push($pages, array('meat' => 'sizes_tcp_responses_line',
+                         'header_v' => array('@TITLE@' => 'traffic-sizes TCP Responses by RSI', '@SCRIPT@' => 'sizes_line.js'),
+                         'meat_v' => array('@END_DATE@' => $end_date)));
+
+array_push($pages, array('meat' => 'sizes_udp_queries_comp', 'header' => 'header_jqueryui',
                          'header_v' => array('@TITLE@' => 'traffic-sizes UDP Queries', '@SCRIPT@' => 'sizes_bar.js'),
                          'meat_v' => array('@START_DATE@' => $start_date, '@END_DATE@' => $end_date)));
-array_push($pages, array('meat' => 'sizes_udp_responses', 'header' => 'header_jqueryui',
+array_push($pages, array('meat' => 'sizes_udp_responses_comp', 'header' => 'header_jqueryui',
                          'header_v' => array('@TITLE@' => 'traffic-sizes UDP Responses', '@SCRIPT@' => 'sizes_bar.js'),
                          'meat_v' => array('@START_DATE@' => $start_date, '@END_DATE@' => $end_date)));
-array_push($pages, array('meat' => 'sizes_tcp_queries', 'header' => 'header_jqueryui',
+array_push($pages, array('meat' => 'sizes_tcp_queries_comp', 'header' => 'header_jqueryui',
                          'header_v' => array('@TITLE@' => 'traffic-sizes TCP Queries', '@SCRIPT@' => 'sizes_bar.js'),
                          'meat_v' => array('@START_DATE@' => $start_date, '@END_DATE@' => $end_date)));
-array_push($pages, array('meat' => 'sizes_tcp_responses', 'header' => 'header_jqueryui',
+array_push($pages, array('meat' => 'sizes_tcp_responses_comp', 'header' => 'header_jqueryui',
                          'header_v' => array('@TITLE@' => 'traffic-sizes TCP Responses', '@SCRIPT@' => 'sizes_bar.js'),
                          'meat_v' => array('@START_DATE@' => $start_date, '@END_DATE@' => $end_date)));
 
@@ -114,6 +127,10 @@ foreach($pages as $page){
   }
 
   $meat = file_get_contents($template_dir . $page['meat']);
+  if($meat === false){
+    print("Error reading file " . $template_dir . $page['meat']);
+    continue;
+  }
   foreach($page['meat_v'] as $key => $val){
     $meat = str_replace($key, $val, $meat);
   }
