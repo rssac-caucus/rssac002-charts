@@ -114,6 +114,10 @@ array_push($pages, array('meat' => 'sizes_tcp_responses_comp', 'header' => 'head
                          'header_v' => array('@TITLE@' => 'traffic-sizes TCP Responses', '@SCRIPT@' => 'sizes_bar.js'),
                          'meat_v' => array('@START_DATE@' => $start_date, '@END_DATE@' => $end_date)));
 
+// load-time
+array_push($pages, array('meat' => 'load_comp', 'header' => 'header_jqueryui',
+                         'header_v' => array('@TITLE@' => 'load-time comparison', '@SCRIPT@' => 'load_comp.js'),
+                         'meat_v' => array('@START_DATE@' => $start_date, '@END_DATE@' => $end_date)));
 
 foreach($pages as $page){
   if(array_key_exists('header', $page)){
