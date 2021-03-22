@@ -1,3 +1,5 @@
+/* Copyright Andrew McConachie <andrew@depht.com> 2021 */
+
 $(document).ready(function() {
   var options = {
     chart: {

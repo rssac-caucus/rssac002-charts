@@ -1,3 +1,5 @@
+/* Copyright Andrew McConachie <andrew@depht.com> 2021 */
+
 // Compare function for sorting ranges
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
 function range_compare(a, b){

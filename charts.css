@@ -1,4 +1,6 @@
- /* The side menu */
+/* Copyright Andrew McConachie <andrew@depht.com> 2021 */
+
+/* The side menu */
 .side_menu {
   height: 100%; /* Full-height: remove this if you want "auto" height */
   width: 280px; /* Set the width of the sidebar */

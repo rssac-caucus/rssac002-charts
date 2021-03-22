@@ -1,3 +1,5 @@
+/* Copyright Andrew McConachie <andrew@depht.com> 2021 */
+
 $(function() {
   $.datepicker.setDefaults({
     minDate: new Date(2017, 1 - 1, 1),
