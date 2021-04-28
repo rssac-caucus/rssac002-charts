@@ -72,6 +72,10 @@ array_push($pages, array('meat' => 'unique_sources_ipv6',
 array_push($pages, array('meat' => 'unique_sources_vs',
                          'header_v' => array('@TITLE@' => 'Sources by Percent', '@SCRIPT@' => 'unique_sources_vs.js'),
                          'meat_v' => array('@END_DATE@' => $end_date)));
+array_push($pages, array('meat' => 'unique_sources_both',
+                         'header_v' => array('@TITLE@' => 'IPv4 and IPv6 Sources', '@SCRIPT@' => 'unique_sources.js'),
+                         'meat_v' => array('@END_DATE@' => $end_date)));
+
 
 // rcode-volume
 array_push($pages, array('meat' => 'rcode_pie', 'header' => 'header_jqueryui',

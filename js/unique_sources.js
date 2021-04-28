@@ -64,15 +64,32 @@ $(document).ready(function() {
         points[ii].data = [];
         $.each(v_res, function(key, val) {
           if(val != null) {
-            points[ii].data.push(val['num-sources-ipv' + ip_version]);
+            if(ip_version == '4'){
+              points[ii].data.push(val['num-sources-ipv4']);
+            }else if(ip_version == '6'){
+              points[ii].data.push(val['num-sources-ipv6']);
+            }else{
+              tmp = 0;
+              if(val['num-sources-ipv4'] != null){
+                tmp += val['num-sources-ipv4'];
+              }
+              if(val['num-sources-ipv6'] != null){
+                tmp += val['num-sources-ipv6'];
+              }
+              points[ii].data.push(tmp);
+            }
           }else{
             points[ii].data.push(null);
           }
           });
         ii += 1;
       });
+      if(ip_version == '4' || ip_version == '6'){
+        options.title.text = 'Unique IPv' + ip_version + ' Sources per-day (million)';
+      }else{
+        options.title.text = 'Unique IPv4 and IPv6 Sources per-day (million)';
+      }
       options.series = points;
-      options.title.text = 'Unique IPv' + ip_version + ' Sources per-day (million)';
 
       var chart = new Highcharts.Chart(options);
     }});
