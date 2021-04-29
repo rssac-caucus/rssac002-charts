@@ -17,11 +17,10 @@
   <a href="ipv4_v_ipv6_responses.html">IPv4 vs IPv6</a><br/>
   </p>
 
-  <h3>Unique Source Addresses</h3>
+  <a href="unique_sources_both.html"><h3>Unique Source Addresses</h3></a>
   <p>
   <a href="unique_sources_ipv4.html">IPv4</a><br/>
   <a href="unique_sources_ipv6.html">IPv6</a><br/>
-  <a href="unique_sources_both.html">IPv4 + IPv6</a><br/>
   <a href="unique_sources_vs.html">IPv4 vs IPv6</a><br/>
   </p>
 
