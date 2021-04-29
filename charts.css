@@ -40,6 +40,12 @@ p {
     font-size: 0.7em;
 }
 
+.radios {
+    text-align: left;
+    font-size: 1em;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 .rchart {
   height: 600px;
 }

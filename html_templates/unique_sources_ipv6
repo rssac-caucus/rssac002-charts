@@ -6,8 +6,19 @@
 <div class="rchart" id="container"></div>
 </figure>
 
-<center>
-http://rssac002.depht.com/api/v1/unique-sources?rsi=a-m&start_date=2017-01-01&end_date=@END_DATE@
-</center>
+<div class="radios">
+<br/>
+<b>Chart Type</b><br/>
+<input type="radio" id="type_stacked" name="chart_type" value="stacked" onClick="location.reload()"checked>
+<label for="type_stacked">Stacked Area</label><br/>
+<input type="radio" id="type_line" name="chart_type" value="line" onClick="location.reload()">
+<label for="type_line">Single Line</label><br/>
+<br/>
+<b>Time Interval</b><br/>
+<input type="radio" id="int_day" name="time_interval" value="day" onClick="location.reload()" checked>
+<label for="int_day">Day</label><br/>
+<input type="radio" id="int_week" name="time_interval" value="week" onClick="location.reload()">
+<label for="int_week">Week</label><br/>
 </div>
 
+</div>
