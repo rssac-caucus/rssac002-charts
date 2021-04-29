@@ -15,6 +15,10 @@ function sum_nulls(){
 }
 
 $(document).ready(function() {
+  rssac002_update_chart();
+});
+
+function rssac002_update_chart(){
   var options = {
     chart: {
       renderTo: 'container',
@@ -159,6 +163,6 @@ $(document).ready(function() {
       }
 
       options.series = points;
-      var chart = new Highcharts.Chart(options);
+      new Highcharts.Chart(options);
     }});
-});
+}
