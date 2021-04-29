@@ -34,7 +34,6 @@ $(document).ready(function() {
     },
     plotOptions: {
       area: {
-        stacking: 'normal',
         lineColor: '#666666',
         lineWidth: 1,
         marker: {
