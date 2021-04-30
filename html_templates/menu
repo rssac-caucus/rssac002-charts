@@ -1,18 +1,18 @@
 <div class="side_menu">
-  <a href="single_queries.html"><h3>Queries Received</h3></a>
+  <a href="volume_single_queries.html"><h3>Queries Received</h3></a>
   <p>
-  <a href="volume_queries_prot.html">Queries by Protocol</a><br/>
-  <a href="breakdown_queries_rsi.html">Queries by RSI</a><br/>
-  <a href="udp_v_tcp_queries.html">UDP vs TCP</a><br/>
-  <a href="ipv4_v_ipv6_queries.html">IPv4 vs IPv6</a><br/>
+  <a href="volume_prot_queries.html">Queries by Protocol</a><br/>
+  <a href="volume_rsi_queries.html">Queries by RSI</a><br/>
+  <a href="volume_udp_v_tcp_queries.html">UDP vs TCP</a><br/>
+  <a href="volume_ipv4_v_ipv6_queries.html">IPv4 vs IPv6</a><br/>
   </p>
 
-  <a href="single_responses.html"><h3>Responses Sent</h3></a>
+  <a href="volume_single_responses.html"><h3>Responses Sent</h3></a>
   <p>
-  <a href="volume_responses_prot.html">Responses by Protocol</a><br/>
-  <a href="breakdown_responses_rsi.html">Responses by RSI</a><br/>
-  <a href="udp_v_tcp_responses.html">UDP vs TCP</a><br/>
-  <a href="ipv4_v_ipv6_responses.html">IPv4 vs IPv6</a><br/>
+  <a href="volume_prot_responses.html">Responses by Protocol</a><br/>
+  <a href="volume_rsi_responses.html">Responses by RSI</a><br/>
+  <a href="volume_udp_v_tcp_responses.html">UDP vs TCP</a><br/>
+  <a href="volume_ipv4_v_ipv6_responses.html">IPv4 vs IPv6</a><br/>
   </p>
 
   <a href="unique_sources_both.html"><h3>Unique Source Addresses</h3></a>
