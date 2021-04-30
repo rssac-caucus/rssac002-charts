@@ -26,8 +26,8 @@ $pages = array();
 array_push($pages, array('meat' => 'single_queries',
                          'header_v' => array('@TITLE@' => 'Total Queries Received', '@SCRIPT@' => 'volume_single.js'),
                          'meat_v' => array('@END_DATE@' => $end_date)));
-array_push($pages, array('meat' => 'breakdown_queries_prot',
-                         'header_v' => array('@TITLE@' => 'Queries Received by Protocol', '@SCRIPT@' => 'breakdown_queries_prot.js'),
+array_push($pages, array('meat' => 'volume_queries_prot',
+                         'header_v' => array('@TITLE@' => 'Queries Received by Protocol', '@SCRIPT@' => 'volume_prot.js'),
                          'meat_v' => array('@END_DATE@' => $end_date)));
 array_push($pages, array('meat' => 'breakdown_queries_rsi',
                          'header_v' => array('@TITLE@' => 'Queries Received by RSI', '@SCRIPT@' => 'breakdown_queries_rsi.js'),
@@ -43,8 +43,8 @@ array_push($pages, array('meat' => 'ipv4_v_ipv6_queries',
 array_push($pages, array('meat' => 'single_responses',
                          'header_v' => array('@TITLE@' => 'Total Queries Received', '@SCRIPT@' => 'volume_single.js'),
                          'meat_v' => array('@END_DATE@' => $end_date)));
-array_push($pages, array('meat' => 'breakdown_responses_prot',
-                         'header_v' => array('@TITLE@' => 'Responses Sent by Protocol', '@SCRIPT@' => 'breakdown_responses_prot.js'),
+array_push($pages, array('meat' => 'volume_responses_prot',
+                         'header_v' => array('@TITLE@' => 'Responses Sent by Protocol', '@SCRIPT@' => 'volume_prot.js'),
                          'meat_v' => array('@END_DATE@' => $end_date)));
 array_push($pages, array('meat' => 'breakdown_responses_rsi',
                          'header_v' => array('@TITLE@' => 'Responses Sent by RSI', '@SCRIPT@' => 'breakdown_responses_rsi.js'),
