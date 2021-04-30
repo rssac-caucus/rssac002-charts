@@ -47,8 +47,7 @@ function rssac002_update_chart(){
         }
       }
     },
-    plotOptions: {
-    },
+    plotOptions: {},
     series: [{}]
   };
 
