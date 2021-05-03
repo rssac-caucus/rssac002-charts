@@ -30,7 +30,7 @@ array_push($pages, array('meat' => 'volume_prot_queries',
                          'header_v' => array('@TITLE@' => 'Queries Received by Protocol', '@SCRIPT@' => 'volume_prot.js'),
                          'meat_v' => array('@END_DATE@' => $end_date)));
 array_push($pages, array('meat' => 'volume_rsi_queries',
-                         'header_v' => array('@TITLE@' => 'Queries Received by RSI', '@SCRIPT@' => 'breakdown_queries_rsi.js'),
+                         'header_v' => array('@TITLE@' => 'Queries Received by RSI', '@SCRIPT@' => 'volume_rsi.js'),
                          'meat_v' => array('@END_DATE@' => $end_date)));
 array_push($pages, array('meat' => 'volume_udp_v_tcp_queries',
                          'header_v' => array('@TITLE@' => 'UDP vs TCP Queries', '@SCRIPT@' => 'volume_udp_v_tcp.js'),
@@ -47,7 +47,7 @@ array_push($pages, array('meat' => 'volume_prot_responses',
                          'header_v' => array('@TITLE@' => 'Responses Sent by Protocol', '@SCRIPT@' => 'volume_prot.js'),
                          'meat_v' => array('@END_DATE@' => $end_date)));
 array_push($pages, array('meat' => 'volume_rsi_responses',
-                         'header_v' => array('@TITLE@' => 'Responses Sent by RSI', '@SCRIPT@' => 'breakdown_responses_rsi.js'),
+                         'header_v' => array('@TITLE@' => 'Responses Sent by RSI', '@SCRIPT@' => 'volume_rsi.js'),
                          'meat_v' => array('@END_DATE@' => $end_date)));
 array_push($pages, array('meat' => 'volume_udp_v_tcp_responses',
                          'header_v' => array('@TITLE@' => 'UDP vs TCP Responses', '@SCRIPT@' => 'volume_udp_v_tcp.js'),
@@ -69,7 +69,6 @@ array_push($pages, array('meat' => 'unique_sources_vs',
 array_push($pages, array('meat' => 'unique_sources_both',
                          'header_v' => array('@TITLE@' => 'IPv4 and IPv6 Sources', '@SCRIPT@' => 'unique_sources.js'),
                          'meat_v' => array('@END_DATE@' => $end_date)));
-
 
 // rcode-volume
 array_push($pages, array('meat' => 'rcode_pie', 'header' => 'header_jqueryui',

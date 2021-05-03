@@ -21,7 +21,7 @@ $(document).ready(function() {
     },
     yAxis: {
       title: {
-        text: 'Queries'
+        text: ''
       },
       labels: {
         formatter: function () {
@@ -44,6 +44,26 @@ $(document).ready(function() {
     series: [{}]
   };
 
+  // Read some values from the HTML
+  var direction = document.getElementById('direction').textContent;
+  var end_date = document.getElementById('end_date').textContent;
+
+  if(direction == 'received'){
+    var protocols = {
+        'dns-udp-queries-received-ipv4': 'IPv4-UDP', 'dns-tcp-queries-received-ipv4': 'IPv4-TCP',
+        'dns-udp-queries-received-ipv6': 'IPv6-UDP', 'dns-tcp-queries-received-ipv6': 'IPv6-TCP'
+    };
+    var title_str = 'Queries';
+    options.yAxis.title.text = title_str;
+  }else{
+    var protocols = {
+        'dns-udp-responses-sent-ipv4': 'IPv4-UDP', 'dns-tcp-responses-sent-ipv4': 'IPv4-TCP',
+        'dns-udp-responses-sent-ipv6': 'IPv6-UDP', 'dns-tcp-responses-sent-ipv6': 'IPv6-TCP'
+    };
+    var title_str = 'Responses';
+    options.yAxis.title.text = title_str;
+  }
+
   $.ajax({
     url: "http://rssac002.depht.com/api/v1/traffic-volume",
     type: "GET",
@@ -51,14 +71,10 @@ $(document).ready(function() {
     data: {
       rsi: 'a-m',
       start_date: '2017-01-01',
-      end_date: document.getElementById('end_date').textContent,
+      end_date: end_date,
     },
     success: function(res){
       options.plotOptions.area.pointStart = Date.UTC('2017', '00', '01'); // Jan is zero'th month in JS
-      var protocols = {
-        'dns-udp-queries-received-ipv4': 'IPv4-UDP', 'dns-tcp-queries-received-ipv4': 'IPv4-TCP',
-        'dns-udp-queries-received-ipv6': 'IPv6-UDP', 'dns-tcp-queries-received-ipv6': 'IPv6-TCP'
-      };
       var queries_series = {};
       var chart_series = {};
 
@@ -80,7 +96,6 @@ $(document).ready(function() {
           }else{
             $.each(protos, function(prot, value){
               if(prot in protocols){
-                //console.log('prot:' + prot + ' value:' + value);
                 queries_series[rsi][prot].data.push(value);
               }
             });
@@ -93,7 +108,7 @@ $(document).ready(function() {
 
       $.each(chart_series, function(rsi, protos){
         options.chart.renderTo = 'container_' + rsi;
-        options.title.text =  rsi + '.root-servers.net Queries Received per-day (billion)';
+        options.title.text =  rsi + '.root-servers.net ' + title_str + ' per-day (billion)';
         options.series = protos;
         new Highcharts.Chart(options);
       });
