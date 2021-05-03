@@ -10,9 +10,9 @@
 <input type="radio" id="ipv_both" name="ip_version" value="both" onClick="rssac002_update_chart()" checked>
 <label for="ipv_both">IPv4 + IPv6</label><br/>
 <input type="radio" id="ipv_4" name="ip_version" value="4" onClick="rssac002_update_chart()">
-<label for="ipv_4">IPv4 (broken)</label><br/>
+<label for="ipv_4">IPv4</label><br/>
 <input type="radio" id="ipv_6" name="ip_version" value="6" onClick="rssac002_update_chart()">
-<label for="ipv_6">IPv6 (broken)</label><br/>
+<label for="ipv_6">IPv6</label><br/>
 <br/>
 <b>Chart Type</b><br/>
 <input type="radio" id="type_line" name="chart_type" value="line" onClick="rssac002_update_chart()" checked>

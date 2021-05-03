@@ -4,7 +4,7 @@
 // Treat null as zero and ignore non-numbers
 function sum_nulls(){
   var rv = 0;
-  for(var ii = 0; ii < arguments.length; ii++){
+  for(ii = 0; ii < arguments.length; ii++){
     if(arguments[ii] != null){
       if(typeof(arguments[ii]) == 'number'){
         rv += arguments[ii];
@@ -42,16 +42,10 @@ function rssac002_update_chart(){
         text: 'Queries / Sources (log)'
       },
       type: 'logarithmic',
-      /*labels: {
-        formatter: function () {
-          return this.value / 1000000;
-        }
-      }*/
     },
     plotOptions: {
       series: {
         pointStart: Date.UTC('2017', '00', '02'),  // Jan is zero'th month in JS
-        //pointInterval: point_interval,
         connectNulls: true,
       },
     },
@@ -71,7 +65,6 @@ function rssac002_update_chart(){
     end_date: end_date,
   };
   var req_data_queries = Object.assign({}, req_data_sources); // deep copy
-  req_data_queries.totals = 'received';
   if(time_interval == 'day'){
     var suffix_text = '';
     var denominator = 1;
@@ -95,10 +88,19 @@ function rssac002_update_chart(){
     };
   }
 
-  if(ip_version == '4' || ip_version == '6'){
-    options.title.text = 'Queries Received / Unique IPv' + ip_version + ' Sources by-' + time_interval + ' ' + suffix_text;
+  if(ip_version == '4'){
+    options.title.text = 'Queries Received / Unique IPv4 Sources by-' + time_interval + ' ' + suffix_text;
+    var s_keys = ['num-sources-ipv4'];
+    var q_keys = ['dns-udp-queries-received-ipv4', 'dns-tcp-queries-received-ipv4'];
+  }else if(ip_version == '6'){
+    options.title.text = 'Queries Received / Unique IPv6 Sources by-' + time_interval + ' ' + suffix_text;
+    var s_keys = ['num-sources-ipv6'];
+    var q_keys = ['dns-udp-queries-received-ipv6', 'dns-tcp-queries-received-ipv6'];
   }else{
     options.title.text = 'Queries Received / Unique IPv4 and IPv6 Sources by-' + time_interval + ' ' + suffix_text;
+    var s_keys = ['num-sources-ipv4', 'num-sources-ipv6'];
+    var q_keys = ['dns-udp-queries-received-ipv4', 'dns-tcp-queries-received-ipv4',
+                  'dns-udp-queries-received-ipv6', 'dns-tcp-queries-received-ipv6'];
   }
 
   $.ajax({
@@ -121,10 +123,8 @@ function rssac002_update_chart(){
                   totals_sources[date] = 0;
                 }
                 if(val != null){
-                  if(ip_version == '4' || ip_version == '6'){
-                    totals_sources[date] += sum_nulls(val['num-sources-ipv' + ip_version]) / denominator;
-                  }else{
-                    totals_sources[date] += sum_nulls(val['num-sources-ipv4'], val['num-sources-ipv6']) / denominator;
+                  for(ii=0; ii < s_keys.length; ii++){
+                    totals_sources[date] += sum_nulls(val[s_keys[ii]]) / denominator;
                   }
                 }
               });
@@ -137,7 +137,9 @@ function rssac002_update_chart(){
                   totals_queries[date] = 0;
                 }
                 if(val != null){
-                  totals_queries[date] += sum_nulls(val) / denominator;
+                  for(ii=0; ii < q_keys.length; ii++){
+                    totals_queries[date] += sum_nulls(val[q_keys[ii]]) / denominator;
+                  }
                 }
               });
             });
@@ -148,7 +150,7 @@ function rssac002_update_chart(){
             points[0].data = [];
             $.each(totals_sources, function(date, sources){
               if(sources == 0){
-                points[0].data.push(Math.round(totals_queries[date] / 1)); // This should really never happen, but safety first.
+                points[0].data.push(Math.round(totals_queries[date] / 1)); // Should never happen
               }else{
                 points[0].data.push(Math.round(totals_queries[date] / sources));
               }
@@ -159,13 +161,10 @@ function rssac002_update_chart(){
             $.each(res_sources, function(rsi, dates){
               totals_sources[rsi] = {};
               $.each(dates, function(date, val){
-                if(val == null){
-                  totals_sources[rsi][date] = 0;
-                }else{
-                  if(ip_version == '4' || ip_version == '6'){
-                    totals_sources[rsi][date] = sum_nulls(val['num-sources-ipv' + ip_version]) / denominator;
-                  }else{
-                    totals_sources[rsi][date] = sum_nulls(val['num-sources-ipv4'], val['num-sources-ipv6']) / denominator;
+                totals_sources[rsi][date] = 0;
+                if(val != null){
+                  for(ii=0; ii < s_keys.length; ii++){
+                    totals_sources[rsi][date] += sum_nulls(val[s_keys[ii]]) / denominator;
                   }
                 }
               });
@@ -175,10 +174,11 @@ function rssac002_update_chart(){
             $.each(res_queries, function(rsi, dates){
               totals_queries[rsi] = {};
               $.each(dates, function(date, val){
-                if(val == null){
-                  totals_queries[rsi][date] = 0;
-                }else{
-                  totals_queries[rsi][date] = sum_nulls(val) / denominator;
+                totals_queries[rsi][date] = 0;
+                if(val != null){
+                  for(ii=0; ii < q_keys.length; ii++){
+                    totals_queries[rsi][date] += sum_nulls(val[q_keys[ii]]) / denominator;
+                  }
                 }
               });
             });
@@ -191,7 +191,7 @@ function rssac002_update_chart(){
               points[ii].data = [];
               $.each(dates, function(date, sources){
                 if(sources == 0){
-                  points[ii].data.push(Math.round(totals_queries[rsi][date] / 1)); // This should really never happen, but safety first.
+                  points[ii].data.push(Math.round(totals_queries[rsi][date] / 1)); // Should never happen
                 }else{
                   points[ii].data.push(Math.round(totals_queries[rsi][date] / sources));
                 }
