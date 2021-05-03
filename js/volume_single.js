@@ -111,7 +111,6 @@ function rssac002_update_chart(){
   if(direction == 'received'){
     options.title.text = 'Queries Received by-' + time_interval + ' (billion) ' + suffix_text;
     options.yAxis.title.text = 'Queries';
-
   }else{
     options.title.text = 'Responses Sent by-' + time_interval + ' (billion) ' + suffix_text;
     options.yAxis.title.text = 'Responses';
