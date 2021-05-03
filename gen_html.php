@@ -57,6 +57,9 @@ array_push($pages, array('meat' => 'volume_ipv4_v_ipv6_responses',
                          'meat_v' => array('@END_DATE@' => $end_date)));
 
 // unique-sources
+array_push($pages, array('meat' => 'unique_sources_both',
+                         'header_v' => array('@TITLE@' => 'IPv4 and IPv6 Sources', '@SCRIPT@' => 'unique_sources.js'),
+                         'meat_v' => array('@END_DATE@' => $end_date)));
 array_push($pages, array('meat' => 'unique_sources_ipv4',
                          'header_v' => array('@TITLE@' => 'IPv4 Unique Sources', '@SCRIPT@' => 'unique_sources.js'),
                          'meat_v' => array('@END_DATE@' => $end_date)));
@@ -66,8 +69,8 @@ array_push($pages, array('meat' => 'unique_sources_ipv6',
 array_push($pages, array('meat' => 'unique_sources_vs',
                          'header_v' => array('@TITLE@' => 'Sources by Percent', '@SCRIPT@' => 'unique_sources_vs.js'),
                          'meat_v' => array('@END_DATE@' => $end_date)));
-array_push($pages, array('meat' => 'unique_sources_both',
-                         'header_v' => array('@TITLE@' => 'IPv4 and IPv6 Sources', '@SCRIPT@' => 'unique_sources.js'),
+array_push($pages, array('meat' => 'unique_sources_queries',
+                         'header_v' => array('@TITLE@' => 'Queries Received / Unique Sources', '@SCRIPT@' => 'unique_sources_queries.js'),
                          'meat_v' => array('@END_DATE@' => $end_date)));
 
 // rcode-volume
