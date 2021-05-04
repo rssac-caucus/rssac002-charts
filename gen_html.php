@@ -16,7 +16,7 @@ $menu = file_get_contents($template_dir . 'menu');
 $now = getdate();
 $start_date = $now['year'] . '-01-01'; // Jan 1 of the current year
 
-$ts = time() - 60 * 60 * 24 * 14; // 14 days ago
+$ts = time() - 60 * 60 * 24 * 21; // 21 days ago
 $dt = new DateTime("@$ts");
 $end_date = $dt->format('Y-m-d');
 
