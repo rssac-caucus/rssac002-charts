@@ -1,35 +1,8 @@
 /* Copyright Andrew McConachie <andrew@depht.com> 2021 */
 
-// Summation function for dirty data
-// Treat null as zero and ignore non-numbers
-function sum_nulls(){
-  var rv = 0;
-  for(var ii = 0; ii < arguments.length; ii++){
-    if(arguments[ii] != null){
-      if(typeof(arguments[ii]) == 'number'){
-        rv += arguments[ii];
-      }
-    }
-  }
-  return rv;
-}
-
 $(document).ready(function() {
   rssac002_update_chart();
 });
-
-// Monkeypatch %W into HighCharts.dateFormats
-// https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/global/dateformats/
-Highcharts.dateFormats.W = function (timestamp) {
-    var date = new Date(timestamp),
-        day = date.getUTCDay() === 0 ? 7 : date.getUTCDay(),
-        dayNumber;
-
-    date.setDate(date.getUTCDate() + 4 - day);
-    dayNumber = Math.floor((date.getTime() - new Date(date.getUTCFullYear(), 0, 1, -6)) / 86400000);
-
-    return 1 + Math.floor(dayNumber / 7);
-};
 
 function rssac002_update_chart(){
   var options = {
@@ -147,9 +120,9 @@ function rssac002_update_chart(){
           $.each(dates, function(key, val){
             if(val != null) {
               if(ip_version == '4' || ip_version == '6'){
-                points[ii].data.push(Math.round(sum_nulls(val['num-sources-ipv' + ip_version]) / denominator));
+                points[ii].data.push(Math.round(sum_vals(val['num-sources-ipv' + ip_version]) / denominator));
               }else{
-                points[ii].data.push(Math.round(sum_nulls(val['num-sources-ipv4'], val['num-sources-ipv6']) / denominator));
+                points[ii].data.push(Math.round(sum_vals(val['num-sources-ipv4'], val['num-sources-ipv6']) / denominator));
               }
             }else{
               points[ii].data.push(null);
@@ -166,9 +139,9 @@ function rssac002_update_chart(){
             }
             if(val != null){
               if(ip_version == '4' || ip_version == '6'){
-                totals[date] += Math.round(sum_nulls(val['num-sources-ipv' + ip_version]) / denominator);
+                totals[date] += Math.round(sum_vals(val['num-sources-ipv' + ip_version]) / denominator);
               }else{
-                totals[date] += Math.round(sum_nulls(val['num-sources-ipv4'], val['num-sources-ipv6']) / denominator);
+                totals[date] += Math.round(sum_vals(val['num-sources-ipv4'], val['num-sources-ipv6']) / denominator);
               }
             }
           });

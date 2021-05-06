@@ -1,19 +1,5 @@
 /* Copyright Andrew McConachie <andrew@depht.com> 2021 */
 
-// Summation function for dirty data
-// Treat null as zero and ignore non-numbers
-function sum_nulls(){
-  var rv = 0;
-  for(var ii = 0; ii < arguments.length; ii++){
-    if(arguments[ii] != null){
-      if(typeof(arguments[ii]) == 'number'){
-        rv += arguments[ii];
-      }
-    }
-  }
-  return rv;
-}
-
 $(document).ready(function() {
   rssac002_update_chart();
 });
@@ -131,7 +117,7 @@ function rssac002_update_chart(){
           points[ii].data = [];
           $.each(v_res, function(key, val){
             if(val != null) {
-              points[ii].data.push(Math.round(sum_nulls(val) / denominator));
+              points[ii].data.push(Math.round(sum_vals(val) / denominator));
             }else{
               points[ii].data.push(null);
             }
@@ -146,7 +132,7 @@ function rssac002_update_chart(){
               totals[date] = 0;
             }
             if(val != null){
-              totals[date] += Math.round(sum_nulls(val) / denominator);
+              totals[date] += Math.round(sum_vals(val) / denominator);
             }
           });
         });

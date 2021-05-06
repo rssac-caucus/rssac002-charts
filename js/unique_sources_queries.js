@@ -1,19 +1,5 @@
 /* Copyright Andrew McConachie <andrew@depht.com> 2021 */
 
-// Summation function for dirty data
-// Treat null as zero and ignore non-numbers
-function sum_nulls(){
-  var rv = 0;
-  for(ii = 0; ii < arguments.length; ii++){
-    if(arguments[ii] != null){
-      if(typeof(arguments[ii]) == 'number'){
-        rv += arguments[ii];
-      }
-    }
-  }
-  return rv;
-}
-
 $(document).ready(function() {
   rssac002_update_chart();
 });
@@ -124,7 +110,7 @@ function rssac002_update_chart(){
                 }
                 if(val != null){
                   for(ii=0; ii < s_keys.length; ii++){
-                    totals_sources[date] += sum_nulls(val[s_keys[ii]]) / denominator;
+                    totals_sources[date] += sum_vals(val[s_keys[ii]]) / denominator;
                   }
                 }
               });
@@ -138,7 +124,7 @@ function rssac002_update_chart(){
                 }
                 if(val != null){
                   for(ii=0; ii < q_keys.length; ii++){
-                    totals_queries[date] += sum_nulls(val[q_keys[ii]]) / denominator;
+                    totals_queries[date] += sum_vals(val[q_keys[ii]]) / denominator;
                   }
                 }
               });
@@ -164,7 +150,7 @@ function rssac002_update_chart(){
                 totals_sources[rsi][date] = 0;
                 if(val != null){
                   for(ii=0; ii < s_keys.length; ii++){
-                    totals_sources[rsi][date] += sum_nulls(val[s_keys[ii]]) / denominator;
+                    totals_sources[rsi][date] += sum_vals(val[s_keys[ii]]) / denominator;
                   }
                 }
               });
@@ -177,7 +163,7 @@ function rssac002_update_chart(){
                 totals_queries[rsi][date] = 0;
                 if(val != null){
                   for(ii=0; ii < q_keys.length; ii++){
-                    totals_queries[rsi][date] += sum_nulls(val[q_keys[ii]]) / denominator;
+                    totals_queries[rsi][date] += sum_vals(val[q_keys[ii]]) / denominator;
                   }
                 }
               });
