@@ -58,6 +58,12 @@ function rssac002_update_chart(){
     var suffix_text = '(daily average)';
     var denominator = 7;
     var point_interval = 604800000; // 1 week in ms
+    var tooltip = {
+      dateTimeLabelFormats: {
+        week:  ["Week %W, from %A, %b %e, %Y"],
+      }
+    };
+    options.tooltip = tooltip;
     var req_data = {
       rsi: 'a-m',
       start_date: '2017-01-02',

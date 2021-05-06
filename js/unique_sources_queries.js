@@ -61,6 +61,12 @@ function rssac002_update_chart(){
     req_data_sources.week = true;
     req_data_queries.week = true;
     options.plotOptions.series.pointInterval = 604800000; // 1 week in ms
+    var tooltip = {
+      dateTimeLabelFormats: {
+        week:  ["Week %W, from %A, %b %e, %Y"],
+      }
+    };
+    options.tooltip = tooltip;
   }
 
   // Set options based on chart_type
