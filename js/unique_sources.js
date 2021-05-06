@@ -18,6 +18,19 @@ $(document).ready(function() {
   rssac002_update_chart();
 });
 
+// Monkeypatch %W into HighCharts.dateFormats
+// https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/global/dateformats/
+Highcharts.dateFormats.W = function (timestamp) {
+    var date = new Date(timestamp),
+        day = date.getUTCDay() === 0 ? 7 : date.getUTCDay(),
+        dayNumber;
+
+    date.setDate(date.getUTCDate() + 4 - day);
+    dayNumber = Math.floor((date.getTime() - new Date(date.getUTCFullYear(), 0, 1, -6)) / 86400000);
+
+    return 1 + Math.floor(dayNumber / 7);
+};
+
 function rssac002_update_chart(){
   var options = {
     chart: {
@@ -71,6 +84,12 @@ function rssac002_update_chart(){
     var suffix_text = '(daily average)';
     var denominator = 7;
     var point_interval = 604800000; // 1 week in ms
+    var tooltip = {
+      dateTimeLabelFormats: {
+        week:  ["Week %W, from %A, %b %e, %Y"],
+      }
+    };
+    options.tooltip = tooltip;
     var req_data = {
       rsi: 'a-m',
       start_date: '2017-01-02',
@@ -121,11 +140,11 @@ function rssac002_update_chart(){
       if(chart_type == 'stacked'){
         var points = [];
         var ii = 0;
-        $.each(res, function(k_res, v_res){
+        $.each(res, function(rsi, dates){
           points[ii] = {};
-          points[ii].name = k_res;
+          points[ii].name = rsi;
           points[ii].data = [];
-          $.each(v_res, function(key, val){
+          $.each(dates, function(key, val){
             if(val != null) {
               if(ip_version == '4' || ip_version == '6'){
                 points[ii].data.push(Math.round(sum_nulls(val['num-sources-ipv' + ip_version]) / denominator));
