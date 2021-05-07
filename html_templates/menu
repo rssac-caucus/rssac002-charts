@@ -30,6 +30,9 @@
   <a href="rcode_0_v_3.html">NOERROR vs NXDOMAIN</a><br/>
   </p>
 
+  <a href="load_single.html"><h3>Load Times</h3></a>
+  <p></p>
+
   <h3>Packet Sizes</h3>
   <p>
   <a href="sizes_udp_queries_line.html">UDP Queries by RSI</a><br/>

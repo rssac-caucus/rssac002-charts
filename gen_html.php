@@ -115,6 +115,9 @@ array_push($pages, array('meat' => 'sizes_tcp_responses_comp', 'header' => 'head
                          'meat_v' => array('@START_DATE@' => $start_date, '@END_DATE@' => $end_date)));
 
 // load-time
+array_push($pages, array('meat' => 'load_single', 'header' => 'header_jqueryui',
+                         'header_v' => array('@TITLE@' => 'load-time', '@SCRIPT@' => 'load_single.js'),
+                         'meat_v' => array('@START_DATE@' => $start_date, '@END_DATE@' => $end_date)));
 array_push($pages, array('meat' => 'load_comp', 'header' => 'header_jqueryui',
                          'header_v' => array('@TITLE@' => 'load-time comparison', '@SCRIPT@' => 'load_comp.js'),
                          'meat_v' => array('@START_DATE@' => $start_date, '@END_DATE@' => $end_date)));
