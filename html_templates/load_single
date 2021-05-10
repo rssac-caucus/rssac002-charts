@@ -20,4 +20,7 @@
 <label for="int_week">Week</label><br/>
 </div>
 
+<div class="bottom-note">
+* Load-time values less than one second or greater than one day are excluded.
+</div>
 </div>

@@ -46,7 +46,7 @@ function rssac002_update_chart(){
 
   // Determine request JSON based on time_interval
   if(time_interval == 'day'){
-    options.title.text = 'load-times by day';
+    options.title.text = 'load-time by day';
     var point_interval =  86400000; // 1 day in ms
     var req_data = {
       rsi: 'a-m',
@@ -54,7 +54,7 @@ function rssac002_update_chart(){
       end_date: end_date,
     };
   }else{
-    options.title.text = 'load-times by week';
+    options.title.text = 'load-time by week';
     var point_interval = 604800000; // 1 week in ms
     var tooltip = {
       dateTimeLabelFormats: {
@@ -131,7 +131,7 @@ function rssac002_update_chart(){
             var x = [];
             x[0] = Math.min.apply(null, (times));
             x[1] = quantile(times, 0.25);
-            x[2] = median(times);
+            x[2] = quantile(times, 0.5);
             x[3] = quantile(times, 0.75);
             x[4] = Math.max.apply(null, (times));
 
@@ -153,7 +153,7 @@ function rssac002_update_chart(){
         points[1].data = [];
 
         points[2] = {};
-        points[2].name = 'Median';
+        points[2].name = 'Mean';
         points[2].data = [];
 
         points[3] = {};
