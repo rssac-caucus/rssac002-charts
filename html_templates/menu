@@ -30,8 +30,10 @@
   <a href="rcode_0_v_3.html">NOERROR vs NXDOMAIN</a><br/>
   </p>
 
-  <a href="load_single.html"><h3>Load Times</h3></a>
-  <p></p>
+  <a href="load_single.html"><h3>Load Time</h3></a>
+  <p>
+  <a href="load_rsi.html">Load Time by RSI</a><br/>
+  </p>
 
   <h3>Packet Sizes</h3>
   <p>

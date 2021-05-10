@@ -7,12 +7,15 @@ $(document).ready(function() {
 function rssac002_update_chart(){
   var options = {
     chart: {
-      renderTo: 'container',
-      type: '',
+      renderTo: '',
+      type: 'line',
       zoomType: 'x'
     },
     title: {
         text: ''
+    },
+    legend: {
+      enabled: true,
     },
     subtitle: {
         text: 'Source: RSSAC002 Data'
@@ -29,11 +32,15 @@ function rssac002_update_chart(){
       },
       type: 'logarithmic',
     },
-    plotOptions: {},
+    plotOptions: {
+      series:{
+        pointStart: Date.UTC('2017', '00', '02'),  // Jan is zero'th month in JS
+        connectNulls: true,
+      },
+    },
     series: [{}]
   };
 
-  const chart_type = 'line'; // We're hard setting it for now as boxplot is broken
   const min_time = 1; // The minimum allowed time in data
   const max_time = 86400; // The maximum allowed time in data
   options.yAxis.min = min_time;
@@ -41,21 +48,20 @@ function rssac002_update_chart(){
 
   // Read some values from the HTML
   var end_date = document.getElementById('end_date').textContent;
-  //var chart_type = document.querySelector('input[name = "chart_type"]:checked').value;
   var time_interval = document.querySelector('input[name = "time_interval"]:checked').value;
 
   // Determine request JSON based on time_interval
   if(time_interval == 'day'){
-    options.title.text = 'RSS load-time by day';
-    var point_interval =  86400000; // 1 day in ms
+    var title_str = 'load-time by day';
+    options.plotOptions.series.pointInterval =  86400000; // 1 day in ms
     var req_data = {
       rsi: 'a-m',
       start_date: '2017-01-02',
       end_date: end_date,
     };
   }else{
-    options.title.text = 'RSS load-time by week';
-    var point_interval = 604800000; // 1 week in ms
+    var title_str = 'load-time by week';
+    options.plotOptions.series.pointInterval = 604800000; // 1 week in ms
     var tooltip = {
       dateTimeLabelFormats: {
         week:  ["Week %W, from %A, %b %e, %Y"],
@@ -67,28 +73,6 @@ function rssac002_update_chart(){
       start_date: '2017-01-02',
       end_date: end_date,
       week: true,
-    };
-  }
-
-  // Set options based on chart_type
-  if(chart_type == 'box'){
-    options.chart.type = 'boxplot';
-    options.legend = {
-      enabled: false,
-    };
-    options.plotOptions.series = {
-      pointStart: Date.UTC('2017', '00', '02'),  // Jan is zero'th month in JS
-      pointInterval: point_interval,
-    };
-  }else{
-    options.chart.type = 'line';
-    options.legend = {
-      enabled: true,
-    };
-    options.plotOptions.series = {
-      pointStart: Date.UTC('2017', '00', '02'),  // Jan is zero'th month in JS
-      pointInterval: point_interval,
-      connectNulls: true,
     };
   }
 
@@ -117,33 +101,8 @@ function rssac002_update_chart(){
             });
           }
         });
-      });
 
-      var points = [];
-      if(chart_type == 'box'){
-        points[0] = {};
-        points[0].name = 'RSS';
-        points[0].data = [];
-        $.each(date_times, function(date, times){
-          if(times.length == 0){
-            points[0].data.push([null, null, null, null, null]);
-          }else{
-            var x = [];
-            x[0] = Math.min.apply(null, (times));
-            x[1] = quantile(times, 0.25);
-            x[2] = quantile(times, 0.5);
-            x[3] = quantile(times, 0.75);
-            x[4] = Math.max.apply(null, (times));
-
-            points[0].data.push(x);
-            for(ii = 0; ii < 5; ii++){
-              if(x[ii] < min_time || x[ii] === undefined){
-                console.log(x[ii]);
-              }
-            }
-          }
-        });
-      }else{
+        var points = [];
         points[0] = {};
         points[0].name = 'Min';
         points[0].data = [];
@@ -179,9 +138,11 @@ function rssac002_update_chart(){
             points[4].data.push(Math.max.apply(null, (times)));
           }
         });
-      }
 
-      options.series = points;
-      new Highcharts.Chart(options);
+        options.chart.renderTo = 'container_' + rsi;
+        options.title.text =  rsi + '.root-servers.net ' + title_str;
+        options.series = points;
+        new Highcharts.Chart(options);
+      });
     }});
 }
