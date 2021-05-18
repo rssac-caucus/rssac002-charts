@@ -110,35 +110,53 @@ function rssac002_update_chart(){
         points[0].name = 'Min';
         points[0].data = [];
 
-        points[1] = {};
-        points[1].name = 'Quartile 1';
-        points[1].data = [];
+        if(time_interval == 'day'){
+          points[1] = {};
+          points[1].name = 'Mean';
+          points[1].data = [];
 
-        points[2] = {};
-        points[2].name = 'Mean';
-        points[2].data = [];
+          points[2] = {};
+          points[2].name = 'Max';
+          points[2].data = [];
+        }else{
+          points[1] = {};
+          points[1].name = 'Quartile 1';
+          points[1].data = [];
 
-        points[3] = {};
-        points[3].name = 'Quartile 3';
-        points[3].data = [];
+          points[2] = {};
+          points[2].name = 'Mean';
+          points[2].data = [];
 
-        points[4] = {};
-        points[4].name = 'Max';
-        points[4].data = [];
+          points[3] = {};
+          points[3].name = 'Quartile 3';
+          points[3].data = [];
+
+          points[4] = {};
+          points[4].name = 'Max';
+          points[4].data = [];
+        }
 
         $.each(date_times, function(date, times){
           if(times.length == 0){
             points[0].data.push(null);
             points[1].data.push(null);
             points[2].data.push(null);
-            points[3].data.push(null);
-            points[4].data.push(null);
+
+            if(time_interval == 'week'){
+              points[3].data.push(null);
+              points[4].data.push(null);
+            }
           }else{
             points[0].data.push(Math.min.apply(null, (times)));
-            points[1].data.push(quantile(times, 0.25));
-            points[2].data.push(quantile(times, 0.5));
-            points[3].data.push(quantile(times, 0.75));
-            points[4].data.push(Math.max.apply(null, (times)));
+            if(time_interval == 'day'){
+              points[1].data.push(quantile(times, 0.5));
+              points[2].data.push(Math.max.apply(null, (times)));
+            }else{
+              points[1].data.push(quantile(times, 0.25));
+              points[2].data.push(quantile(times, 0.5));
+              points[3].data.push(quantile(times, 0.75));
+              points[4].data.push(Math.max.apply(null, (times)));
+            }
           }
         });
 
