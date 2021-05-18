@@ -85,8 +85,8 @@ function rssac002_update_chart(){
     dataType: "json",
     data: req_data,
     success: function(res){
-      var date_times = {};
       $.each(res, function(rsi, dates){
+        var date_times = {};
         $.each(dates, function(date, times){
           if( !(date in date_times)){
             date_times[date] = [];
