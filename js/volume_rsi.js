@@ -13,6 +13,9 @@ $(document).ready(function() {
     subtitle: {
         text: 'Source: RSSAC002 Data'
     },
+    exporting: {
+      filename: 'chart',
+    },
     xAxis: {
       type: 'datetime',
       title: {
@@ -109,6 +112,7 @@ $(document).ready(function() {
       $.each(chart_series, function(rsi, protos){
         options.chart.renderTo = 'container_' + rsi;
         options.title.text =  rsi + '.root-servers.net ' + title_str + ' per-day (billion)';
+        options.exporting.filename = options.title.text;
         options.series = protos;
         new Highcharts.Chart(options);
       });
