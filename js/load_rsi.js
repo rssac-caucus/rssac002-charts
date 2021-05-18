@@ -20,6 +20,9 @@ function rssac002_update_chart(){
     subtitle: {
         text: 'Source: RSSAC002 Data'
     },
+    exporting: {
+      filename: 'chart',
+    },
     xAxis: {
       type: 'datetime',
       title: {
@@ -141,6 +144,7 @@ function rssac002_update_chart(){
 
         options.chart.renderTo = 'container_' + rsi;
         options.title.text =  rsi + '.root-servers.net ' + title_str;
+        options.exporting.filename = options.title.text;
         options.series = points;
         new Highcharts.Chart(options);
       });
