@@ -39,11 +39,11 @@ $(document).ready(function() {
         formatter: function () {
           return this.value / 1000000000;
         }
-      }
+      },
     },
     plotOptions: {
       series: {
-        pointStart: Date.UTC('2017', '00', '01'),  // Jan is zero'th month in JS
+        pointStart: Date.UTC('2019', '00', '01'),  // Jan is zero'th month in JS
         pointInterval: 86400000, // 1 day in ms
         connectNulls: true,
       }
@@ -58,7 +58,7 @@ $(document).ready(function() {
     dataType: "json",
     data: {
       rsi: 'a-m',
-      start_date: '2017-01-01',
+      start_date: '2019-01-01',
       end_date: document.getElementById('end_date').textContent,
     },
     success: function(res){
