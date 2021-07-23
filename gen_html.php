@@ -57,7 +57,7 @@ array_push($pages, array('meat' => 'volume_ipv4_v_ipv6_responses',
                          'meat_v' => array('@END_DATE@' => $end_date)));
 
 // unique-sources
-array_push($pages, array('meat' => 'unique_sources_both',
+array_push($pages, array('meat' => 'unique_sources_single',
                          'header_v' => array('@TITLE@' => 'IPv4 and IPv6 Sources', '@SCRIPT@' => 'unique_sources.js'),
                          'meat_v' => array('@END_DATE@' => $end_date)));
 array_push($pages, array('meat' => 'unique_sources_ipv4',
