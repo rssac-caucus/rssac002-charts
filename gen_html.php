@@ -7,7 +7,59 @@ if( !php_sapi_name() == 'cli'){
   exit();
 }
 
-$template_dir = 'html_templates/';
+$template_dir = 'html_templates/'; // Where to read the templates
+$out_dir = 'site/'; // Where to write everything
+
+// Test dirs
+if( !is_dir($template_dir)){
+  print("Bad template directory " . $template_dir);
+  exit(1);
+}
+if( !is_dir($out_dir)){
+  print("Bad output directory " . $out_dir);
+  exit(1);
+}else{
+  if( !is_writable($out_dir)){
+    print("Output directory not writable " . $out_dir);
+    exit(1);
+  }
+}
+
+// Static files not created with templates
+if( !is_link($out_dir . 'index.html')){
+  if( !symlink($out_dir . 'volume_single_queries.html', $out_dir . 'index.html')){
+    print("Failed to create symlink to index.html");
+    exit(1);
+  }
+}
+if( !copy('./charts.css', $out_dir . 'charts.css')){
+  print("Failed to copy charts.css");
+  exit(1);
+}else{
+  chmod($out_dir . 'charts.css', 0644);
+}
+
+if( !is_dir($out_dir . 'js/')){
+  if( !mkdir($out_dir . 'js/', 0755)){
+    print("Failed to make " . $out_dir . "/js directory");
+    exit(1);
+  }
+}
+if( !is_dir('js/')){
+  print("Cannot read directory /js");
+  exit(1);
+}else{
+  chmod($out_dir . 'js', 0755);
+  foreach(glob('js/*.js') as $fp){
+    if( !copy($fp, $out_dir . $fp)){
+      print("Failed to copy " . $fp);
+      exit(1);
+    }
+    chmod($out_dir . $fp, 0644);
+  }
+}
+
+// Read in some common templates
 $header = file_get_contents($template_dir . 'header'); // Default header
 $footer = file_get_contents($template_dir . 'footer');
 $menu = file_get_contents($template_dir . 'menu');
@@ -15,7 +67,6 @@ $menu = file_get_contents($template_dir . 'menu');
 // Create our date strings
 $now = getdate();
 $start_date = $now['year'] . '-01-01'; // Jan 1 of the current year
-
 $ts = time() - 60 * 60 * 24 * 21; // 21 days ago
 $dt = new DateTime("@$ts");
 $end_date = $dt->format('Y-m-d');
@@ -145,7 +196,7 @@ foreach($pages as $page){
     $meat = str_replace($key, $val, $meat);
   }
 
-  file_put_contents($page['meat'] . '.html', $our_header . $menu . $meat . $footer);
-  chmod($page['meat'] . '.html', 0644);
+  file_put_contents($out_dir . $page['meat'] . '.html', $our_header . $menu . $meat . $footer);
+  chmod($out_dir . $page['meat'] . '.html', 0644);
 }
 ?>
