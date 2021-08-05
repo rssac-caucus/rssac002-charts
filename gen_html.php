@@ -27,7 +27,7 @@ if( !is_dir($out_dir)){
 
 // Static files not created with templates
 if( !is_link($out_dir . 'index.html')){
-  if( !symlink($out_dir . 'volume_single_queries.html', $out_dir . 'index.html')){
+  if( !symlink('volume_single_queries.html', $out_dir . 'index.html')){
     print("Failed to create symlink to index.html");
     exit(1);
   }
