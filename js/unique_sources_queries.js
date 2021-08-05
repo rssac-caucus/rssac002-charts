@@ -96,13 +96,13 @@ function rssac002_update_chart(){
   }
 
   $.ajax({
-    url: "http://rssac002.depht.com/api/v1/unique-sources",
+    url: "/api/v1/unique-sources",
     type: "GET",
     dataType: "json",
     data: req_data_sources,
     success: function(res_sources){
       $.ajax({
-        url: "http://rssac002.depht.com/api/v1/traffic-volume",
+        url: "/api/v1/traffic-volume",
         type: "GET",
         dataType: "json",
         data: req_data_queries,

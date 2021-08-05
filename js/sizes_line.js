@@ -53,7 +53,7 @@ $(document).ready(function() {
 
   var metric = document.getElementById('metric').textContent;
   $.ajax({
-    url: "http://rssac002.depht.com/api/v1/" + metric,
+    url: "/api/v1/" + metric,
     type: "GET",
     dataType: "json",
     data: {

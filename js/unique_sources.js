@@ -105,7 +105,7 @@ function rssac002_update_chart(){
   }
 
   $.ajax({
-    url: "http://rssac002.depht.com/api/v1/unique-sources",
+    url: "/api/v1/unique-sources",
     type: "GET",
     dataType: "json",
     data: req_data,

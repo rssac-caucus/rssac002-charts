@@ -93,7 +93,7 @@ function rssac002_update_chart(){
   }
 
   $.ajax({
-    url: "http://rssac002.depht.com/api/v1/load-time",
+    url: "/api/v1/load-time",
     type: "GET",
     dataType: "json",
     data: req_data,

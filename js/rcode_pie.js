@@ -76,7 +76,7 @@ function rssac002_update_chart (start_date, end_date, container){
   };
 
   $.ajax({
-    url: "http://rssac002.depht.com/api/v1/rcode-volume",
+    url: "/api/v1/rcode-volume",
     type: "GET",
     dataType: "json",
     data: {

@@ -53,7 +53,7 @@ $(document).ready(function() {
   };
 
   $.ajax({
-    url: "http://rssac002.depht.com/api/v1/unique-sources",
+    url: "/api/v1/unique-sources",
     type: "GET",
     dataType: "json",
     data: {

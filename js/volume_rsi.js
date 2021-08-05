@@ -68,7 +68,7 @@ $(document).ready(function() {
   }
 
   $.ajax({
-    url: "http://rssac002.depht.com/api/v1/traffic-volume",
+    url: "/api/v1/traffic-volume",
     type: "GET",
     dataType: "json",
     data: {

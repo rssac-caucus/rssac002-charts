@@ -103,7 +103,7 @@ function rssac002_update_chart (rsi_list, start_date, end_date, container){
 
   var metric = document.getElementById('metric').textContent;
   $.ajax({
-    url: "http://rssac002.depht.com/api/v1/" + metric,
+    url: "/api/v1/" + metric,
     type: "GET",
     dataType: "json",
     data: {

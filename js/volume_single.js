@@ -109,7 +109,7 @@ function rssac002_update_chart(){
   }
 
   $.ajax({
-    url: "http://rssac002.depht.com/api/v1/traffic-volume",
+    url: "/api/v1/traffic-volume",
     type: "GET",
     dataType: "json",
     data: req_data,
