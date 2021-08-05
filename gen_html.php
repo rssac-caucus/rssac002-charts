@@ -1,4 +1,4 @@
-#!/usr/local/bin/php
+#!/usr/bin/env php
 <?php
 /* Copyright Andrew McConachie <andrew@depht.com> 2021 */
 
