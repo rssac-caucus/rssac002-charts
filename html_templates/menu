@@ -23,9 +23,8 @@
   <a href="unique_sources_queries.html">Queries / Sources</a><br/>
   </p>
 
-  <h3>DNS RCODEs</h3>
+  <a href="rcode_pie.html"><h3>DNS RCODEs</h3></a>
   <p>
-  <a href="rcode_pie.html">rcode-volume Comparison</a><br/>
   <a href="rcode_stacked_rsi.html">rcode-volume by RSI</a><br/>
   <a href="rcode_0_v_3.html">NOERROR vs NXDOMAIN</a><br/>
   </p>

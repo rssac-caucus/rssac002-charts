@@ -8,32 +8,17 @@ $(function() {
     changeMonth: true,
     changeYear: true,
   })
-  $( "#start-date-1" ).datepicker();
-  $( "#end-date-1" ).datepicker();
-  $( "#start-date-2" ).datepicker();
-  $( "#end-date-2" ).datepicker();
+  $( "#start-date" ).datepicker();
+  $( "#end-date" ).datepicker();
 });
 
 $(document).ready(function() {
-  rssac002_update_chart_1();
-  rssac002_update_chart_2();
+  rssac002_update_chart(
+    document.getElementById('start-date').value,
+    document.getElementById('end-date').value,
+    'container'
+  );
 });
-
-function rssac002_update_chart_1 (){
-  rssac002_update_chart(
-    document.getElementById('start-date-1').value,
-    document.getElementById('end-date-1').value,
-    'container_1'
-  );
-}
-
-function rssac002_update_chart_2 (){
-  rssac002_update_chart(
-    document.getElementById('start-date-2').value,
-    document.getElementById('end-date-2').value,
-    'container_2'
-  );
-}
 
 function rssac002_update_chart (start_date, end_date, container){
   var options = {
