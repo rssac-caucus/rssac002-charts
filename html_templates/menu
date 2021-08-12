@@ -42,13 +42,10 @@
   <a href="sizes_tcp_responses_line.html">TCP Responses by RSI</a><br/>
   </p>
 
-  <h3>More Information</h3>
+  <h3>Links</h3>
   <p>
-  <a href="https://github.com/rssac-caucus/rssac002-charts">This site on Github
-  </a><br/>
-  <a href="https://github.com/rssac-caucus/rssac002-web-api">RSSAC002 Web API
-  on Github</a><br/>
-  <a href="https://www.icann.org/en/system/files/files/rssac-002-measurements-root-12mar20-en.pdf">
-  RSSAC002v4</a><br/>
+  <a href="https://www.icann.org/groups/rssac/faq">RSSAC FAQ</a><br/>
+  <a href="https://www.icann.org/en/system/files/files/rssac-002-measurements-root-12mar20-en.pdf">RSSAC002v4</a><br/>
+  <a href="https://github.com/rssac-caucus/rssac002-charts/issues">Report a Bug</a><br/>
   </p>
 </div>
