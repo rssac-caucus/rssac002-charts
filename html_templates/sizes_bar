@@ -1,0 +1,29 @@
+<div class="main">
+
+<center>
+<figure class="highcharts-figure-bar">
+<div class="rchart-bar" id="container"></div>
+Start <input type="text" id="start-date" onchange="rssac002_update_chart()" value="@START_DATE@">
+End <input type="text" id="end-date" onchange="rssac002_update_chart()" value="@END_DATE@">
+RSIs <input type="text" id="rsi" onchange="rssac002_update_chart()" value="a-m">
+</figure>
+</center>
+
+<div class="radios">
+<br/>
+<b>Metric</b><br/>
+<input type="radio" id="metric_udp_queries" name="metric" value="udp-request-sizes" onClick="rssac002_update_chart()" checked>
+<label for="metric_udp_queries">UDP Queries</label><br/>
+<input type="radio" id="metric_tcp_queries" name="metric" value="tcp-request-sizes" onClick="rssac002_update_chart()">
+<label for="metric_tcp_queries">TCP Queries</label><br/>
+<input type="radio" id="metric_udp_responses" name="metric" value="udp-response-sizes" onClick="rssac002_update_chart()">
+<label for="metric_tcp_responses">UDP Responses</label><br/>
+<input type="radio" id="metric_tcp_responses" name="metric" value="tcp-response-sizes" onClick="rssac002_update_chart()">
+<label for="metric_tcp_responses">TCP Responses</label><br/>
+<br/>
+</div>
+
+<div class="bottom-note">
+* Packet size ranges containing less than 1% of total traffic over the period are not shown.
+</div>
+</div>

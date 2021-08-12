@@ -8,32 +8,21 @@ $(function() {
     changeMonth: true,
     changeYear: true,
   })
-  $( "#start-date-1" ).datepicker();
-  $( "#end-date-1" ).datepicker();
-  $( "#start-date-2" ).datepicker();
-  $( "#end-date-2" ).datepicker();
+  $( "#start-date" ).datepicker();
+  $( "#end-date" ).datepicker();
 });
 
 $(document).ready(function() {
-  rssac002_update_chart_1();
-  rssac002_update_chart_2();
+  rssac002_update_chart();
 });
 
-function rssac002_update_chart_1(){
-  rssac002_update_chart(
-    document.getElementById('rsi-1').value,
-    document.getElementById('start-date-1').value,
-    document.getElementById('end-date-1').value,
-    'container_1'
-  );
-}
-
-function rssac002_update_chart_2(){
-  rssac002_update_chart(
-    document.getElementById('rsi-2').value,
-    document.getElementById('start-date-2').value,
-    document.getElementById('end-date-2').value,
-    'container_2'
+function rssac002_update_chart(){
+  rssac002_make_bar(
+    document.getElementById('rsi').value,
+    document.getElementById('start-date').value,
+    document.getElementById('end-date').value,
+    document.querySelector('input[name = "metric"]:checked').value,
+    'container'
   );
 }
 
@@ -49,7 +38,7 @@ function lowest_range(ranges){
   return ranges[lowest];
 }
 
-function rssac002_update_chart (rsi_list, start_date, end_date, container){
+function rssac002_make_bar(rsi_list, start_date, end_date, metric, container){
   var options = {
     chart: {
       renderTo: container,
@@ -101,7 +90,6 @@ function rssac002_update_chart (rsi_list, start_date, end_date, container){
     series: [{}],
   };
 
-  var metric = document.getElementById('metric').textContent;
   $.ajax({
     url: "/api/v1/" + metric,
     type: "GET",
