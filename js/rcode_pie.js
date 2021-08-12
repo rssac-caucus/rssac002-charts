@@ -13,14 +13,19 @@ $(function() {
 });
 
 $(document).ready(function() {
-  rssac002_update_chart(
-    document.getElementById('start-date').value,
-    document.getElementById('end-date').value,
-    'container'
-  );
+  rssac002_update_chart();
 });
 
-function rssac002_update_chart (start_date, end_date, container){
+function rssac002_update_chart(){
+  rssac002_make_pie(
+    document.getElementById('start-date').value,
+    document.getElementById('end-date').value,
+    document.getElementById('rsi').value,
+    'container'
+  );
+}
+
+function rssac002_make_pie(start_date, end_date, rsi_list, container){
   var options = {
     chart: {
       renderTo: container,
@@ -65,7 +70,7 @@ function rssac002_update_chart (start_date, end_date, container){
     type: "GET",
     dataType: "json",
     data: {
-      rsi: 'a-m',
+      rsi: rsi_list,
       start_date: start_date,
       end_date: end_date
     },

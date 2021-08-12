@@ -1,11 +1,10 @@
+<div class="main">
 <center>
-  <div class="main">
-
 <figure class="highcharts-figure-pie">
 <div class="rchart-pie" id="container"></div><br/>
+</figure>
 Start <input type="text" id="start-date" onchange="rssac002_update_chart()" value="@START_DATE@">
 End <input type="text" id="end-date" onchange="rssac002_update_chart()" value="@END_DATE@">
-</figure>
-
-</div>
+RSIs <input type="text" id="rsi" onchange="rssac002_update_chart()" value="a-m">
 </center>
+</div>
