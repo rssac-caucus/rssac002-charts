@@ -22,7 +22,6 @@ function rssac002_update_chart(){
     document.getElementById('start-date').value,
     document.getElementById('end-date').value,
     document.querySelector('input[name = "metric"]:checked').value,
-    'container'
   );
 }
 
@@ -38,10 +37,10 @@ function lowest_range(ranges){
   return ranges[lowest];
 }
 
-function rssac002_make_bar(rsi_list, start_date, end_date, metric, container){
+function rssac002_make_bar(rsi_list, start_date, end_date, metric){
   var options = {
     chart: {
-      renderTo: container,
+      renderTo: 'container',
       type: 'column',
     },
     title: {
