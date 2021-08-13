@@ -77,8 +77,8 @@ $(document).ready(function() {
             if(counts['num-sources-ipv4'] != null){
               totals_ipv4[date] += counts['num-sources-ipv4'];
             }
-            if(counts['num-sources-ipv6'] != null){
-              totals_ipv6[date] += counts['num-sources-ipv6'];
+            if(counts['num-sources-ipv6-aggregate'] != null){
+              totals_ipv6[date] += counts['num-sources-ipv6-aggregate'];
             }
           }
         });
@@ -89,7 +89,7 @@ $(document).ready(function() {
       points[0].name = 'IPv4';
       points[0].data = Object.values(totals_ipv4);
       points[1] = {};
-      points[1].name = 'IPv6';
+      points[1].name = 'IPv6 (/64)';
       points[1].data = Object.values(totals_ipv6);
 
       options.series = points;
