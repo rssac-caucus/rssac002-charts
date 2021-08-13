@@ -81,16 +81,16 @@ function rssac002_update_chart(){
   }
 
   if(ip_version == '4'){
-    options.title.text = 'Queries Received / Unique IPv4 Sources by-' + time_interval + ' ' + suffix_text;
+    options.title.text = 'IPv4 Queries Received / Unique IPv4 Sources by-' + time_interval + ' ' + suffix_text;
     var s_keys = ['num-sources-ipv4'];
     var q_keys = ['dns-udp-queries-received-ipv4', 'dns-tcp-queries-received-ipv4'];
   }else if(ip_version == '6'){
-    options.title.text = 'Queries Received / Unique IPv6 Sources by-' + time_interval + ' ' + suffix_text;
-    var s_keys = ['num-sources-ipv6'];
+    options.title.text = 'IPv6 Queries Received / Unique IPv6 (/64) Sources by-' + time_interval + ' ' + suffix_text;
+    var s_keys = ['num-sources-ipv6-aggregate'];
     var q_keys = ['dns-udp-queries-received-ipv6', 'dns-tcp-queries-received-ipv6'];
-  }else{
-    options.title.text = 'Queries Received / Unique IPv4 and IPv6 Sources by-' + time_interval + ' ' + suffix_text;
-    var s_keys = ['num-sources-ipv4', 'num-sources-ipv6'];
+  }else{ // both
+    options.title.text = 'Queries Received / Unique Sources by-' + time_interval + ' ' + suffix_text;
+    var s_keys = ['num-sources-ipv4', 'num-sources-ipv6-aggregate'];
     var q_keys = ['dns-udp-queries-received-ipv4', 'dns-tcp-queries-received-ipv4',
                   'dns-udp-queries-received-ipv6', 'dns-tcp-queries-received-ipv6'];
   }
