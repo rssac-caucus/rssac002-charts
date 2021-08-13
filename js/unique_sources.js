@@ -38,10 +38,10 @@ function rssac002_update_chart(){
   };
 
   // Read some values from the HTML
-  var ip_version = document.getElementById('ip_version').textContent;
   var end_date = document.getElementById('end_date').textContent;
   var chart_type = document.querySelector('input[name = "chart_type"]:checked').value;
   var time_interval = document.querySelector('input[name = "time_interval"]:checked').value;
+  var ip_version = document.querySelector('input[name = "ip_version"]:checked').value;
 
   // Determine request JSON based on time_interval
   if(time_interval == 'day'){
@@ -98,10 +98,12 @@ function rssac002_update_chart(){
     };
   }
 
-  if(ip_version == '4' || ip_version == '6'){
-    options.title.text = 'Unique IPv' + ip_version + ' Sources by-' + time_interval + ' (million) ' + suffix_text;
-  }else{
-    options.title.text = 'Unique IPv4 and IPv6 Sources by-' + time_interval + ' (million) ' + suffix_text;
+  if(ip_version == '4'){
+    options.title.text = 'Unique IPv4 Sources by-' + time_interval + ' (million) ' + suffix_text;
+  }else if(ip_version == '6'){
+    options.title.text = 'Unique IPv6 (/64) Sources by-' + time_interval + ' (million) ' + suffix_text;
+  }else{ // both
+    options.title.text = 'Unique IPv4 + IPv6 (/64) Sources by-' + time_interval + ' (million) ' + suffix_text;
   }
 
   $.ajax({
@@ -119,10 +121,12 @@ function rssac002_update_chart(){
           points[ii].data = [];
           $.each(dates, function(key, val){
             if(val != null) {
-              if(ip_version == '4' || ip_version == '6'){
-                points[ii].data.push(Math.round(sum_vals(val['num-sources-ipv' + ip_version]) / denominator));
+              if(ip_version == '4'){
+                points[ii].data.push(Math.round(sum_vals(val['num-sources-ipv4']) / denominator));
+              }else if(ip_version == '6'){
+                points[ii].data.push(Math.round(sum_vals(val['num-sources-ipv6-aggregate']) / denominator));
               }else{
-                points[ii].data.push(Math.round(sum_vals(val['num-sources-ipv4'], val['num-sources-ipv6']) / denominator));
+                points[ii].data.push(Math.round(sum_vals(val['num-sources-ipv4'], val['num-sources-ipv6-aggregate']) / denominator));
               }
             }else{
               points[ii].data.push(null);
@@ -138,10 +142,12 @@ function rssac002_update_chart(){
               totals[date] = 0;
             }
             if(val != null){
-              if(ip_version == '4' || ip_version == '6'){
-                totals[date] += Math.round(sum_vals(val['num-sources-ipv' + ip_version]) / denominator);
-              }else{
-                totals[date] += Math.round(sum_vals(val['num-sources-ipv4'], val['num-sources-ipv6']) / denominator);
+              if(ip_version == '4'){
+                totals[date] += Math.round(sum_vals(val['num-sources-ipv4']) / denominator);
+              }else if(ip_version == '6'){
+                totals[date] += Math.round(sum_vals(val['num-sources-ipv6-aggregate']) / denominator);
+              }else{ // both
+                totals[date] += Math.round(sum_vals(val['num-sources-ipv4'], val['num-sources-ipv6-aggregate']) / denominator);
               }
             }
           });

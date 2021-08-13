@@ -17,8 +17,6 @@
 
   <a href="unique_sources_single.html"><h3>Unique Source Addresses</h3></a>
   <p>
-  <a href="unique_sources_ipv4.html">IPv4</a><br/>
-  <a href="unique_sources_ipv6.html">IPv6</a><br/>
   <a href="unique_sources_vs.html">IPv4 vs IPv6</a><br/>
   <a href="unique_sources_queries.html">Queries / Sources</a><br/>
   </p>
