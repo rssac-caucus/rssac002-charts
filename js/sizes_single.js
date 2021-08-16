@@ -49,7 +49,6 @@ function rssac002_update_chart(){
     plotOptions: {
       series: {
         pointStart: Date.UTC('2019', '00', '07'),  // Jan is zero'th month in JS
-        //pointInterval: 86400000, // 1 day in ms
         connectNulls: true,
       }
     },
@@ -64,6 +63,8 @@ function rssac002_update_chart(){
 
   // Determine request JSON based on time_interval
   if(time_interval == 'day'){
+    var denominator = 1;
+    options.title.text = 'Top ' + num_ranges + ' ' + metric + ' (billion)';
     options.plotOptions.series.pointInterval =  86400000; // 1 day in ms
     var req_data = {
       rsi: 'a-m',
@@ -71,8 +72,11 @@ function rssac002_update_chart(){
       end_date: end_date,
     };
   }else{
+    var denominator = 7;
+    options.title.text = 'Top ' + num_ranges + ' ' + metric + ' by-week (billion) (daily average)';
     options.plotOptions.series.pointInterval = 604800000; // 1 week in ms
     var tooltip = {
+      valueDecimals: 0,
       dateTimeLabelFormats: {
         week:  ["Week %W, from %A, %b %e, %Y"],
       }
@@ -133,7 +137,7 @@ function rssac002_update_chart(){
           $.each(chart_ranges, function(range, _){
             if(ranges != null && ranges != 0){
               if(range in ranges){
-                chart_ranges[range][ii] = sum_vals(chart_ranges[range][ii], ranges[range]);
+                chart_ranges[range][ii] = sum_vals(chart_ranges[range][ii], (ranges[range] / denominator));
               }
             }
           });
@@ -150,7 +154,6 @@ function rssac002_update_chart(){
         series_ranges.push(entry);
       });
 
-      options.title.text = 'RSS ' + metric + ' ' + ' (top ' + num_ranges + ') ' +' (per-' + time_interval + ') (billion)';
       options.series = series_ranges;
       new Highcharts.Chart(options);
     }});
