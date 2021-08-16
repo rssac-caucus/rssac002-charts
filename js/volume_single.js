@@ -46,6 +46,7 @@ function rssac002_update_chart(){
   // Determine request JSON based on time_interval
   if(time_interval == 'day'){
     var suffix_text = '';
+    var denominator = 1;
     var point_interval =  86400000; // 1 day in ms
     var req_data = {
       rsi: 'a-m',
