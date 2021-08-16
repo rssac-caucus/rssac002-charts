@@ -32,8 +32,9 @@
   <a href="load_rsi.html">Load Time by RSI</a><br/>
   </p>
 
-  <a href="sizes_bar.html"><h3>Packet Sizes</h3></a>
+  <a href="sizes_single.html"><h3>Packet Sizes</h3></a>
   <p>
+  <a href="sizes_bar.html">Sizes Stacked</a><br/>
   <a href="sizes_udp_queries_line.html">UDP Queries by RSI</a><br/>
   <a href="sizes_tcp_queries_line.html">TCP Queries by RSI</a><br/>
   <a href="sizes_udp_responses_line.html">UDP Responses by RSI</a><br/>
