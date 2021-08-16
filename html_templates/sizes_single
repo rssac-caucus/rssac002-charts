@@ -9,9 +9,9 @@
 <div class="radios">
 <br/>
 <b>Time Interval</b><br/>
-<input type="radio" id="int_day" name="time_interval" value="day" onClick="rssac002_update_chart()" checked>
+<input type="radio" id="int_day" name="time_interval" value="day" onClick="rssac002_update_chart()">
 <label for="int_day">Day</label><br/>
-<input type="radio" id="int_week" name="time_interval" value="week" onClick="rssac002_update_chart()">
+<input type="radio" id="int_week" name="time_interval" value="week" onClick="rssac002_update_chart()" checked>
 <label for="int_week">Week</label><br/>
 <br/>
 
