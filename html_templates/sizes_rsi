@@ -1,0 +1,90 @@
+<div class="main">
+<div hidden id="end_date">@END_DATE@</div>
+
+<div class="wrapper">
+<div class="left-inline">
+<div class="radios">
+<b>Time Interval</b><br/>
+<input type="radio" id="int_day" name="time_interval" value="day" onClick="rssac002_update_chart()">
+<label for="int_day">Day</label><br/>
+<input type="radio" id="int_week" name="time_interval" value="week" onClick="rssac002_update_chart()" checked>
+<label for="int_week">Week</label><br/>
+<br/>
+
+<b>Metric</b><br/>
+<input type="radio" id="metric_udp_queries" name="metric" value="udp-request-sizes" onClick="rssac002_update_chart()" checked>
+<label for="metric_udp_queries">UDP Queries</label><br/>
+<input type="radio" id="metric_tcp_queries" name="metric" value="tcp-request-sizes" onClick="rssac002_update_chart()">
+<label for="metric_tcp_queries">TCP Queries</label><br/>
+<input type="radio" id="metric_udp_responses" name="metric" value="udp-response-sizes" onClick="rssac002_update_chart()">
+<label for="metric_tcp_responses">UDP Responses</label><br/>
+<input type="radio" id="metric_tcp_responses" name="metric" value="tcp-response-sizes" onClick="rssac002_update_chart()">
+<label for="metric_tcp_responses">TCP Responses</label><br/>
+<br/>
+
+<b>Lines</b><br/>
+<input type="radio" id="sizes_6" name="num_sizes" value="6" onClick="rssac002_update_chart()" checked>
+<label for="sizes_6">6</label><br/>
+<input type="radio" id="sizes_8" name="num_sizes" value="8" onClick="rssac002_update_chart()">
+<label for="sizes_8">8</label><br/>
+<input type="radio" id="sizes_10" name="num_sizes" value="10" onClick="rssac002_update_chart()">
+<label for="sizes_10">10</label><br/>
+<br/>
+
+</div>
+</div> <!-- Closes left-inline -->
+
+<div class="right-inline">
+<figure class="highcharts-figure">
+<div class="rchart" id="container_a"></div>
+</figure>
+
+<figure class="highcharts-figure">
+<div class="rchart" id="container_b"></div>
+</figure>
+
+<figure class="highcharts-figure">
+<div class="rchart" id="container_c"></div>
+</figure>
+
+<figure class="highcharts-figure">
+<div class="rchart" id="container_d"></div>
+</figure>
+
+<figure class="highcharts-figure">
+<div class="rchart" id="container_e"></div>
+</figure>
+
+<figure class="highcharts-figure">
+<div class="rchart" id="container_f"></div>
+</figure>
+
+<figure class="highcharts-figure">
+<div class="rchart" id="container_g"></div>
+</figure>
+
+<figure class="highcharts-figure">
+<div class="rchart" id="container_h"></div>
+</figure>
+
+<figure class="highcharts-figure">
+<div class="rchart" id="container_i"></div>
+</figure>
+
+<figure class="highcharts-figure">
+<div class="rchart" id="container_j"></div>
+</figure>
+
+<figure class="highcharts-figure">
+<div class="rchart" id="container_k"></div>
+</figure>
+
+<figure class="highcharts-figure">
+<div class="rchart" id="container_l"></div>
+</figure>
+
+<figure class="highcharts-figure">
+<div class="rchart" id="container_m"></div>
+</figure>
+</div> <!-- Closes right-inline -->
+</div> <!-- Closes main -->

@@ -144,21 +144,12 @@ array_push($pages, array('meat' => 'load_rsi', 'header' => 'header_jqueryui',
 array_push($pages, array('meat' => 'sizes_single',
                          'header_v' => array('@TITLE@' => 'RSS traffic-sizes', '@SCRIPT@' => 'sizes_single.js'),
                          'meat_v' => array('@END_DATE@' => $end_date)));
+array_push($pages, array('meat' => 'sizes_rsi',
+                         'header_v' => array('@TITLE@' => 'traffic-sizes by RSI', '@SCRIPT@' => 'sizes_rsi.js'),
+                         'meat_v' => array('@END_DATE@' => $end_date)));
 array_push($pages, array('meat' => 'sizes_bar', 'header' => 'header_jqueryui',
                          'header_v' => array('@TITLE@' => 'Packet Sizes', '@SCRIPT@' => 'sizes_bar.js'),
                          'meat_v' => array('@START_DATE@' => $start_date, '@END_DATE@' => $end_date)));
-array_push($pages, array('meat' => 'sizes_udp_queries_line',
-                         'header_v' => array('@TITLE@' => 'traffic-sizes UDP Queries by RSI', '@SCRIPT@' => 'sizes_line.js'),
-                         'meat_v' => array('@END_DATE@' => $end_date)));
-array_push($pages, array('meat' => 'sizes_udp_responses_line',
-                         'header_v' => array('@TITLE@' => 'traffic-sizes UDP Responses by RSI', '@SCRIPT@' => 'sizes_line.js'),
-                         'meat_v' => array('@END_DATE@' => $end_date)));
-array_push($pages, array('meat' => 'sizes_tcp_queries_line',
-                         'header_v' => array('@TITLE@' => 'traffic-sizes TCP Queries by RSI', '@SCRIPT@' => 'sizes_line.js'),
-                         'meat_v' => array('@END_DATE@' => $end_date)));
-array_push($pages, array('meat' => 'sizes_tcp_responses_line',
-                         'header_v' => array('@TITLE@' => 'traffic-sizes TCP Responses by RSI', '@SCRIPT@' => 'sizes_line.js'),
-                         'meat_v' => array('@END_DATE@' => $end_date)));
 
 foreach($pages as $page){
   if(array_key_exists('header', $page)){

@@ -1,5 +1,9 @@
 /* Copyright Andrew McConachie <andrew@depht.com> 2021 */
 
+$(document).ready(function() {
+  rssac002_update_chart();
+});
+
 // Compare function for sorting ranges
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
 function range_compare(a, b){
@@ -12,7 +16,7 @@ function range_compare(a, b){
   }
 }
 
-$(document).ready(function() {
+function rssac002_update_chart(){
   var options = {
     chart: {
       renderTo: '',
@@ -33,8 +37,9 @@ $(document).ready(function() {
     },
     yAxis: {
       title: {
-        text: ''
+        text: 'packets (log)'
       },
+      type: 'logarithmic',
       labels: {
         formatter: function () {
           return this.value / 1000000000;
@@ -43,26 +48,52 @@ $(document).ready(function() {
     },
     plotOptions: {
       series: {
-        pointStart: Date.UTC('2019', '00', '01'),  // Jan is zero'th month in JS
-        pointInterval: 86400000, // 1 day in ms
+        pointStart: Date.UTC('2019', '00', '07'),  // Jan is zero'th month in JS
         connectNulls: true,
       }
     },
     series: [{}]
   };
 
-  var metric = document.getElementById('metric').textContent;
+  // Read some values from the HTML
+  var end_date = document.getElementById('end_date').textContent;
+  var time_interval = document.querySelector('input[name = "time_interval"]:checked').value;
+  var metric = document.querySelector('input[name = "metric"]:checked').value;
+  var num_ranges = document.querySelector('input[name = "num_sizes"]:checked').value;
+
+  // Determine request JSON based on time_interval
+  if(time_interval == 'day'){
+    var denominator = 1;
+    options.plotOptions.series.pointInterval =  86400000; // 1 day in ms
+    var req_data = {
+      rsi: 'a-m',
+      start_date: '2019-01-07',
+      end_date: end_date,
+    };
+  }else{
+    var denominator = 7;
+    options.plotOptions.series.pointInterval = 604800000; // 1 week in ms
+    var tooltip = {
+      valueDecimals: 0,
+      dateTimeLabelFormats: {
+        week:  ["Week %W, from %A, %b %e, %Y"],
+      }
+    };
+    options.tooltip = tooltip;
+    var req_data = {
+      rsi: 'a-m',
+      start_date: '2019-01-07',
+      end_date: end_date,
+      week: true,
+    };
+  }
+
   $.ajax({
     url: "/api/v1/" + metric,
     type: "GET",
     dataType: "json",
-    data: {
-      rsi: 'a-m',
-      start_date: '2019-01-01',
-      end_date: document.getElementById('end_date').textContent,
-    },
+    data: req_data,
     success: function(res){
-      var num_ranges = 10; // How many ranges to draw for each chart
 
       // Get totals for every range
       var ranges_totals = {}
@@ -106,10 +137,10 @@ $(document).ready(function() {
         }
         $.each(dates, function(date, sizes){
           $.each(ranges, function(range, data){
-            if(sizes == null){
+            if(sizes == null || sizes == 0){
               data.push(null);
             }else if(range in sizes){
-              data.push(sizes[range]);
+              data.push(Math.round(sizes[range] / denominator));
             }else{
               data.push(null);
             }
@@ -127,9 +158,14 @@ $(document).ready(function() {
 
       $.each(chart_series, function(rsi, ranges){
         options.chart.renderTo = 'container_' + rsi;
-        options.title.text =  rsi + '.root-servers.net ' + metric + ' ' + ' (top ' + num_ranges + ') ' +' (per-day) (billion)';
+        if(time_interval == 'day'){
+          options.title.text =  rsi + '.root-servers.net top ' + num_ranges + ' ' + metric + ' (billion)';
+        }else{
+          options.title.text =  rsi + '.root-servers.net top ' + num_ranges + ' ' + metric + ' by-week (billion) (daily-average)';
+        }
         options.series = ranges;
         new Highcharts.Chart(options);
       });
-    }});
-});
+    }
+  });
+}
