@@ -159,7 +159,7 @@ function rssac002_update_chart(){
       $.each(chart_series, function(rsi, ranges){
         options.chart.renderTo = 'container_' + rsi;
         if(time_interval == 'day'){
-          options.title.text =  rsi + '.root-servers.net top ' + num_ranges + ' ' + metric + ' (billion)';
+          options.title.text =  rsi + '.root-servers.net top ' + num_ranges + ' ' + metric + ' per-day (billion)';
         }else{
           options.title.text =  rsi + '.root-servers.net top ' + num_ranges + ' ' + metric + ' by-week (billion) (daily-average)';
         }

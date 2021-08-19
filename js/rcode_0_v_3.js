@@ -8,7 +8,7 @@ $(document).ready(function() {
       zoomType: 'x'
     },
     title: {
-        text: 'NoError vs NxDomain per-day'
+        text: 'NoError vs NxDomain by-day'
     },
     subtitle: {
         text: 'Source: RSSAC002 Data'

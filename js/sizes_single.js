@@ -64,7 +64,7 @@ function rssac002_update_chart(){
   // Determine request JSON based on time_interval
   if(time_interval == 'day'){
     var denominator = 1;
-    options.title.text = 'Top ' + num_ranges + ' ' + metric + ' (billion)';
+    options.title.text = 'Top ' + num_ranges + ' ' + metric + ' per-day (billion)';
     options.plotOptions.series.pointInterval =  86400000; // 1 day in ms
     var req_data = {
       rsi: 'a-m',

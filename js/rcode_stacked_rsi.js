@@ -106,7 +106,7 @@ $(document).ready(function() {
       // Draw charts
       $.each(chart_series, function(rsi, rcodes) {
         options.chart.renderTo = 'container_' + rsi;
-        options.title.text = rsi + '.root-servers.net RCODEs';
+        options.title.text = rsi + '.root-servers.net RCODEs by-day';
         options.series = rcodes;
         new Highcharts.Chart(options);
       });
