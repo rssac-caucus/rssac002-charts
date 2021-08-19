@@ -45,7 +45,7 @@ function rssac002_update_chart(){
 
   // Determine request JSON based on time_interval
   if(time_interval == 'day'){
-    var suffix_text = '';
+    var suffix_text = 'per-day (billion)';
     var denominator = 1;
     var point_interval =  86400000; // 1 day in ms
     var req_data = {
@@ -55,7 +55,7 @@ function rssac002_update_chart(){
       totals: direction,
     };
   }else{
-    var suffix_text = '(daily average)';
+    var suffix_text = 'by-week (billion) (daily average)';
     var denominator = 7;
     var point_interval = 604800000; // 1 week in ms
     var tooltip = {
@@ -101,11 +101,11 @@ function rssac002_update_chart(){
   }
 
   if(direction == 'received'){
-    options.title.text = 'Queries Received by-' + time_interval + ' (billion) ' + suffix_text;
-    options.yAxis.title.text = 'Queries';
+    options.title.text = 'Queries Received ' + suffix_text;
+    options.yAxis.title.text = 'queries';
   }else{
-    options.title.text = 'Responses Sent by-' + time_interval + ' (billion) ' + suffix_text;
-    options.yAxis.title.text = 'Responses';
+    options.title.text = 'Responses Sent ' + suffix_text;
+    options.yAxis.title.text = 'responses';
   }
 
   $.ajax({
