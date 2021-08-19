@@ -2,6 +2,19 @@
 <div hidden id="end_date">@END_DATE@</div>
 <div hidden id="direction">sent</div>
 
+<div class="wrapper">
+<div class="left-inline">
+<div class="radios">
+<b>Time Interval</b><br/>
+<input type="radio" id="int_day" name="time_interval" value="day" onClick="rssac002_update_chart()">
+<label for="int_day">Day</label><br/>
+<input type="radio" id="int_week" name="time_interval" value="week" onClick="rssac002_update_chart()" checked>
+<label for="int_week">Week</label><br/>
+<br/>
+
+</div>
+</div> <!-- Closes left-inline -->
+
 <figure class="highcharts-figure">
 <div class="rchart" id="container_a"></div>
 </figure>
@@ -53,5 +66,5 @@
 <figure class="highcharts-figure">
 <div class="rchart" id="container_m"></div>
 </figure>
-
-</div>
+</div> <!-- Closes right-inline -->
+</div> <!-- Closes main -->
