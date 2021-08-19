@@ -45,7 +45,7 @@ function rssac002_update_chart(){
 
   // Determine request JSON based on time_interval
   if(time_interval == 'day'){
-    var suffix_text = '';
+    var suffix_text = ' per-day (million)';
     var denominator = 1;
     var point_interval =  86400000; // 1 day in ms
     var req_data = {
@@ -54,7 +54,7 @@ function rssac002_update_chart(){
       end_date: end_date,
     };
   }else{
-    var suffix_text = '(daily average)';
+    var suffix_text = ' by-week (million) (daily average)';
     var denominator = 7;
     var point_interval = 604800000; // 1 week in ms
     var tooltip = {
@@ -99,11 +99,11 @@ function rssac002_update_chart(){
   }
 
   if(ip_version == '4'){
-    options.title.text = 'Unique IPv4 Sources by-' + time_interval + ' (million) ' + suffix_text;
+    options.title.text = 'Unique IPv4 Sources' + suffix_text;
   }else if(ip_version == '6'){
-    options.title.text = 'Unique IPv6 (/64) Sources by-' + time_interval + ' (million) ' + suffix_text;
+    options.title.text = 'Unique IPv6 (/64) Sources' + suffix_text;
   }else{ // both
-    options.title.text = 'Unique IPv4 + IPv6 (/64) Sources by-' + time_interval + ' (million) ' + suffix_text;
+    options.title.text = 'Unique IPv4 + IPv6 (/64) Sources' + suffix_text;
   }
 
   $.ajax({
