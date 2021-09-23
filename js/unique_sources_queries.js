@@ -14,6 +14,9 @@ function rssac002_update_chart(){
     title: {
         text: ''
     },
+    legend: {
+      enabled: true,
+    },
     subtitle: {
         text: 'Source: RSSAC002 Data'
     },
@@ -40,7 +43,6 @@ function rssac002_update_chart(){
 
   // Read some values from the HTML
   var end_date = document.getElementById('end_date').textContent;
-  var chart_type = document.querySelector('input[name = "chart_type"]:checked').value;
   var time_interval = document.querySelector('input[name = "time_interval"]:checked').value;
   var ip_version = document.querySelector('input[name = "ip_version"]:checked').value;
 
@@ -67,17 +69,6 @@ function rssac002_update_chart(){
       }
     };
     options.tooltip = tooltip;
-  }
-
-  // Set options based on chart_type
-  if(chart_type == 'mline'){
-    options.legend = {
-      enabled: true,
-    };
-  }else{ // 'line'
-    options.legend = {
-      enabled: false,
-    };
   }
 
   if(ip_version == '4'){
@@ -107,90 +98,47 @@ function rssac002_update_chart(){
         dataType: "json",
         data: req_data_queries,
         success: function(res_queries){
-          if(chart_type == 'line'){
-            var totals_sources = {}
-            $.each(res_sources, function(rsi, dates){
-              $.each(dates, function(date, val){
-                if(!(date in totals_sources)){
-                  totals_sources[date] = 0;
+          var totals_sources = {}
+          $.each(res_sources, function(rsi, dates){
+            totals_sources[rsi] = {};
+            $.each(dates, function(date, val){
+              totals_sources[rsi][date] = 0;
+              if(val != null){
+                for(ii=0; ii < s_keys.length; ii++){
+                  totals_sources[rsi][date] += sum_vals(val[s_keys[ii]]) / denominator;
                 }
-                if(val != null){
-                  for(ii=0; ii < s_keys.length; ii++){
-                    totals_sources[date] += sum_vals(val[s_keys[ii]]) / denominator;
-                  }
-                }
-              });
-            });
-
-            var totals_queries = {};
-            $.each(res_queries, function(rsi, dates){
-              $.each(dates, function(date, val){
-                if(!(date in totals_queries)){
-                  totals_queries[date] = 0;
-                }
-                if(val != null){
-                  for(ii=0; ii < q_keys.length; ii++){
-                    totals_queries[date] += sum_vals(val[q_keys[ii]]) / denominator;
-                  }
-                }
-              });
-            });
-
-            var points = [];
-            points[0] = {};
-            points[0].name = 'RSS';
-            points[0].data = [];
-            $.each(totals_sources, function(date, sources){
-              if(sources == 0){
-                points[0].data.push(Math.round(totals_queries[date] / 1)); // Should never happen
-              }else{
-                points[0].data.push(Math.round(totals_queries[date] / sources));
               }
             });
+          });
 
-          }else{ // chart_type == 'mline'
-            var totals_sources = {}
-            $.each(res_sources, function(rsi, dates){
-              totals_sources[rsi] = {};
-              $.each(dates, function(date, val){
-                totals_sources[rsi][date] = 0;
-                if(val != null){
-                  for(ii=0; ii < s_keys.length; ii++){
-                    totals_sources[rsi][date] += sum_vals(val[s_keys[ii]]) / denominator;
-                  }
+          var totals_queries = {};
+          $.each(res_queries, function(rsi, dates){
+            totals_queries[rsi] = {};
+            $.each(dates, function(date, val){
+              totals_queries[rsi][date] = 0;
+              if(val != null){
+                for(ii=0; ii < q_keys.length; ii++){
+                  totals_queries[rsi][date] += sum_vals(val[q_keys[ii]]) / denominator;
                 }
-              });
+              }
             });
+          });
 
-            var totals_queries = {};
-            $.each(res_queries, function(rsi, dates){
-              totals_queries[rsi] = {};
-              $.each(dates, function(date, val){
-                totals_queries[rsi][date] = 0;
-                if(val != null){
-                  for(ii=0; ii < q_keys.length; ii++){
-                    totals_queries[rsi][date] += sum_vals(val[q_keys[ii]]) / denominator;
-                  }
-                }
-              });
+          var points = [];
+          var ii = 0;
+          $.each(totals_sources, function(rsi, dates){
+            points[ii] = {};
+            points[ii].name = rsi;
+            points[ii].data = [];
+            $.each(dates, function(date, sources){
+              if(sources == 0){
+                points[ii].data.push(Math.round(totals_queries[rsi][date] / 1)); // Should never happen
+              }else{
+                points[ii].data.push(Math.round(totals_queries[rsi][date] / sources));
+              }
             });
-
-            var points = [];
-            var ii = 0;
-            $.each(totals_sources, function(rsi, dates){
-              points[ii] = {};
-              points[ii].name = rsi;
-              points[ii].data = [];
-              $.each(dates, function(date, sources){
-                if(sources == 0){
-                  points[ii].data.push(Math.round(totals_queries[rsi][date] / 1)); // Should never happen
-                }else{
-                  points[ii].data.push(Math.round(totals_queries[rsi][date] / sources));
-                }
-              });
-              ii += 1;
-            });
-          }
+            ii += 1;
+          });
 
           options.series = points;
           new Highcharts.Chart(options);
