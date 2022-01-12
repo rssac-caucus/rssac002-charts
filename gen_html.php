@@ -66,7 +66,8 @@ $menu = file_get_contents($template_dir . 'menu');
 
 // Create our date strings
 $now = getdate();
-$start_date = $now['year'] . '-01-01'; // Jan 1 of the current year
+$last_year = $now['year'] - 1;
+$start_date = $last_year . '-' . $now['mon'] . '-01'; // First day of this month last year
 $ts = time() - 60 * 60 * 24 * 21; // 21 days ago
 $dt = new DateTime("@$ts");
 $end_date = $dt->format('Y-m-d');
