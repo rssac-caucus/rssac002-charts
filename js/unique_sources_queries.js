@@ -132,7 +132,7 @@ function rssac002_update_chart(){
             points[ii].data = [];
             $.each(dates, function(date, sources){
               if(sources == 0){
-                points[ii].data.push(Math.round(totals_queries[rsi][date] / 1)); // Should never happen
+                points[ii].data.push(0); // Prevent divide by zero
               }else{
                 points[ii].data.push(Math.round(totals_queries[rsi][date] / sources));
               }
