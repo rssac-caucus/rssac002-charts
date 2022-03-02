@@ -103,7 +103,7 @@ function rssac002_update_chart(){
       var tcp_v6_points = [];
       var ii = 0;
 
-      options.plotOptions.area.pointStart = Date.UTC('2017', '00', '07'); // Jan is zero'th month in JS
+      options.plotOptions.area.pointStart = Date.UTC('2019', '00', '07'); // Jan is zero'th month in JS
       $.each(res, function(rsi, dates) {
         udp_v4_points[ii] = {};
         udp_v4_points[ii].name = rsi;

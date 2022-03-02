@@ -104,7 +104,7 @@ function rssac002_update_chart(){
     dataType: "json",
     data: req_data,
     success: function(res){
-      options.plotOptions.area.pointStart = Date.UTC('2017', '00', '07'); // Jan is zero'th month in JS
+      options.plotOptions.area.pointStart = Date.UTC('2019', '00', '07'); // Jan is zero'th month in JS
       var queries_series = {};
       var chart_series = {};
 
