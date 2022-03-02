@@ -53,8 +53,9 @@ function rssac002_make_pie(start_date, end_date, rsi_list, container){
       series: {
         dataLabels: {
           enabled: true,
+          padding: 0,
           formatter: function() {
-            return this.point.name + " " + Math.round(this.percentage*100)/100 + '%';
+            return Math.round(this.percentage) + '% ' + this.point.name;
           },
         }
       }
