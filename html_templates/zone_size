@@ -1,0 +1,17 @@
+<div class="main">
+  <div hidden id="end_date">@END_DATE@</div>
+  
+  <figure class="highcharts-figure">
+    <div class="rchart" id="container"></div>
+  </figure>
+
+  <div class="radios">
+    <br/>
+    <b>Time Interval</b><br/>
+    <input type="radio" id="int_day" name="time_interval" value="day" onClick="rssac002_update_chart()">
+    <label for="int_day">Day</label><br/>
+    <input type="radio" id="int_week" name="time_interval" value="week" onClick="rssac002_update_chart()" checked>
+    <label for="int_week">Week</label><br/>
+    <br/>
+  </div>
+</div>

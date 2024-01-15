@@ -1,6 +1,6 @@
 #!/usr/bin/env php
 <?php
-/* Copyright Andrew McConachie <andrew@depht.com> 2021 */
+/* Copyright Andrew McConachie <andrew@depht.com> 2021 2024 */
 
 // Only allow execution via the CLI
 if( !php_sapi_name() == 'cli'){
@@ -151,6 +151,11 @@ array_push($pages, array('meat' => 'sizes_rsi',
 array_push($pages, array('meat' => 'sizes_bar', 'header' => 'header_jqueryui',
                          'header_v' => array('@TITLE@' => 'Packet Sizes', '@SCRIPT@' => 'sizes_bar.js'),
                          'meat_v' => array('@START_DATE@' => $start_date, '@END_DATE@' => $end_date)));
+
+// zone-size
+array_push($pages, array('meat' => 'zone_size',
+                         'header_v' => array('@TITLE@' => 'Root Zone Size', '@SCRIPT@' => 'zone_size.js'),
+                         'meat_v' => array('@END_DATE@' => $end_date)));
 
 foreach($pages as $page){
   if(array_key_exists('header', $page)){
