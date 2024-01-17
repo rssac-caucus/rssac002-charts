@@ -157,6 +157,11 @@ array_push($pages, array('meat' => 'zone_size',
                          'header_v' => array('@TITLE@' => 'Root Zone Size', '@SCRIPT@' => 'zone_size.js'),
                          'meat_v' => array('@END_DATE@' => $end_date)));
 
+// Instances
+array_push($pages, array('meat' => 'instance_count',
+                         'header_v' => array('@TITLE@' => 'Instance Count', '@SCRIPT@' => 'instance_count.js'),
+                         'meat_v' => array('@END_DATE@' => $end_date)));
+
 foreach($pages as $page){
   if(array_key_exists('header', $page)){
     $our_header = file_get_contents($template_dir . $page['header']);
