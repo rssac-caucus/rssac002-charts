@@ -38,9 +38,9 @@
   <a href="sizes_bar.html">Sizes Stacked</a><br/>
   </p>
 
-  <a href="instance_count.html"><h3>Instances</h3></a>
-
   <a href="zone_size.html"><h3>Root Zone Size</h3></a>
+
+  <a href="instance_count.html"><h3>Instances</h3></a>
 
   <h3>Links</h3>
   <p>
