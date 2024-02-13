@@ -161,8 +161,8 @@ array_push($pages, array('meat' => 'zone_size',
 array_push($pages, array('meat' => 'instance_count',
                          'header_v' => array('@TITLE@' => 'Instance Count', '@SCRIPT@' => 'instance_count.js'),
                          'meat_v' => array('@END_DATE@' => $end_date)));
-array_push($pages, array('meat' => 'instance_detail_map','header' => 'header_map',
-                         'header_v' => array('@TITLE@' => 'Instance Map', '@SCRIPT@' => 'instance_detail_map.js'),
+array_push($pages, array('meat' => 'site_detail_map','header' => 'header_map',
+                         'header_v' => array('@TITLE@' => 'Global Map', '@SCRIPT@' => 'site_detail_map.js'),
                          'meat_v' => array('@END_DATE@' => $end_date)));
 
 foreach($pages as $page){

@@ -38,6 +38,18 @@ var options = { // We had to make this Global
   tooltip: {
     pointFormat: '{point.town} ({point.rsi})<br/> <span style="font-size:10px">Lat: {point.lat:.3f} Lon: {point.lon:.3f}' +
       '{#if (ne 1 point.count)} <br/>Count:{point.count} {/if}</span>',
+    formatter: function(tooltip){
+      if(this.point.isCluster && this.series.name == 'RSS'){
+        var letters =[];
+        $.each(this.point.clusteredData, function(cl, pp){
+          if(!letters.includes(pp.options.rsi)){
+            letters.push(pp.options.rsi);
+          }
+        });
+        return letters.reduce((s, ll) => s + ' ' + ll, '');
+      }
+      return tooltip.defaultFormatter.call(this, tooltip);
+    },
   },
   plotOptions: {
     series: {
@@ -48,7 +60,7 @@ var options = { // We had to make this Global
       },
       events: {
         legendItemClick: function(event){
-          rssac002_disable_series(this.name);
+          rssac002_disable_series(this.name); // This causes errors but still seems to work
         },
       },
       turboThreshold: 10000,
@@ -64,14 +76,14 @@ var options = { // We had to make this Global
           gridSize: '5%',
         },
       },
-      tooltip: {
+      /*tooltip: {
         //clusterFormat: '{log}',
         clusterFormat: "{#if (eq series.index 1)}" +  
           "Sites: {#each point.clusteredData}" + "{point.clusteredData.{(@index)}.options.rsi} " + "{/each}" + 
           "{else}" + 
           "Sites: {point.clusteredData.length}" + 
           "{/if}",
-      },
+      },*/
     },
   },
   series: [],
@@ -177,7 +189,7 @@ function rssac002_fill_options(map_date){
                 if(pushit){
                   var p = {};
                   p.rsi = rsi.toUpperCase();
-                  p.count = res[rsi][date][site]['Count'];
+                  p.z = p.count = res[rsi][date][site]['Count'];
                   p.town = res[rsi][date][site]['Town'];
                   p.lat = res[rsi][date][site]['Latitude'];
                   p.lon = res[rsi][date][site]['Longitude'];
