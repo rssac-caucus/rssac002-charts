@@ -36,19 +36,36 @@ var options = { // We had to make this Global
     }
   },
   tooltip: {
-    pointFormat: '{point.town} ({point.rsi})<br/> <span style="font-size:10px">Lat: {point.lat:.3f} Lon: {point.lon:.3f}' +
-      '{#if (ne 1 point.count)} <br/>Count:{point.count} {/if}</span>',
     formatter: function(tooltip){
       if(this.point.isCluster && this.series.name == 'RSS'){
-        var letters =[];
+        var total = 0;
+        var letters ={};
         $.each(this.point.clusteredData, function(cl, pp){
-          if(!letters.includes(pp.options.rsi)){
-            letters.push(pp.options.rsi);
+          total += 1;
+          if(letters[pp.options.rsi] == undefined){
+            letters[pp.options.rsi] = 1;
+          }else{
+            letters[pp.options.rsi] += 1;
           }
         });
-        return letters.reduce((s, ll) => s + ' ' + ll, '');
+        var rv = total + ' Sites: ';
+        $.each(letters, function(rsi, sites){
+          if(sites == 1){
+            rv += rsi + ' ';
+          }else{
+            rv += rsi + '(' + sites + ') ';
+          }
+        });
+        return rv;
+      }else if(this.point.isCluster){
+        return 'Sites: ' + this.point.clusteredData.length;
+      }else if(this.series.name == 'RSS'){
+        return this.point.rsi + '<br/>' + this.point.town + '<br/><span style="font-size:10px">Instances: ' + this.point.count + 
+          '<br/>Lat: ' + this.point.lat + ' Lon: ' + this.point.lon + '</span>';
+      }else{
+        return this.point.town + '<br/><span style="font-size:10px">Instances: ' + this.point.count + 
+          '<br/>Lat: ' + this.point.lat + ' Lon: ' + this.point.lon + '</span>';
       }
-      return tooltip.defaultFormatter.call(this, tooltip);
     },
   },
   plotOptions: {
@@ -60,7 +77,7 @@ var options = { // We had to make this Global
       },
       events: {
         legendItemClick: function(event){
-          rssac002_disable_series(this.name); // This causes errors but still seems to work
+          rssac002_disable_series(this.name); // This causes errors in Highmaps.js but still seems to work
         },
       },
       turboThreshold: 10000,
@@ -77,7 +94,7 @@ var options = { // We had to make this Global
         },
       },
       /*tooltip: {
-        //clusterFormat: '{log}',
+        clusterFormat: '{log}',
         clusterFormat: "{#if (eq series.index 1)}" +  
           "Sites: {#each point.clusteredData}" + "{point.clusteredData.{(@index)}.options.rsi} " + "{/each}" + 
           "{else}" + 
@@ -101,8 +118,8 @@ $(function() {
 });
 
 $(document).ready(function() {
-  // Set calendar to 2 days previous
-  document.querySelector("#map-date").value = new Date(Date.now() - 172800000).toISOString().split("T")[0];
+  //document.querySelector("#map-date").value = new Date(Date.now() - 172800000).toISOString().split("T")[0]; // 2 days
+  document.querySelector("#map-date").value = new Date(Date.now() - 259200000).toISOString().split("T")[0]; // 3 days
   rssac002_update_chart();
 });
 
@@ -188,8 +205,8 @@ function rssac002_fill_options(map_date){
                 }
                 if(pushit){
                   var p = {};
-                  p.rsi = rsi.toUpperCase();
-                  p.z = p.count = res[rsi][date][site]['Count'];
+                  p.rsi = rsi;
+                  p.count = res[rsi][date][site]['Count'];
                   p.town = res[rsi][date][site]['Town'];
                   p.lat = res[rsi][date][site]['Latitude'];
                   p.lon = res[rsi][date][site]['Longitude'];
