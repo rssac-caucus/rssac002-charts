@@ -1,111 +1,5 @@
 /* Copyright Andrew McConachie <andrew@depht.com> 2024 */
 
-Highcharts.Templating.helpers.log = function () {
-    console.log(arguments[0].ctx);
-};
-
-var options = { // We had to make this Global
-  chart: {
-    renderTo: 'container',
-    map: '',
-  },
-  title: {
-    text: 'DNS Root Server Instances'
-  },
-  legend: {
-    enabled: true,
-  },
-  subtitle: {
-    text: 'Source: https://root-servers.org'
-  },
-  mapNavigation: {
-    enabled: true,
-    buttonOptions: {
-      verticalAlign: 'bottom'
-    }
-  },
-  mapView: {
-    fitToGeometry: {
-      type: 'MultiPoint',
-      coordinates: [
-        [-164, 54], // Alaska west
-        [-35, 84],  // Greenland north
-        [179, -38], // New Zealand east
-        [-68, -55]  // Chile south
-      ]
-    }
-  },
-  tooltip: {
-    formatter: function(tooltip){
-      if(this.point.isCluster && this.series.name == 'RSS'){
-        var total = 0;
-        var letters ={};
-        $.each(this.point.clusteredData, function(cl, pp){
-          total += 1;
-          if(letters[pp.options.rsi] == undefined){
-            letters[pp.options.rsi] = 1;
-          }else{
-            letters[pp.options.rsi] += 1;
-          }
-        });
-        var rv = total + ' Sites: ';
-        $.each(letters, function(rsi, sites){
-          if(sites == 1){
-            rv += rsi + ' ';
-          }else{
-            rv += rsi + '(' + sites + ') ';
-          }
-        });
-        return rv;
-      }else if(this.point.isCluster){
-        return 'Sites: ' + this.point.clusteredData.length;
-      }else if(this.series.name == 'RSS'){
-        return this.point.rsi + '<br/>' + this.point.town + '<br/><span style="font-size:10px">Instances: ' + this.point.count + 
-          '<br/>Lat: ' + this.point.lat + ' Lon: ' + this.point.lon + '</span>';
-      }else{
-        return this.point.town + '<br/><span style="font-size:10px">Instances: ' + this.point.count + 
-          '<br/>Lat: ' + this.point.lat + ' Lon: ' + this.point.lon + '</span>';
-      }
-    },
-  },
-  plotOptions: {
-    series: {
-      states: {
-        inactive: {
-          opacity: 1,
-        },
-      },
-      events: {
-        legendItemClick: function(event){
-          rssac002_disable_series(this.name); // This causes errors in Highmaps.js but still seems to work
-        },
-      },
-      turboThreshold: 10000,
-    },
-    mappoint: {
-      cluster: {
-        minimumClusterSize: 5,
-        enabled: true,
-        drillToCluster: false,
-        allowOverlap: false,
-        layoutAlgorithm: {
-          type: 'grid',
-          gridSize: '5%',
-        },
-      },
-      /*tooltip: {
-        clusterFormat: '{log}',
-        clusterFormat: "{#if (eq series.index 1)}" +  
-          "Sites: {#each point.clusteredData}" + "{point.clusteredData.{(@index)}.options.rsi} " + "{/each}" + 
-          "{else}" + 
-          "Sites: {point.clusteredData.length}" + 
-          "{/if}",
-      },*/
-    },
-  },
-  series: [],
-};
-
 $(function() {
   $.datepicker.setDefaults({
     minDate: new Date(2015, 3 - 1, 2),
@@ -123,47 +17,128 @@ $(document).ready(function() {
   rssac002_update_chart();
 });
 
-// Disables all series except where series.name == exclude
-function rssac002_disable_series(exclude){
-  for(var ii=0; ii<options.series.length; ii++){
-    if(options.series[ii].name == 'World'){
-      continue;
-    }
-    if(options.series[ii].name == exclude){
-      options.series[ii].visible = true;
-    }else{
-      options.series[ii].visible = false;
-    }
-  }
-  rssac002_draw_map(options);
-}
-
-function rssac002_draw_map(options){
-  new Highcharts.mapChart(options);
-}
-
 function rssac002_update_chart(){
-  rssac002_fill_options(document.getElementById('map-date').value);
+  rssac002_make_chart(document.getElementById('map-date').value);
 }
 
-function rssac002_fill_options(map_date){
+function rssac002_make_chart(map_date){
+  var options = {
+    chart: {
+      renderTo: 'container',
+      map: '',
+    },
+    title: {
+      text: 'DNS Root Server Instances'
+    },
+    legend: {
+      enabled: true,
+    },
+    subtitle: {
+      text: 'Source: https://root-servers.org'
+    },
+    mapNavigation: {
+      enabled: true,
+      buttonOptions: {
+        verticalAlign: 'bottom'
+      }
+    },
+    mapView: {
+      fitToGeometry: {
+        type: 'MultiPoint',
+        coordinates: [
+          [-164, 54], // Alaska west
+          [-35, 84],  // Greenland north
+          [179, -38], // New Zealand east
+          [-68, -55]  // Chile south
+        ]
+      }
+    },
+    tooltip: {
+      formatter: function(tooltip){
+        if(this.point.isCluster && this.series.name == 'RSS'){
+          var total = 0;
+          var letters = {};
+          $.each(this.point.clusteredData, function(cl, pp){
+            total += 1;
+            if(letters[pp.options.rsi] == undefined){
+              letters[pp.options.rsi] = 1;
+            }else{
+              letters[pp.options.rsi] += 1;
+            }
+          });
+          var rv = total + ' Sites: ';
+          $.each(letters, function(rsi, sites){
+            if(sites == 1){
+              rv += rsi + ' ';
+            }else{
+              rv += rsi + '(' + sites + ') ';
+            }
+          });
+          return rv;
+        }else if(this.point.isCluster){
+          return 'Sites: ' + this.point.clusteredData.length;
+        }else if(this.series.name == 'RSS'){
+          return this.point.rsi + '<br/>' + this.point.town + '<br/><span style="font-size:10px">Instances: ' + this.point.count + 
+            '<br/>Lat: ' + this.point.lat + ' Lon: ' + this.point.lon + '</span>';
+        }else{
+          return this.point.town + '<br/><span style="font-size:10px">Instances: ' + this.point.count + 
+            '<br/>Lat: ' + this.point.lat + ' Lon: ' + this.point.lon + '</span>';
+        }
+      },
+    },
+    plotOptions: {
+      series: {
+        marker: {
+          symbol: 'circle',
+        },
+        states: {
+          inactive: {
+            opacity: 1,
+          },
+        },
+        events: {
+          legendItemClick: function(event){
+            for(var ii = 0; ii<this.chart.series.length; ii++){
+              if(this.chart.series[ii].name != this.name && this.chart.series[ii].name != 'World'){
+                this.chart.series[ii].hide();
+              }
+            }
+          },
+        },
+        turboThreshold: 10000, // Should be greater than total number of data points across all series
+      },
+      mappoint: {
+        cluster: {
+          minimumClusterSize: 5,
+          enabled: true,
+          drillToCluster: false,
+          allowOverlap: false,
+          layoutAlgorithm: {
+            type: 'grid',
+            gridSize: '5%',
+          },
+        },
+      },
+    },
+    series: [
+      {
+        name: 'World',
+        color: '#E0E0E0',
+        enableMouseTracking: false,
+        showInLegend: false,
+      },
+    ],
+  };
+
   // Initialize stuff
-  options.series = [];
-
-  var world = {};
-  world.name = 'World';
-  world.color = '#E0E0E0';
-  world.enableMouseTracking = false;
-  world.showInLegend = false;
-  options.series.push(world);
-
   var RSS = {};
   RSS.name = 'RSS';
   RSS.type = 'mappoint';
+  RSS.color = '#89B5F0';
   RSS.data= [];
 
   var total_instances = 0;
-  var rv = [];
+  var RSIs = [];
   
   // Read ip_version from HTML
   var ip_version = document.querySelector('input[name = "ip_version"]:checked').value;
@@ -187,6 +162,8 @@ function rssac002_fill_options(map_date){
           points = {};
           points.name = rsi;
           points.type = 'mappoint';
+          points.visible = false;
+          points.color = '#89B5F0';
           points.data = [];
           $.each(dates, function(date, sites){
             if(res[rsi][date] != null){
@@ -217,8 +194,13 @@ function rssac002_fill_options(map_date){
               });
             }
           });
-          rv.push(points);
+          RSIs.push(points);
         });
+        options.series.push(RSS);
+        $.each(RSIs, function(rsi, points){
+          options.series.push(RSIs[rsi]);
+        });
+
         // Generate title text
         if(ip_version == '4'){
           options.title.text = total_instances + ' instances in ' + RSS.data.length + ' IPv4 Enabled Sites as of ' + map_date;
@@ -232,12 +214,7 @@ function rssac002_fill_options(map_date){
           options.title.text = total_instances + ' instances in ' + RSS.data.length + ' Dual Stack Sites as of ' + map_date;
         }
 
-        options.series.push(RSS);
-        $.each(rv, function(rsi, points){
-          rv[rsi].visible = false;
-          options.series.push(rv[rsi]);
-        });
-        rssac002_draw_map(options);
+        new Highcharts.mapChart(options);
       }});
   });
 }
