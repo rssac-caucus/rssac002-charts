@@ -12,7 +12,6 @@ $(function() {
 });
 
 $(document).ready(function() {
-  //document.querySelector("#map-date").value = new Date(Date.now() - 172800000).toISOString().split("T")[0]; // 2 days
   document.querySelector("#map-date").value = new Date(Date.now() - 259200000).toISOString().split("T")[0]; // 3 days
   rssac002_update_chart();
 });
