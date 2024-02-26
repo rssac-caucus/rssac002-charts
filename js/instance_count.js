@@ -50,6 +50,7 @@ function rssac002_update_chart(){
     rsi: 'a-m',
     start_date: '2015-03-02',
     end_date: end_date,
+    sum: true,
   };
   
   if(ip_version == '4'){
@@ -67,32 +68,14 @@ function rssac002_update_chart(){
     data: req_data,
     success: function(res){
       var totals = {};
-      totals.name = 'Total';
       totals.data = [];
-      $.each(res, function(rsi, dates){
-        var jj = 0; // For totals
-        $.each(dates, function(date, _){
-          if(typeof totals.data[jj] === 'undefined'){
-            totals.data[jj] = 0;
-          }
-
-          if(res[rsi][date] != null){
-            if(ip_version == '4'){
-              point = res[rsi][date]['ipv4'];
-            }else if(ip_version == '6'){
-              point = res[rsi][date]['ipv6'];
-            }else{
-              point = Math.min(res[rsi][date]['ipv4'], res[rsi][date]['ipv6']);
-            }
-            totals.data[jj] += point;
-          }
-          jj += 1;
-        });
-      });
-
-      $.each(totals.data, function(date, _){
-        if(totals.data[date] === 0){
-          totals.data[date] = null;
+      $.each(res, function(date, _){
+        if(ip_version == '4'){
+          totals.data.push(res[date]['ipv4']);
+        }else if(ip_version == '6'){
+          totals.data.push(res[date]['ipv6']);
+        }else{
+          totals.data.push(Math.min(res[date]['ipv4'], res[date]['ipv6']));
         }
       });
       
