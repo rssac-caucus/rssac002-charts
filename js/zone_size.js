@@ -58,7 +58,6 @@ function rssac002_update_chart(){
     var req_data = {
       start_date: '2017-01-02',
       end_date: end_date,
-
       week: true,
     };
   }
