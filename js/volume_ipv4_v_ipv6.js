@@ -1,6 +1,10 @@
-/* Copyright Andrew McConachie <andrew@depht.com> 2021 */
+/* Copyright Andrew McConachie <andrew@depht.com> 2021 2024 */
 
 $(document).ready(function() {
+  rssac002_update_chart();
+});
+
+function rssac002_update_chart(){
   var options = {
     chart: {
       renderTo: 'container',
@@ -52,59 +56,85 @@ $(document).ready(function() {
     series: [{}]
   };
 
+  // Read some values from the HTML
+  var end_date = document.getElementById('end_date').textContent;
+  var direction = document.getElementById('direction').textContent;
+  var time_interval = document.querySelector('input[name = "time_interval"]:checked').value;
+
+  // Determine request JSON based on time_interval
+  if(time_interval == 'day'){
+    var suffix_text = 'day';
+    var point_interval =  86400000; // 1 day in ms
+    var req_data = {
+      rsi: 'a-m',
+      start_date: '2017-01-02',
+      end_date: end_date,
+      sum: true,
+    };
+  }else{
+    var suffix_text = 'week';
+    var point_interval = 604800000; // 1 week in ms
+    var tooltip = {
+      dateTimeLabelFormats: {
+        week:  ["Week %W, from %A, %b %e, %Y"],
+      }
+    };
+    options.tooltip = tooltip;
+    var req_data = {
+      rsi: 'a-m',
+      start_date: '2017-01-02',
+      end_date: end_date,
+      week: true,
+      sum: true,
+    };
+  }
+
   $.ajax({
     url: "/api/v1/traffic-volume",
     type: "GET",
     dataType: "json",
-    data: {
-      rsi: 'a-m',
-      start_date: '2017-01-01',
-      end_date: document.getElementById('end_date').textContent,
-    },
+    data: req_data,
+
     success: function(res){
-      var direction = document.getElementById('direction').textContent;
       var v4_points = {};
       var v6_points = {};
 
-      // Get totals per-day
-      $.each(res, function(rsi, dates) {
-        $.each(dates, function(day, metrics) {
-          if(!(day in v4_points)){
-            v4_points[day] = 0;
-          }
-          if(!(day in v6_points)){
-            v6_points[day] = 0;
-          }
+      $.each(res, function(date, metrics) {
+        if(!(date in v4_points)){
+          v4_points[date] = 0;
+        }
+        if(!(date in v6_points)){
+          v6_points[date] = 0;
+        }
 
-          $.each(metrics, function(key, value) {
-            if(direction == 'received'){
-              if(key == 'dns-udp-queries-received-ipv6'){
-                v6_points[day] += value;
-              }
-              if(key == 'dns-udp-queries-received-ipv4'){
-                v4_points[day] += value;
-              }
-              if(key == 'dns-tcp-queries-received-ipv4'){
-                v4_points[day] += value;
-              }
-              if(key == 'dns-tcp-queries-received-ipv6'){
-                v6_points[day] += value;
-              }
-            }else{
-              if(key == 'dns-udp-responses-sent-ipv6'){
-                v6_points[day] += value;
-              }
-              if(key == 'dns-udp-responses-sent-ipv4'){
-                v4_points[day] += value;
-              }
-              if(key == 'dns-tcp-responses-sent-ipv4'){
-                v4_points[day] += value;
-              }
-              if(key == 'dns-tcp-responses-sent-ipv6'){
-                v6_points[day] += value;
-              }
+        $.each(metrics, function(key, value) {
+          if(direction == 'received'){
+            if(key == 'dns-udp-queries-received-ipv6'){
+              v6_points[date] += value;
             }
-          });
+            if(key == 'dns-udp-queries-received-ipv4'){
+              v4_points[date] += value;
+            }
+            if(key == 'dns-tcp-queries-received-ipv4'){
+              v4_points[date] += value;
+            }
+            if(key == 'dns-tcp-queries-received-ipv6'){
+              v6_points[date] += value;
+            }
+          }else{
+            if(key == 'dns-udp-responses-sent-ipv6'){
+              v6_points[date] += value;
+            }
+            if(key == 'dns-udp-responses-sent-ipv4'){
+              v4_points[date] += value;
+            }
+            if(key == 'dns-tcp-responses-sent-ipv4'){
+              v4_points[date] += value;
+            }
+            if(key == 'dns-tcp-responses-sent-ipv6'){
+              v6_points[date] += value;
+            }
+          }
         });
       });
 
@@ -117,11 +147,11 @@ $(document).ready(function() {
       points[1].data = Object.values(v6_points);
 
       if(direction == 'received'){
-        options.title.text = 'IPv4 vs IPv6 Queries per-day';
+        options.title.text = 'IPv4 vs IPv6 Queries per-' + suffix_text;
       }else{
-        options.title.text = 'IPv4 vs IPv6 Responses per-day';
+        options.title.text = 'IPv4 vs IPv6 Responses per-' + suffix_text;
       }
       options.series = points;
       new Highcharts.Chart(options);
     }});
-});
+}
