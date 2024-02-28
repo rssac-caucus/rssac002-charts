@@ -101,15 +101,17 @@ function rssac002_update_chart(){
         $.each(dates, function(key, val){
           if(val != null) {
             if(ip_version == '4'){
-              points[ii].data.push(Math.round(sum_vals(val['num-sources-ipv4']) / denominator));
+              point = Math.round(sum_vals(val['num-sources-ipv4']) / denominator);
             }else if(ip_version == '6'){
-              points[ii].data.push(Math.round(sum_vals(val['num-sources-ipv6-aggregate']) / denominator));
+              point = Math.round(sum_vals(val['num-sources-ipv6-aggregate']) / denominator);
             }else{
-              points[ii].data.push(Math.round(sum_vals(val['num-sources-ipv4'], val['num-sources-ipv6-aggregate']) / denominator));
+              point = Math.round(sum_vals(val['num-sources-ipv4'], val['num-sources-ipv6-aggregate']) / denominator);
             }
           }else{
-            points[ii].data.push(null);
+            point = null;
           }
+          if(point == 0) { point = null; } // There's no legitimate reason for zero unique-sources
+          points[ii].data.push(point);
         });
         ii += 1;
       });
