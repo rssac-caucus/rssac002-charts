@@ -1,4 +1,4 @@
-/* Copyright Andrew McConachie <andrew@depht.com> 2021 */
+/* Copyright Andrew McConachie <andrew@depht.com> 2021 2024 */
 
 $(function() {
   $.datepicker.setDefaults({
@@ -62,9 +62,6 @@ function rssac002_make_bar(rsi_list, start_date, end_date, metric){
         }
       },
       stackLabels: {
-        style: {
-          color: 'gray'
-        },
         enabled: true,
         formatter: function () {
           return (this.total * 100 ).toFixed(2) + "%";
