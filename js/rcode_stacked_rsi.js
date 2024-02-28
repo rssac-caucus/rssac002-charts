@@ -1,6 +1,10 @@
-/* Copyright Andrew McConachie <andrew@depht.com> 2021 */
+/* Copyright Andrew McConachie <andrew@depht.com> 2021 2024 */
 
 $(document).ready(function() {
+  rssac002_update_chart();
+});
+
+function rssac002_update_chart(){
   var options = {
     chart: {
       renderTo: '',
@@ -44,17 +48,44 @@ $(document).ready(function() {
     series: [{}]
   };
 
+  // Read some values from the HTML
+  var end_date = document.getElementById('end_date').textContent;
+  var time_interval = document.querySelector('input[name = "time_interval"]:checked').value;
+
+  // Determine request JSON based on time_interval
+  if(time_interval == 'day'){
+    var suffix_text = 'day';
+    var point_interval =  86400000; // 1 day in ms
+    var req_data = {
+      rsi: 'a-m',
+      start_date: '2017-01-02',
+      end_date: end_date,
+    };
+  }else{
+    var suffix_text = 'week';
+    var point_interval = 604800000; // 1 week in ms
+    var tooltip = {
+      dateTimeLabelFormats: {
+        week:  ["Week %W, from %A, %b %e, %Y"],
+      }
+    };
+    options.tooltip = tooltip;
+    var req_data = {
+      rsi: 'a-m',
+      start_date: '2017-01-02',
+      end_date: end_date,
+      week: true,
+    };
+  }
+
   $.ajax({
     url: "/api/v1/rcode-volume",
     type: "GET",
     dataType: "json",
-    data: {
-      rsi: 'a-m',
-      start_date: '2017-01-01',
-      end_date: document.getElementById('end_date').textContent,
-    },
+    data: req_data,
+
     success: function(res){
-      options.plotOptions.area.pointStart = Date.UTC('2017', '00', '01'); // Jan is zero'th month in JS
+      options.plotOptions.area.pointStart = Date.UTC('2017', '00', '02'); // Jan is zero'th month in JS
 
       // https://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml#dns-parameters-6
       var dns_rcodes = {
@@ -106,9 +137,9 @@ $(document).ready(function() {
       // Draw charts
       $.each(chart_series, function(rsi, rcodes) {
         options.chart.renderTo = 'container_' + rsi;
-        options.title.text = rsi + '.root-servers.net RCODEs by-day';
+        options.title.text = rsi + '.root-servers.net RCODEs by-' + suffix_text;
         options.series = rcodes;
         new Highcharts.Chart(options);
       });
     }});
-});
+}
