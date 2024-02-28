@@ -57,27 +57,27 @@ function rssac002_update_chart(){
   // Determine request JSON based on time_interval
   if(time_interval == 'day'){
     var suffix_text = 'day';
-    options.plotOptions.series.pointInterval =  86400000; // 1 day in ms
     var req_data = {
       rsi: 'a-m',
       start_date: '2017-01-02',
       end_date: end_date,
     };
+    options.plotOptions.series.pointInterval =  86400000; // 1 day in ms
   }else{
     var suffix_text = 'week';
-    options.plotOptions.series.pointInterval = 604800000; // 1 week in ms
-    var tooltip = {
-      dateTimeLabelFormats: {
-        week:  ["Week %W, from %A, %b %e, %Y"],
-      }
-    };
-    options.tooltip = tooltip;
     var req_data = {
       rsi: 'a-m',
       start_date: '2017-01-02',
       end_date: end_date,
       week: true,
     };
+    var tooltip = {
+      dateTimeLabelFormats: {
+        week:  ["Week %W, from %A, %b %e, %Y"],
+      }
+    };
+    options.tooltip = tooltip;
+    options.plotOptions.series.pointInterval = 604800000; // 1 week in ms
   }
 
   $.ajax({

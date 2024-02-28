@@ -45,7 +45,6 @@ function rssac002_update_chart(){
       },
       series: {
         pointStart: Date.UTC('2017', '00', '01'),  // Jan is zero'th month in JS
-        pointInterval: 86400000, // 1 day in ms
         events: {
           legendItemClick: function() {
             return false;
@@ -62,23 +61,15 @@ function rssac002_update_chart(){
 
   // Determine request JSON based on time_interval
   if(time_interval == 'day'){
-    options.title.text += 'day';
-    var point_interval =  86400000; // 1 day in ms
     var req_data = {
       rsi: 'a-m',
       start_date: '2017-01-02',
       end_date: end_date,
       sum: true,
     };
+    options.title.text += 'day';
+    options.plotOptions.series.pointInterval =  86400000; // 1 day in ms
   }else{
-    options.title.text += 'week';
-    var point_interval = 604800000; // 1 week in ms
-    var tooltip = {
-      dateTimeLabelFormats: {
-        week:  ["Week %W, from %A, %b %e, %Y"],
-      }
-    };
-    options.tooltip = tooltip;
     var req_data = {
       rsi: 'a-m',
       start_date: '2017-01-02',
@@ -86,6 +77,14 @@ function rssac002_update_chart(){
       week: true,
       sum: true,
     };
+    var tooltip = {
+      dateTimeLabelFormats: {
+        week:  ["Week %W, from %A, %b %e, %Y"],
+      }
+    };
+    options.tooltip = tooltip;
+    options.title.text += 'week';
+    options.plotOptions.series.pointInterval = 604800000; // 1 week in ms
   }
 
   $.ajax({
