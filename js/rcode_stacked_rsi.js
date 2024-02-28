@@ -35,7 +35,6 @@ function rssac002_update_chart(){
     },
     plotOptions: {
       area: {
-        pointInterval: 86400000, // 1 day in ms
         stacking: 'percent',
         lineColor: '#666666',
         lineWidth: 1,
@@ -43,6 +42,9 @@ function rssac002_update_chart(){
           lineWidth: 1,
           lineColor: '#666666'
         }
+      },
+      series: {
+        pointStart: Date.UTC('2017', '00', '02'),  // Jan is zero'th month in JS
       }
     },
     series: [{}]
@@ -55,7 +57,7 @@ function rssac002_update_chart(){
   // Determine request JSON based on time_interval
   if(time_interval == 'day'){
     var suffix_text = 'day';
-    var point_interval =  86400000; // 1 day in ms
+    options.plotOptions.series.pointInterval =  86400000; // 1 day in ms
     var req_data = {
       rsi: 'a-m',
       start_date: '2017-01-02',
@@ -63,7 +65,7 @@ function rssac002_update_chart(){
     };
   }else{
     var suffix_text = 'week';
-    var point_interval = 604800000; // 1 week in ms
+    options.plotOptions.series.pointInterval = 604800000; // 1 week in ms
     var tooltip = {
       dateTimeLabelFormats: {
         week:  ["Week %W, from %A, %b %e, %Y"],
@@ -85,10 +87,7 @@ function rssac002_update_chart(){
     data: req_data,
 
     success: function(res){
-      options.plotOptions.area.pointStart = Date.UTC('2017', '00', '02'); // Jan is zero'th month in JS
-
-      // https://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml#dns-parameters-6
-      var dns_rcodes = {
+      var dns_rcodes = { // https://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml#dns-parameters-6
         '0': 'NoError', '1': 'FormErr', '2': 'ServFail', '3': 'NXDomain',
         '4': 'NotImp', '5': 'Refused', '6': 'YXDomain', '7': 'YXRRSet',
         '8': 'NXRRSet', '9': 'NotAuth', '10': 'NotZone', '11': 'DSOTYPENI',
