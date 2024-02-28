@@ -19,14 +19,8 @@ function rssac002_update_chart(){
     },
     xAxis: {
       type: 'datetime',
-      title: {
-        text: null
-      },
     },
     yAxis: {
-      title: {
-        text: ''
-      },
       labels: {
         formatter: function () {
           return this.value + '%';
