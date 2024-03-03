@@ -44,7 +44,7 @@ function rssac002_update_chart(){
         }
       },
       series: {
-        pointStart: Date.UTC('2017', '00', '01'),  // Jan is zero'th month in JS
+        pointStart: Date.UTC('2017', '00', '02'),  // Jan is zero'th month in JS
         events: {
           legendItemClick: function() {
             return false;
