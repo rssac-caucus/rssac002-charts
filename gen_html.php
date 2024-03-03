@@ -145,12 +145,15 @@ array_push($pages, array('meat' => 'load_rsi', 'header' => 'header_jqueryui',
 array_push($pages, array('meat' => 'sizes_single',
                          'header_v' => array('@TITLE@' => 'RSS traffic-sizes', '@SCRIPT@' => 'sizes_single.js'),
                          'meat_v' => array('@END_DATE@' => $end_date)));
-array_push($pages, array('meat' => 'sizes_rsi',
-                         'header_v' => array('@TITLE@' => 'traffic-sizes by RSI', '@SCRIPT@' => 'sizes_rsi.js'),
-                         'meat_v' => array('@END_DATE@' => $end_date)));
+array_push($pages, array('meat' => 'sizes_single_percent',
+                         'header_v' => array('@TITLE@' => 'Top Sizes by Percent', '@SCRIPT@' => 'sizes_single_percent.js'),
+                         'meat_v' => array('@START_DATE@' => $start_date, '@END_DATE@' => $end_date)));
 array_push($pages, array('meat' => 'sizes_bar', 'header' => 'header_jqueryui',
                          'header_v' => array('@TITLE@' => 'Packet Sizes', '@SCRIPT@' => 'sizes_bar.js'),
                          'meat_v' => array('@START_DATE@' => $start_date, '@END_DATE@' => $end_date)));
+array_push($pages, array('meat' => 'sizes_rsi',
+                         'header_v' => array('@TITLE@' => 'traffic-sizes by RSI', '@SCRIPT@' => 'sizes_rsi.js'),
+                         'meat_v' => array('@END_DATE@' => $end_date)));
 
 // zone-size
 array_push($pages, array('meat' => 'zone_size',
