@@ -1,4 +1,4 @@
-/* Copyright Andrew McConachie <andrew@depht.com> 2021 */
+/* Copyright Andrew McConachie <andrew@depht.com> 2021 2024 */
 
 $(document).ready(function() {
   rssac002_update_chart();
@@ -8,7 +8,7 @@ function rssac002_update_chart(){
   var options = {
     chart: {
       renderTo: '',
-      type: 'area',
+      type: 'line',
       zoomType: 'x'
     },
     title: {
@@ -16,6 +16,9 @@ function rssac002_update_chart(){
     },
     subtitle: {
         text: 'Source: RSSAC002 Data'
+    },
+    legend: {
+      enabled: false,
     },
     xAxis: {
       type: 'datetime',
@@ -34,15 +37,10 @@ function rssac002_update_chart(){
       }
     },
     plotOptions: {
-      area: {
-        stacking: 'normal',
-        lineColor: '#666666',
-        lineWidth: 1,
-        marker: {
-          lineWidth: 1,
-          lineColor: '#666666'
-        }
-      }
+      series: {
+        pointStart: Date.UTC('2017', '00', '02'),  // Jan is zero'th month in JS
+        connectNulls: true,
+      },
     },
     series: [{}]
   };
@@ -56,16 +54,17 @@ function rssac002_update_chart(){
   if(time_interval == 'day'){
     var denominator = 1;
     var suffix_text = ' per-day (billion)';
-    options.plotOptions.area.pointInterval =  86400000; // 1 day in ms
+    options.plotOptions.series.pointInterval =  86400000; // 1 day in ms
     var req_data = {
       rsi: 'a-m',
-      start_date: '2019-01-07',
+      start_date: '2017-01-02',
       end_date: end_date,
+      sum: true,
     };
   }else{
     var denominator = 7;
     var suffix_text = ' by-week (billion) (daily-average)';
-    options.plotOptions.area.pointInterval = 604800000; // 1 week in ms
+    options.plotOptions.series.pointInterval = 604800000; // 1 week in ms
     var tooltip = {
       valueDecimals: 0,
       dateTimeLabelFormats: {
@@ -75,8 +74,9 @@ function rssac002_update_chart(){
     options.tooltip = tooltip;
     var req_data = {
       rsi: 'a-m',
-      start_date: '2019-01-07',
+      start_date: '2017-01-02',
       end_date: end_date,
+      sum: true,
       week: true,
     };
   }
@@ -97,73 +97,58 @@ function rssac002_update_chart(){
     dataType: "json",
     data: req_data,
     success: function(res){
-      var udp_v4_points = [];
-      var udp_v6_points = [];
-      var tcp_v4_points = [];
-      var tcp_v6_points = [];
-      var ii = 0;
+      var udp_v4_points = {};
+      var udp_v6_points = {};
+      var tcp_v4_points = {};
+      var tcp_v6_points = {};
 
-      options.plotOptions.area.pointStart = Date.UTC('2019', '00', '07'); // Jan is zero'th month in JS
-      $.each(res, function(rsi, dates) {
-        udp_v4_points[ii] = {};
-        udp_v4_points[ii].name = rsi;
-        udp_v4_points[ii].data = [];
+      udp_v4_points.data = [];
+      udp_v6_points.data = [];
+      tcp_v4_points.data = [];
+      tcp_v6_points.data = [];
 
-        tcp_v4_points[ii] = {};
-        tcp_v4_points[ii].name = rsi;
-        tcp_v4_points[ii].data = [];
+      $.each(res, function(day, metrics) {
+        if(metrics == null || metrics == 0){
+          udp_v4_points.data.push(null);
+          tcp_v4_points.data.push(null);
+          udp_v6_points.data.push(null);
+          tcp_v6_points.data.push(null);
+        }
 
-        udp_v6_points[ii] = {};
-        udp_v6_points[ii].name = rsi;
-        udp_v6_points[ii].data = [];
-
-        tcp_v6_points[ii] = {};
-        tcp_v6_points[ii].name = rsi;
-        tcp_v6_points[ii].data = [];
-
-        $.each(dates, function(day, metrics) {
-          if(metrics == null || metrics == 0){
-            udp_v4_points[ii].data.push(null);
-            tcp_v4_points[ii].data.push(null);
-            udp_v6_points[ii].data.push(null);
-            tcp_v6_points[ii].data.push(null);
+        $.each(metrics, function(key, value) {
+          if(key == 'dns-udp-' + key_str + '-ipv4'){
+            udp_v4_points.data.push(Math.round(value / denominator));
           }
-
-          $.each(metrics, function(key, value) {
-            if(key == 'dns-udp-' + key_str + '-ipv4'){
-              udp_v4_points[ii].data.push(Math.round(value / denominator));
-            }
-            if(key == 'dns-tcp-' + key_str + '-ipv4'){
-              tcp_v4_points[ii].data.push(Math.round(value / denominator));
-            }
-            if(key == 'dns-udp-' + key_str + '-ipv6'){
-              udp_v6_points[ii].data.push(Math.round(value / denominator));
-            }
-            if(key == 'dns-tcp-' + key_str + '-ipv6'){
-              tcp_v6_points[ii].data.push(Math.round(value / denominator));
-            }
-          });
+          if(key == 'dns-tcp-' + key_str + '-ipv4'){
+            tcp_v4_points.data.push(Math.round(value / denominator));
+          }
+          if(key == 'dns-udp-' + key_str + '-ipv6'){
+            udp_v6_points.data.push(Math.round(value / denominator));
+          }
+          if(key == 'dns-tcp-' + key_str + '-ipv6'){
+            tcp_v6_points.data.push(Math.round(value / denominator));
+          }
         });
-        ii += 1;
       });
+
       options.chart.renderTo = 'container_udpv4';
       options.title.text = 'IPv4 UDP ' + title_str + suffix_text;
-      options.series = udp_v4_points;
+      options.series = [udp_v4_points];
       new Highcharts.Chart(options);
 
       options.chart.renderTo = 'container_tcpv4';
       options.title.text = 'IPv4 TCP ' + title_str + suffix_text;
-      options.series = tcp_v4_points;
+      options.series = [tcp_v4_points];
       new Highcharts.Chart(options);
 
       options.chart.renderTo = 'container_udpv6';
       options.title.text = 'IPv6 UDP ' + title_str + suffix_text;
-      options.series = udp_v6_points;
+      options.series = [udp_v6_points];
       new Highcharts.Chart(options);
 
       options.chart.renderTo = 'container_tcpv6';
       options.title.text = 'IPv6 TCP ' + title_str + suffix_text;
-      options.series = tcp_v6_points;
+      options.series = [tcp_v6_points];
       new Highcharts.Chart(options);
     }
   });

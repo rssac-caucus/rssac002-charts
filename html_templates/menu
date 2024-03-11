@@ -1,17 +1,17 @@
 <div class="side_menu">
   <a href="volume_single_queries.html"><h3>Queries Received</h3></a>
   <p>
-  <a href="volume_prot_queries.html">By Protocol</a><br/>
-  <a href="volume_udp_v_tcp_queries.html">UDP vs TCP</a><br/>
   <a href="volume_ipv4_v_ipv6_queries.html">IPv4 vs IPv6</a><br/>
+  <a href="volume_udp_v_tcp_queries.html">UDP vs TCP</a><br/>
+  <a href="volume_prot_queries.html">By Protocol</a><br/>
   <a href="volume_rsi_queries.html">By RSI</a><br/>
   </p>
 
   <a href="volume_single_responses.html"><h3>Responses Sent</h3></a>
   <p>
-  <a href="volume_prot_responses.html">By Protocol</a><br/>
-  <a href="volume_udp_v_tcp_responses.html">UDP vs TCP</a><br/>
   <a href="volume_ipv4_v_ipv6_responses.html">IPv4 vs IPv6</a><br/>
+  <a href="volume_udp_v_tcp_responses.html">UDP vs TCP</a><br/>
+  <a href="volume_prot_responses.html">By Protocol</a><br/>
   <a href="volume_rsi_responses.html">By RSI</a><br/>
   </p>
 
