@@ -1,4 +1,4 @@
-/* Copyright Andrew McConachie <andrew@depht.com> 2021 */
+/* Copyright Andrew McConachie <andrew@depht.com> 2021 2024 */
 
 $(document).ready(function() {
   rssac002_update_chart();
@@ -15,7 +15,7 @@ function rssac002_update_chart(){
         text: ''
     },
     legend: {
-      enabled: true,
+      enabled: false,
     },
     subtitle: {
         text: 'Source: RSSAC002 Data'
@@ -51,6 +51,7 @@ function rssac002_update_chart(){
     rsi: 'a-m',
     start_date: '2017-01-02',
     end_date: end_date,
+    sum: true,
   };
   var req_data_queries = Object.assign({}, req_data_sources); // deep copy
   if(time_interval == 'day'){
@@ -92,55 +93,46 @@ function rssac002_update_chart(){
     dataType: "json",
     data: req_data_sources,
     success: function(res_sources){
+      var sources = [];
+      var ii = 0;
+      $.each(res_sources, function(date, val){
+        sources[ii] = 0;
+        if(val != null){
+          for(jj=0; jj < s_keys.length; jj++){
+            sources[ii] += sum_vals(val[s_keys[jj]]);
+          }
+        }else{
+          sources[ii] = 1; // This should never happen
+        }
+        ii++;
+      });
+
       $.ajax({
         url: "/api/v1/traffic-volume",
         type: "GET",
         dataType: "json",
         data: req_data_queries,
         success: function(res_queries){
-          var totals_sources = {}
-          $.each(res_sources, function(rsi, dates){
-            totals_sources[rsi] = {};
-            $.each(dates, function(date, val){
-              totals_sources[rsi][date] = 0;
-              if(val != null){
-                for(ii=0; ii < s_keys.length; ii++){
-                  totals_sources[rsi][date] += sum_vals(val[s_keys[ii]]) / denominator;
-                }
-              }
-            });
-          });
-
-          var totals_queries = {};
-          $.each(res_queries, function(rsi, dates){
-            totals_queries[rsi] = {};
-            $.each(dates, function(date, val){
-              totals_queries[rsi][date] = 0;
-              if(val != null){
-                for(ii=0; ii < q_keys.length; ii++){
-                  totals_queries[rsi][date] += sum_vals(val[q_keys[ii]]) / denominator;
-                }
-              }
-            });
-          });
-
-          var points = [];
+          var queries = [];
           var ii = 0;
-          $.each(totals_sources, function(rsi, dates){
-            points[ii] = {};
-            points[ii].name = rsi;
-            points[ii].data = [];
-            $.each(dates, function(date, sources){
-              if(sources == 0){
-                points[ii].data.push(0); // Prevent divide by zero
-              }else{
-                points[ii].data.push(Math.round(totals_queries[rsi][date] / sources));
+          $.each(res_queries, function(date, val){
+            queries[ii] = 0;
+            if(val != null){
+              for(jj=0; jj < q_keys.length; jj++){
+                queries[ii] += sum_vals(val[q_keys[jj]]);
               }
-            });
-            ii += 1;
+            }else{
+              queries[ii] = 1; // This should never happen
+            }
+            ii++;
           });
 
-          options.series = points;
+          var points = {};
+          points.data = [];
+          for(ii=0; ii < sources.length; ii++){
+            points.data.push(Math.round(queries[ii] / sources[ii]));
+          }
+          options.series.push(points);
           new Highcharts.Chart(options);
         }});
     }});
