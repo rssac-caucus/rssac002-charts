@@ -1,4 +1,4 @@
-/* Copyright Andrew McConachie <andrew@depht.com> 2021 */
+/* Copyright Andrew McConachie <andrew@depht.com> 2021 2024 */
 
 $(document).ready(function() {
   rssac002_update_chart();
@@ -59,7 +59,7 @@ function rssac002_update_chart(){
   var end_date = document.getElementById('end_date').textContent;
   var time_interval = document.querySelector('input[name = "time_interval"]:checked').value;
   var metric = document.querySelector('input[name = "metric"]:checked').value;
-  const num_ranges = 6; // How many ranges to draw
+  const num_ranges = 8; // How many ranges to draw
 
   // Determine request JSON based on time_interval
   if(time_interval == 'day'){
@@ -70,6 +70,7 @@ function rssac002_update_chart(){
       rsi: 'a-m',
       start_date: '2019-01-07',
       end_date: end_date,
+      sum: true,
     };
   }else{
     var denominator = 7;
@@ -87,6 +88,7 @@ function rssac002_update_chart(){
       start_date: '2019-01-07',
       end_date: end_date,
       week: true,
+      sum: true,
     };
   }
 
@@ -98,60 +100,55 @@ function rssac002_update_chart(){
     success: function(res){
 
       // Get totals for every range
-      var ranges_totals = {}
-      $.each(res, function(rsi, dates){
-        $.each(dates, function(date, ranges){
-          $.each(ranges, function(range, count){
-            if(! (range in ranges_totals)){
-              ranges_totals[range] = 0;
-            }
-            ranges_totals[range] += sum_vals(count);
-          });
+      var range_totals = {};
+      var date_totals = {};
+      var all_data = {};
+      $.each(res, function(date, ranges){
+        all_data[date] = {};
+        date_totals[date] = 0;
+        $.each(ranges, function(range, count){
+          all_data[date][range] = count;
+          date_totals[date] += count;
+
+          if(! (range in range_totals)){
+            range_totals[range] = 0;
+          }
+          range_totals[range] += sum_vals(count);
         });
       });
 
       // Determine top num_ranges ranges to draw
       var top_ranges = [];
       ii = 0;
-      while(Object.keys(ranges_totals).length > 0 && ii < num_ranges){
-        highest = Object.keys(ranges_totals)[0];
-        $.each(ranges_totals, function(range, count){
-          if(count > ranges_totals[highest]){
+      while(Object.keys(range_totals).length > 0 && ii < num_ranges){
+        highest = Object.keys(range_totals)[0];
+        $.each(range_totals, function(range, count){
+          if(count > range_totals[highest]){
             highest = range;
           }
         });
         top_ranges.push(highest);
-        delete ranges_totals[highest];
+        delete range_totals[highest];
         ii += 1;
       }
       top_ranges.sort(range_compare);
 
-      // Prepare chart data series for each range
-      var chart_ranges = {};
-      for(ii = 0; ii < top_ranges.length; ii++){ // Start with zeroes filling each series
-        chart_ranges[top_ranges[ii]] = new Array(Object.keys(res[Object.keys(res)[0]]).length).fill(0);
-      }
-      $.each(res, function(_, dates){
-        var ii = 0;
-        $.each(dates, function(_, ranges){
-          $.each(chart_ranges, function(range, _){
-            if(ranges != null && ranges != 0){
-              if(range in ranges){
-                chart_ranges[range][ii] = sum_vals(chart_ranges[range][ii], (ranges[range] / denominator));
-              }
-            }
-          });
-          ii += 1;
-        });
-      });
-
-      // Convert chart_ranges to Highcharts series
       var series_ranges = [];
-      $.each(chart_ranges, function(range, series){
+      for(ii = 0; ii < top_ranges.length; ii++){
         var entry = {};
-        entry.name = range;
-        entry.data = series;
+        entry.name = top_ranges[ii];
+        entry.data = [];
         series_ranges.push(entry);
+      }
+
+      $.each(all_data, function(date, ranges){
+        for(ii = 0; ii < series_ranges.length; ii++){
+          if(series_ranges[ii].name in all_data[date]){
+            series_ranges[ii].data.push(all_data[date][series_ranges[ii].name]);
+          }else{
+            series_ranges[ii].data.push(null);
+          }
+        }
       });
 
       options.series = series_ranges;
