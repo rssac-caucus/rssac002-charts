@@ -59,7 +59,7 @@ function rssac002_update_chart(){
   var end_date = document.getElementById('end_date').textContent;
   var time_interval = document.querySelector('input[name = "time_interval"]:checked').value;
   var metric = document.querySelector('input[name = "metric"]:checked').value;
-  const num_ranges = 6; // How many ranges to draw
+  const num_ranges = 8; // How many ranges to draw
 
   // Determine request JSON based on time_interval
   if(time_interval == 'day'){
