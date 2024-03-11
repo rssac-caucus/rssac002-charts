@@ -1,18 +1,18 @@
 <div class="side_menu">
   <a href="volume_single_queries.html"><h3>Queries Received</h3></a>
   <p>
-  <a href="volume_rsi_queries.html">By RSI</a><br/>
   <a href="volume_prot_queries.html">By Protocol</a><br/>
   <a href="volume_udp_v_tcp_queries.html">UDP vs TCP</a><br/>
   <a href="volume_ipv4_v_ipv6_queries.html">IPv4 vs IPv6</a><br/>
+  <a href="volume_rsi_queries.html">By RSI</a><br/>
   </p>
 
   <a href="volume_single_responses.html"><h3>Responses Sent</h3></a>
   <p>
-  <a href="volume_rsi_responses.html">By RSI</a><br/>
   <a href="volume_prot_responses.html">By Protocol</a><br/>
   <a href="volume_udp_v_tcp_responses.html">UDP vs TCP</a><br/>
   <a href="volume_ipv4_v_ipv6_responses.html">IPv4 vs IPv6</a><br/>
+  <a href="volume_rsi_responses.html">By RSI</a><br/>
   </p>
 
   <a href="unique_sources_single.html"><h3>Unique Source Addresses</h3></a>
@@ -23,8 +23,8 @@
 
   <a href="rcode_pie.html"><h3>Response Codes</h3></a>
   <p>
-  <a href="rcode_stacked_rsi.html">By RSI</a><br/>
   <a href="rcode_0_v_3.html">NoError vs NXDomain</a><br/>
+  <a href="rcode_stacked_rsi.html">By RSI</a><br/>
   </p>
 
   <a href="load_single.html"><h3>Load Time</h3></a>
@@ -34,9 +34,9 @@
 
   <a href="sizes_single.html"><h3>Packet Sizes</h3></a>
   <p>
-  <a href="sizes_rsi.html">By RSI</a><br/>
   <a href="sizes_single_percent.html">By Percent</a><br/>
   <a href="sizes_bar.html">Stacked</a><br/>
+  <a href="sizes_rsi.html">By RSI</a><br/>
   </p>
 
   <a href="instance_count.html"><h3>Instances</h3></a>
