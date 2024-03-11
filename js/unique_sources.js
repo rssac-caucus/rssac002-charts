@@ -1,4 +1,4 @@
-/* Copyright Andrew McConachie <andrew@depht.com> 2021 */
+/* Copyright Andrew McConachie <andrew@depht.com> 2021 2024 */
 
 $(document).ready(function() {
   rssac002_update_chart();
@@ -15,7 +15,7 @@ function rssac002_update_chart(){
         text: ''
     },
     legend: {
-      enabled: true,
+      enabled: false,
     },
     subtitle: {
         text: 'Source: RSSAC002 Data'
@@ -58,6 +58,7 @@ function rssac002_update_chart(){
       rsi: 'a-m',
       start_date: '2017-01-02',
       end_date: end_date,
+      sum: true,
     };
     options.plotOptions.series.pointInterval = 86400000; // 1 day in ms
   }else{
@@ -67,6 +68,7 @@ function rssac002_update_chart(){
       rsi: 'a-m',
       start_date: '2017-01-02',
       end_date: end_date,
+      sum: true,
       week: true,
     };
     var tooltip = {
@@ -92,31 +94,24 @@ function rssac002_update_chart(){
     dataType: "json",
     data: req_data,
     success: function(res){
-      var points = [];
-      var ii = 0;
-      $.each(res, function(rsi, dates){
-        points[ii] = {};
-        points[ii].name = rsi;
-        points[ii].data = [];
-        $.each(dates, function(key, val){
-          if(val != null) {
-            if(ip_version == '4'){
-              point = Math.round(sum_vals(val['num-sources-ipv4']) / denominator);
-            }else if(ip_version == '6'){
-              point = Math.round(sum_vals(val['num-sources-ipv6-aggregate']) / denominator);
-            }else{
-              point = Math.round(sum_vals(val['num-sources-ipv4'], val['num-sources-ipv6-aggregate']) / denominator);
-            }
+      var points = {};
+      points.data = [];
+      $.each(res, function(key, val){
+        if(val != null) {
+          if(ip_version == '4'){
+            point = Math.round(sum_vals(val['num-sources-ipv4']) / denominator);
+          }else if(ip_version == '6'){
+            point = Math.round(sum_vals(val['num-sources-ipv6-aggregate']) / denominator);
           }else{
-            point = null;
+            point = Math.round(sum_vals(val['num-sources-ipv4'], val['num-sources-ipv6-aggregate']) / denominator);
           }
-          if(point == 0) { point = null; } // There's no legitimate reason for zero unique-sources
-          points[ii].data.push(point);
-        });
-        ii += 1;
+        }else{
+          point = null;
+        }
+        if(point == 0) { point = null; } // There's no legitimate reason for zero unique-sources
+        points.data.push(point);
       });
-
-      options.series = points;
+      options.series.push(points);
       new Highcharts.Chart(options);
     }});
 }
