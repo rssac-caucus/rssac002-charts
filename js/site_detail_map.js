@@ -176,7 +176,9 @@ function rssac002_make_chart(map_date){
                   pushit = true;
                 }else if(ip_version == '6_only' && res[rsi][date][site]['IPv6'] && !res[rsi][date][site]['IPv4']){
                   pushit = true;
-                }else if(ip_version == 'both' && res[rsi][date][site]['IPv4'] && res[rsi][date][site]['IPv6']){
+                }else if(ip_version == 'dual' && res[rsi][date][site]['IPv4'] && res[rsi][date][site]['IPv6']){
+                  pushit = true;
+                }else if(ip_version == 'all'){
                   pushit = true;
                 }
                 if(pushit){
@@ -209,10 +211,11 @@ function rssac002_make_chart(map_date){
           options.title.text = total_instances + ' instances in ' + RSS.data.length + ' IPv6 Enabled Sites as of ' + map_date;
         }else if(ip_version == '6_only'){
           options.title.text = total_instances + ' instances in ' + RSS.data.length + ' IPv6 Only Sites as of ' + map_date;
-        }else{
+        }else if(ip_version == 'dual'){
           options.title.text = total_instances + ' instances in ' + RSS.data.length + ' Dual Stack Sites as of ' + map_date;
+        }else{
+          options.title.text = total_instances + ' instances in ' + RSS.data.length + ' Sites as of ' + map_date;
         }
-
         new Highcharts.mapChart(options);
       }});
   });

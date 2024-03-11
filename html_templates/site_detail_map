@@ -9,8 +9,11 @@
 <div class="radios">
 
 <b>IP Version</b><br/>
-<input type="radio" id="ipv_both" name="ip_version" value="both" onClick="rssac002_update_chart()" checked>
-<label for="ipv_both">IPv4 AND IPv6</label><br/>
+<input type="radio" id="ipv_all" name="ip_version" value="all" onClick="rssac002_update_chart()" checked>
+<label for="ipv_all">All</label><br/>
+
+<input type="radio" id="ipv_dual" name="ip_version" value="dual" onClick="rssac002_update_chart()">
+<label for="ipv_dual">Dual Stack</label><br/>
 
 <input type="radio" id="ipv_4" name="ip_version" value="4" onClick="rssac002_update_chart()">
 <label for="ipv_4">IPv4</label><br/>
