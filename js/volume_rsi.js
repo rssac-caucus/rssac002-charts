@@ -61,7 +61,7 @@ function rssac002_update_chart(){
     options.plotOptions.area.pointInterval =  86400000; // 1 day in ms
     var req_data = {
       rsi: 'a-m',
-      start_date: '2019-01-07',
+      start_date: '2017-01-02',
       end_date: end_date,
     };
   }else{
@@ -76,7 +76,7 @@ function rssac002_update_chart(){
     options.tooltip = tooltip;
     var req_data = {
       rsi: 'a-m',
-      start_date: '2019-01-07',
+      start_date: '2017-01-02',
       end_date: end_date,
       week: true,
     };
@@ -104,7 +104,7 @@ function rssac002_update_chart(){
     dataType: "json",
     data: req_data,
     success: function(res){
-      options.plotOptions.area.pointStart = Date.UTC('2019', '00', '07'); // Jan is zero'th month in JS
+      options.plotOptions.area.pointStart = Date.UTC('2017', '00', '02'); // Jan is zero'th month in JS
       var queries_series = {};
       var chart_series = {};
 
