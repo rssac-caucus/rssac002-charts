@@ -140,6 +140,9 @@ array_push($pages, array('meat' => 'load_single', 'header' => 'header_jqueryui',
 array_push($pages, array('meat' => 'load_rsi', 'header' => 'header_jqueryui',
                          'header_v' => array('@TITLE@' => 'load-time by RSI', '@SCRIPT@' => 'load_rsi.js'),
                          'meat_v' => array('@START_DATE@' => $start_date, '@END_DATE@' => $end_date)));
+array_push($pages, array('meat' => 'load_threshold', 'header' => 'header_jqueryui',
+                         'header_v' => array('@TITLE@' => 'load-times by threshold', '@SCRIPT@' => 'load_threshold.js'),
+                         'meat_v' => array('@START_DATE@' => $start_date, '@END_DATE@' => $end_date)));
 
 // traffic-sizes
 array_push($pages, array('meat' => 'sizes_single',
