@@ -19,6 +19,7 @@
   <p>
     <a href="unique_sources_vs.html">IPv4 vs IPv6</a><br/>
     <a href="unique_sources_queries.html">Queries / Sources</a><br/>
+    <a href="unique_sources_instances.html">Sources / Instances</a><br/>
   </p>
 
   <a href="rcode_pie.html"><h3>Response Codes</h3></a>

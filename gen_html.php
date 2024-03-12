@@ -118,6 +118,9 @@ array_push($pages, array('meat' => 'unique_sources_vs',
 array_push($pages, array('meat' => 'unique_sources_queries',
                          'header_v' => array('@TITLE@' => 'Queries Received / Unique Sources', '@SCRIPT@' => 'unique_sources_queries.js'),
                          'meat_v' => array('@END_DATE@' => $end_date)));
+array_push($pages, array('meat' => 'unique_sources_instances',
+                         'header_v' => array('@TITLE@' => 'Unique Sources / Instances', '@SCRIPT@' => 'unique_sources_instances.js'),
+                         'meat_v' => array('@END_DATE@' => $end_date)));
 
 // rcode-volume
 array_push($pages, array('meat' => 'rcode_pie', 'header' => 'header_jqueryui',

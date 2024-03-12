@@ -1,0 +1,15 @@
+<div class="main">
+  <div hidden id="end_date">@END_DATE@</div>
+
+  <figure class="highcharts-figure">
+    <div class="rchart" id="container"></div>
+  </figure>
+
+  <div class="radios">
+    <b>IP Version</b><br/>
+    <input type="radio" id="ipv_4" name="ip_version" value="4" onClick="rssac002_update_chart()" checked>
+    <label for="ipv_4">IPv4</label><br/>
+    <input type="radio" id="ipv_6" name="ip_version" value="6" onClick="rssac002_update_chart()">
+    <label for="ipv_6">IPv6 (/64)</label><br/>    
+  </div>
+</div>
