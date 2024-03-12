@@ -56,11 +56,9 @@ function rssac002_update_chart(){
   var req_data_queries = Object.assign({}, req_data_sources); // deep copy
   if(time_interval == 'day'){
     var suffix_text = ' per-day';
-    var denominator = 1;
     options.plotOptions.series.pointInterval = 86400000; // 1 day in ms
   }else{
     var suffix_text = ' by-week (daily average)';
-    var denominator = 7;
     req_data_sources.week = true;
     req_data_queries.week = true;
     options.plotOptions.series.pointInterval = 604800000; // 1 week in ms
