@@ -4,12 +4,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <script src="js/jquery-3.5.1.min.js"></script>
-<script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
-<script src="https://code.highcharts.com/modules/export-data.js"></script>
-<script src="https://code.highcharts.com/modules/accessibility.js"></script>
-<script src="https://code.highcharts.com/modules/drilldown.js"></script>
-<script src="https://code.highcharts.com/highcharts-more.js"></script>
+<script src="js/hs/highcharts.js"></script>
+<script src="js/hs/accessibility.js"></script>
+<script src="js/hs/exporting.js"></script>
+<script src="js/hs/export-data.js"></script>
+<script src="js/hs/offline-exporting.js"></script>
+<script src="js/hs/drilldown.js"></script>
+<script src="js/hs/highcharts-more.js"></script>
 <script src="js/jquery-3.5.1.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="js/rssac002_shared.js"></script>

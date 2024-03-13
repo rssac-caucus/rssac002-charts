@@ -59,6 +59,26 @@ if( !is_dir('js/')){
   }
 }
 
+if( !is_dir($out_dir . 'js/hs')){
+  if( !mkdir($out_dir . 'js/hs', 0755)){
+    print("Failed to make " . $out_dir . "/js/hs directory");
+    exit(1);
+  }
+}
+if( !is_dir('js/hs')){
+  print("Cannot read directory /js/hs");
+  exit(1);
+}else{
+  chmod($out_dir . 'js/hs', 0755);
+  foreach(glob('js/hs/*.js') as $fp){
+    if( !copy($fp, $out_dir . $fp)){
+      print("Failed to copy " . $fp);
+      exit(1);
+    }
+    chmod($out_dir . $fp, 0644);
+  }
+}
+
 // Read in some common templates
 $header = file_get_contents($template_dir . 'header'); // Default header
 $footer = file_get_contents($template_dir . 'footer');
