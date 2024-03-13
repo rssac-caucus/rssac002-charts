@@ -53,12 +53,14 @@ function rssac002_update_chart(){
     sum: true,
   };
   
-  if(ip_version == '4'){
-    options.title.text = 'IPv4 Enabled Instances';
-  }else if(ip_version == '6'){
-    options.title.text = 'IPv6 Enabled Instances';
-  }else{
+  if(ip_version == 'all'){
+    options.title.text = 'All Instances';
+  }else if(ip_version == 'dual'){
     options.title.text = 'Dual Stack Instances';
+  }else if(ip_version == '4'){
+      options.title.text = 'IPv4 Enabled Instances';
+  }else{
+    options.title.text = 'IPv6 Enabled Instances';
   }
 
   $.ajax({
@@ -74,8 +76,10 @@ function rssac002_update_chart(){
           totals.data.push(res[date]['ipv4']);
         }else if(ip_version == '6'){
           totals.data.push(res[date]['ipv6']);
-        }else{
+        }else if(ip_version =='dual'){
           totals.data.push(Math.min(res[date]['ipv4'], res[date]['ipv6']));
+        }else{
+          totals.data.push(Math.max(res[date]['ipv4'], res[date]['ipv6']));
         }
       });
       
