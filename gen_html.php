@@ -32,7 +32,7 @@ if( !is_link($out_dir . 'index.html')){
     exit(1);
   }
 }
-if( !copy('./charts.css', $out_dir . 'charts.css')){
+if( !copy($template_dir . 'charts.css', $out_dir . 'charts.css')){
   print("Failed to copy charts.css");
   exit(1);
 }else{
