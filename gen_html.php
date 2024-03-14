@@ -38,6 +38,12 @@ if( !copy($template_dir . 'charts.css', $out_dir . 'charts.css')){
 }else{
   chmod($out_dir . 'charts.css', 0644);
 }
+if( !copy($template_dir . 'jquery-ui.min.css', $out_dir . 'jquery-ui.min.css')){
+  print("Failed to copy jquery-ui.min.css");
+  exit(1);
+}else{
+  chmod($out_dir . 'jquery-ui.min.css', 0644);
+}
 
 if( !is_dir($out_dir . 'js/')){
   if( !mkdir($out_dir . 'js/', 0755)){
