@@ -28,9 +28,9 @@
     <a href="rcode_stacked_rsi.html">By RSI</a><br/>
   </p>
 
-  <a href="load_single.html"><h3>Load Time</h3></a>
+  <a href="load_threshold.html"><h3>Load Time</h3></a>
   <p>
-    <a href="load_threshold.html">By Threshold</a><br/>
+    <a href="load_single.html">By Quartile</a><br/>
     <a href="load_rsi.html">By RSI</a><br/>
   </p>
 
