@@ -108,21 +108,18 @@ function rssac002_update_chart(){
           rcode_series[rsi][key].data = [];
         });
 
-        $.each(dates, function(date, rcodes) {
-          if(rcodes == null) {
-            $.each(dns_rcodes, function(key, value) {
-              rcode_series[rsi][key].data.push(null);
+        $.each(dates, function(date, res_rcodes) {
+          if(typeof res_rcodes === 'object' && res_rcodes !== null) {
+            $.each(dns_rcodes, function(key, val) {
+              if(key in res_rcodes) {
+                rcode_series[rsi][key].data.push(res_rcodes[key]);
+              }else{
+                rcode_series[rsi][key].data.push(null);
+              }
             });
           }else{
-            $.each(rcodes, function(rcode, val) {
-              if(rcode in rcode_series[rsi]){
-                rcode_series[rsi][rcode].data.push(val);
-              }else{
-                rcode_series[rsi][rcode] = {};
-                rcode_series[rsi][rcode].name = dns_rcodes[rcode];
-                rcode_series[rsi][rcode].data = [];
-                rcode_series[rsi][rcode].data.push(val);
-              }
+            $.each(dns_rcodes, function(key, val) {
+              rcode_series[rsi][key].data.push(null);
             });
           }
         });
