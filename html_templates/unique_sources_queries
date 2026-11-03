@@ -13,11 +13,11 @@
 <br/>
 
 <b>IP Version</b><br/>
-<input type="radio" id="ipv_4" name="ip_version" value="4" onClick="rssac002_update_chart()" checked>
+<input type="radio" id="ipv_4" name="ip_version" value="4" onClick="rssac002_update_chart()">
 <label for="ipv_4">IPv4</label><br/>
 <input type="radio" id="ipv_6" name="ip_version" value="6" onClick="rssac002_update_chart()">
 <label for="ipv_6">IPv6 (/64)</label><br/>
-<input type="radio" id="ipv_both" name="ip_version" value="both" onClick="rssac002_update_chart()">
+<input type="radio" id="ipv_both" name="ip_version" value="both" onClick="rssac002_update_chart()" checked>
 <label for="ipv_both">Both</label><br/>
 
 </div>
