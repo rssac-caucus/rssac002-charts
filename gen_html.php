@@ -1,6 +1,6 @@
 #!/usr/bin/env php
 <?php
-/* Copyright Andrew McConachie <andrew@depht.com> 2021 2024 */
+/* Copyright Andrew McConachie <andrew@depht.com> 2021 2024 2026 */
 
 // Only allow execution via the CLI
 if( !php_sapi_name() == 'cli'){
@@ -9,6 +9,7 @@ if( !php_sapi_name() == 'cli'){
 
 $template_dir = 'html_templates/'; // Where to read the templates
 $out_dir = 'site/'; // Where to write everything
+$static_files = ['favicon.ico', 'charts.css', 'jquery-ui.min.css']; // Static files to copy
 
 // Test dirs
 if( !is_dir($template_dir)){
@@ -25,24 +26,22 @@ if( !is_dir($out_dir)){
   }
 }
 
-// Static files not created with templates
+// Copy static files
+foreach($static_files as $ff){
+  if( !copy($template_dir . $ff, $out_dir . $ff)){
+    print('Failed to copy ' . $ff);
+    exit(1);
+  }else{
+    chmod($out_dir . $ff, 0644);
+  }
+}
+
+// Symlink index.html
 if( !is_link($out_dir . 'index.html')){
   if( !symlink('volume_single_queries.html', $out_dir . 'index.html')){
     print("Failed to create symlink to index.html");
     exit(1);
   }
-}
-if( !copy($template_dir . 'charts.css', $out_dir . 'charts.css')){
-  print("Failed to copy charts.css");
-  exit(1);
-}else{
-  chmod($out_dir . 'charts.css', 0644);
-}
-if( !copy($template_dir . 'jquery-ui.min.css', $out_dir . 'jquery-ui.min.css')){
-  print("Failed to copy jquery-ui.min.css");
-  exit(1);
-}else{
-  chmod($out_dir . 'jquery-ui.min.css', 0644);
 }
 
 if( !is_dir($out_dir . 'js/')){
